@@ -1,0 +1,30 @@
+body{
+    background-color:darkseagreen;
+}
+
+.formLogin{
+    /* max-width: 500px;
+    max-height: 500px;
+    margin-left: 400px;*/
+    margin-top: -15%; 
+    left: 50%;
+    top: 50%;
+    margin-left: -20%;
+    position: absolute;
+    padding: 10px;
+    border: 1px solid #ccc ;
+    border-radius: 10px;
+    background-color: antiquewhite;
+    
+}
+
+h2{
+    text-align: center;
+    color: aqua;
+}
+
+.loginForm .loginButton{
+    margin-right: 20px;
+}
+
+
