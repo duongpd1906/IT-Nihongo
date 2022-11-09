@@ -1,7 +1,9 @@
 import express from "express";
 import "express-async-errors";
+import cors from "cors";
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -13,6 +15,10 @@ import authRoutes from "./routes/authRoutes.js";
 
 app.use("/api/auth", authRoutes);
 
+app.get("/", (req, res) => {
+	res.send("hello world");
+});
+
 // middleware
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandleMiddleware from "./middleware/error-handler.js";
@@ -20,18 +26,17 @@ import errorHandleMiddleware from "./middleware/error-handler.js";
 app.use(notFoundMiddleware);
 app.use(errorHandleMiddleware);
 
-
 const port = process.env.PORT || 5000;
 
 const start = async () => {
-    try {
-        await connectDB(process.env.MONGO_URL);
-        app.listen(port, () => {
-            console.log(`Server is listening on port ${port}...`);
-        });
-    } catch (error) {
-        console.log(error);
-    }
+	try {
+		await connectDB(process.env.MONGO_URL);
+		app.listen(port, () => {
+			console.log(`Server is listening on port ${port}...`);
+		});
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 start();
