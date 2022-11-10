@@ -3,6 +3,8 @@ import FormInput from "../../components/FormInput";
 import { useEffect, useState } from "react";
 import { useAppContext } from "../../context/appContext";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
+
 
 function Register() {
 	const navigate = useNavigate();
@@ -99,6 +101,9 @@ function Register() {
 					/>
 				))}
 				<button>サインアップ</button>
+        <Link to="/login" className="link-login">
+          ログイン
+        </Link>
 			</form>
 		</div>
 	);
