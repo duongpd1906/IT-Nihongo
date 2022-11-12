@@ -1,13 +1,10 @@
 .App {
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     height: 100vh;
-    background: linear-gradient(
-        rgba(255, 255, 255, 0.7),
-        rgba(255, 255, 255, 0.3)
-      ),
-      url("https://images.pexels.com/photos/114979/pexels-photo-114979.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+    background:
+      url("../../assets/img/Untitled-1.png");
     background-size: cover;
     background-position: center;
   }
@@ -16,6 +13,7 @@
       background-color: white;
       padding: 0px 60px;
       border-radius: 10px;
+      margin-left: 900px;
   }
   
   h1{
@@ -36,4 +34,13 @@
       cursor: pointer;
       margin-top: 15px;
       margin-bottom: 30px;
+  }
+
+  .link-login {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    color: blue;
   }
