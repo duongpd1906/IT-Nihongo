@@ -11,4 +11,5 @@ class AppTexts {
   static const signup = 'サインアップ';
   static const createNewAccount = '新しいアカウントを作成';
   static const confirmPass = 'パスワードを認証';
+  static const listTopic = 'リストトピック';
 }

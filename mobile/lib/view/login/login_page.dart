@@ -53,7 +53,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 40),
-              const CommonButton(title: AppTexts.login),
+              CommonButton(
+                title: AppTexts.login,
+                onTap: () {
+                  AutoRouter.of(context).push(const HomeRoute());
+                },
+              ),
               const SizedBox(height: 20),
               RichText(
                 text: TextSpan(
