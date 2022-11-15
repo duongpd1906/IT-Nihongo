@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/model/topic.dart';
 
 import '../../constant/app_images.dart';
 
 class TopicItem extends StatelessWidget {
-  const TopicItem({super.key});
+  const TopicItem({
+    super.key,
+    required this.topic,
+  });
+
+  final Topic topic;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +25,7 @@ class TopicItem extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.asset(
-              AppImages.imgCafe,
+              topic.images[0],
               height: 110,
               width: 110,
               fit: BoxFit.fill,
@@ -32,9 +38,9 @@ class TopicItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'THE DAY COFFEE',
-                  style: TextStyle(
+                Text(
+                  topic.name,
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),
@@ -49,9 +55,9 @@ class TopicItem extends StatelessWidget {
                         height: 15,
                       ),
                       const SizedBox(width: 3),
-                      const SizedBox(
+                      SizedBox(
                         width: 60,
-                        child: Text('1500'),
+                        child: Text(topic.agree.toString()),
                       ),
                       Image.asset(
                         AppImages.imgX,
@@ -59,9 +65,9 @@ class TopicItem extends StatelessWidget {
                         height: 15,
                       ),
                       const SizedBox(width: 3),
-                      const SizedBox(
+                      SizedBox(
                         width: 50,
-                        child: Text('1500'),
+                        child: Text(topic.disagree.toString()),
                       ),
                     ],
                   ),

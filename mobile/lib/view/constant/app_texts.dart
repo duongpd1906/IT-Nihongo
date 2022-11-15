@@ -9,6 +9,7 @@ class AppTexts {
   static const login = 'ログイン';
   static const alreadayHaveAccount = 'すでにアカウントをお持ちですか？';
   static const signup = 'サインアップ';
+  static const logout = 'ログアウト';
   static const createNewAccount = '新しいアカウントを作成';
   static const confirmPass = 'パスワードを認証';
   static const listTopic = 'リストトピック';

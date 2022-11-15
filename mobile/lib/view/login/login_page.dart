@@ -56,7 +56,11 @@ class _LoginPageState extends State<LoginPage> {
               CommonButton(
                 title: AppTexts.login,
                 onTap: () {
-                  AutoRouter.of(context).push(const HomeRoute());
+                  AutoRouter.of(context).replaceAll(
+                    [
+                      const HomeRoute(),
+                    ],
+                  );
                 },
               ),
               const SizedBox(height: 20),
