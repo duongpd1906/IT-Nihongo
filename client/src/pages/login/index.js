@@ -43,44 +43,46 @@ function Login() {
 	}, [user, navigate]);
 
 	return (
-		<div className="formLogin">
-			<Form onSubmit={onSubmit}>
-				<Form.Group className="mb-3" controlId="formBasicEmail">
-					<h2>ログイン</h2>
-					<Form.Label>電子メールアドレス</Form.Label>
-					<Form.Control
-						type="email"
-						name="email"
-						placeholder="Enter email"
-						value={values.email}
-						onChange={handleChange}
-					/>
-					<Form.Text className="text-muted">
-						あなたのメールを他の人と共有することは決してありません。
-					</Form.Text>
-				</Form.Group>
+		<div className="mainn">
+			<div className="formLogin">
+				<Form onSubmit={onSubmit}>
+					<Form.Group className="mb-3" controlId="formBasicEmail">
+						<h2>ログイン</h2>
+						<Form.Label>電子メールアドレス</Form.Label>
+						<Form.Control
+							type="email"
+							name="email"
+							placeholder="Enter email"
+							value={values.email}
+							onChange={handleChange}
+						/>
+						<Form.Text className="text-muted">
+							あなたのメールを他の人と共有することは決してありません。
+						</Form.Text>
+					</Form.Group>
 
-				<Form.Group className="mb-3" controlId="formBasicPassword">
-					<Form.Label>パスワード</Form.Label>
-					<Form.Control
-						type="password"
-						placeholder="Password"
-						name="password"
-						value={values.password}
-						onChange={handleChange}
-					/>
-				</Form.Group>
-				<Form.Group className="mb-3" controlId="formBasicCheckbox">
-					<Form.Check type="checkbox" label="ログインターンを保存" />
-				</Form.Group>
-				<Button
-					variant="primary"
-					classname="loginButton "
-					type="submit"
-				>
-					送信
-				</Button>
-			</Form>
+					<Form.Group className="mb-3" controlId="formBasicPassword">
+						<Form.Label>パスワード</Form.Label>
+						<Form.Control
+							type="password"
+							placeholder="Password"
+							name="password"
+							value={values.password}
+							onChange={handleChange}
+						/>
+					</Form.Group>
+					<Form.Group className="mb-3" controlId="formBasicCheckbox">
+						<Form.Check type="checkbox" label="ログインターンを保存" />
+					</Form.Group>
+					<Button
+						variant="primary"
+						classname="loginButton "
+						type="submit"
+					>
+						送信
+					</Button>
+				</Form>
+			</div>
 		</div>
 	);
 }
