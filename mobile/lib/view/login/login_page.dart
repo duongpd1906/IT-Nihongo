@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   children: [
                     const TextSpan(
-                      text: AppTexts.alreadayHaveAccount,
+                      text: AppTexts.alreadyHaveAccount,
                       style: TextStyle(
                         color: Colors.black,
                       ),

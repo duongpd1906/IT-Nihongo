@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/model/topic.dart';
+import 'package:mobile/data/model/topic.dart';
+import 'package:mobile/view/widget/evaluate_components.dart';
 
 import '../../constant/app_images.dart';
 
@@ -46,32 +47,10 @@ class TopicItem extends StatelessWidget {
                   ),
                   maxLines: 2,
                 ),
-                SizedBox(
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        AppImages.imgO,
-                        width: 15,
-                        height: 15,
-                      ),
-                      const SizedBox(width: 3),
-                      SizedBox(
-                        width: 60,
-                        child: Text(topic.agree.toString()),
-                      ),
-                      Image.asset(
-                        AppImages.imgX,
-                        width: 15,
-                        height: 15,
-                      ),
-                      const SizedBox(width: 3),
-                      SizedBox(
-                        width: 50,
-                        child: Text(topic.disagree.toString()),
-                      ),
-                    ],
-                  ),
-                ),
+                EvaluateComponents(
+                  agree: topic.agree,
+                  disagree: topic.disagree,
+                )
               ],
             ),
           ),
