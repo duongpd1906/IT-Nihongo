@@ -1,5 +1,6 @@
 class Topic {
   Topic(
+    this.id,
     this.name,
     this.address,
     this.description,
@@ -8,6 +9,7 @@ class Topic {
     this.disagree,
   );
 
+  final int id;
   final String name;
   final String address;
   final String description;

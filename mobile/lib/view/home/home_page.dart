@@ -1,11 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile/model/topic.dart';
 import 'package:mobile/router/app_router.gr.dart';
 import 'package:mobile/view/constant/app_colors.dart';
 import 'package:mobile/view/constant/app_images.dart';
 import 'package:mobile/view/constant/app_texts.dart';
+import 'package:mobile/view/home/view_model/home_state.dart';
+import 'package:mobile/view/home/view_model/home_view_model.dart';
 import 'package:mobile/view/home/widget/list_topic.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,59 +17,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final topics = [
-    Topic(
-      'THE DAY COFFEE',
-      '56 Nguyễn Lương Bằng',
-      '若者向けの喫茶店',
-      [
-        AppImages.imgCafe,
-        AppImages.imgCafe2,
-        AppImages.imgCafe3,
-        AppImages.imgCafe4,
-      ],
-      1000,
-      500,
-    ),
-    Topic(
-      'THE COFFEE HOUSE',
-      '56 Nguyễn Lương Bằng',
-      '若者向けの喫茶店',
-      [
-        AppImages.imgCafe,
-        AppImages.imgCafe2,
-        AppImages.imgCafe3,
-        AppImages.imgCafe4,
-      ],
-      3,
-      50,
-    ),
-    Topic(
-        'THE MAIN COFFEE',
-        '56 Nguyễn Lương Bằng',
-        '若者向けの喫茶店',
-        [
-          AppImages.imgCafe,
-          AppImages.imgCafe2,
-          AppImages.imgCafe3,
-          AppImages.imgCafe4,
-        ],
-        45,
-        80),
-    Topic(
-      'THE BEST COFFEE',
-      '56 Nguyễn Lương Bằng',
-      '若者向けの喫茶店',
-      [
-        AppImages.imgCafe,
-        AppImages.imgCafe2,
-        AppImages.imgCafe3,
-        AppImages.imgCafe4,
-      ],
-      9,
-      2,
-    ),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    context.read<HomeViewModel>().getTopics();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,21 +109,31 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          width: double.infinity,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 30),
-                ListTopic(
-                  topics: topics,
+      body: Consumer<HomeViewModel>(
+        builder: (_, provider, child) {
+          if (provider.state.status == HomePageStatus.inProgress) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return SafeArea(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                width: double.infinity,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 30),
+                      ListTopic(
+                        topics: provider.state.topics,
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ),
-        ),
+              ),
+            );
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.lightBlue,
