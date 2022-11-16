@@ -1,0 +1,36 @@
+.upload-form{
+    background-color: aliceblue;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 5%;
+    border-radius: 10px;
+    box-shadow: rgba(25, 25, 25, 0.04) 0 0 1px 0, rgba(0, 0, 0, 0.1) 0 3px 4px 0;;
+}
+.upload-container{
+    margin: 20px;
+}
+
+.new-topic-name {
+    display: grid;
+}
+
+.upfile-input{
+    border: 1px dotted;
+    
+}
+
+.upfile-form{
+    display: grid;
+}
+
+p{
+    margin-right: 10px;
+}
+
+
+
+h1{
+    font-weight: 1000;
+    font-size: 40px;
+    
+}
