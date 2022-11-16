@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/view/splash/splash_page.dart';
+import 'package:mobile/router/app_router.gr.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
+  final appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const SplashPage(),
+    return MaterialApp.router(
+      routerDelegate: appRouter.delegate(),
+      routeInformationParser: appRouter.defaultRouteParser(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

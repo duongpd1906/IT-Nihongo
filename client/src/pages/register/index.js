@@ -90,8 +90,8 @@ function Register() {
 
 	return (
 		<div className="App">
-			<form onSubmit={handleSubmit}>
-				<h1>サインアップ</h1>
+			<form className="form1" onSubmit={handleSubmit}>
+				<h1 className="theh1">サインアップ</h1>
 				{inputs.map((input) => (
 					<FormInput
 						key={input.id}
@@ -100,7 +100,7 @@ function Register() {
 						onChange={onChange}
 					/>
 				))}
-				<button>サインアップ</button>
+				<button className="btn">サインアップ</button>
         <Link to="/login" className="link-login">
           ログイン
         </Link>
