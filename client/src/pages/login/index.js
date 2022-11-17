@@ -84,7 +84,7 @@ function Login() {
 						<p className="form-link-register">
 							まだアカウントを持っていませんか?
 							<Link to="/register">
-								<b>サインアップ</b>
+								<b> サインアップ</b>
 							</Link>
 						</p>
 					</Form>
