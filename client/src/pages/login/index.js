@@ -36,9 +36,9 @@ function Login() {
 	};
 	useEffect(() => {
 		if (user) {
-			// setTimeout(() => {
-			// 	navigate("/");
-			// }, 1000);
+			setTimeout(() => {
+				navigate("/");
+			}, 1000);
 		}
 	}, [user, navigate]);
 
