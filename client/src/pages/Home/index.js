@@ -7,18 +7,18 @@ import "./Home.css";
 import ListTopic from "./ListTopic.js";
 
 function Home() {
-    let navigate = useNavigate()
+	let navigate = useNavigate()
 	const { user, logoutUser } = useAppContext();
-	const [isActivated, setIsActivated] = useState(false); 
+	const [isActivated, setIsActivated] = useState(false);
 
-    useEffect(()=> {
-        if (user) {
-            setIsActivated(true);
-        }
-        else {
-            setIsActivated(false);
-        }
-    }, [user])
+	useEffect(() => {
+		if (user) {
+			setIsActivated(true);
+		}
+		else {
+			setIsActivated(false);
+		}
+	}, [user])
 
 	return (
 		<div className="home">
@@ -61,13 +61,13 @@ function Home() {
 							</Link>
 						</div>
 					)}
-					<Badge className="add" bg="dark" onClick={() => navigate("/upload")}>
-						PLUS
-					</Badge>
 				</div>
 			</div>
 
 			<div className="main-content">
+				<Badge className="button-add" bg="dark" onClick={() => navigate("/upload")}>
+					PLUS
+				</Badge>
 				<ListTopic></ListTopic>
 			</div>
 		</div>

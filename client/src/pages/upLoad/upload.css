@@ -1,36 +1,48 @@
-.upload-form{
-    background-color: aliceblue;
-    margin-left: 20%;
-    margin-right: 20%;
-    margin-top: 5%;
-    border-radius: 10px;
-    box-shadow: rgba(25, 25, 25, 0.04) 0 0 1px 0, rgba(0, 0, 0, 0.1) 0 3px 4px 0;;
+.upload-form {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2VhJTIwYmFja2dyb3VuZHxlbnwwfHwwfHw%3D&w=1000&q=80');
+  background-size: cover;
+  background-position: center center;
 }
-.upload-container{
-    margin: 20px;
+.upload-container {
+  width: 80%;
+  max-width: 900px;
+  padding: 150px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 30% 70% 62% 38% / 46% 45% 55% 54%;
+  box-shadow: rgba(25, 25, 25, 0.04) 0 0 1px 0, rgba(0, 0, 0, 0.1) 0 3px 4px 0;
 }
 
 .new-topic-name {
-    display: grid;
+  display: grid;
 }
 
-.upfile-input{
-    border: 1px dotted;
-    
+.upfile-input {
+  border: 1px dashed #000000;
 }
 
-.upfile-form{
-    display: grid;
+.upfile-form {
+  display: grid;
 }
 
-p{
-    margin-right: 10px;
+.upload-form__button-submit {
+  border: none;
+  padding: 10px;
+  background-color: #000000;
+  color: #fff;
+  border-radius: 5px;
+  text-transform: uppercase;
 }
 
+p {
+  margin-right: 10px;
+}
 
-
-h1{
-    font-weight: 1000;
-    font-size: 40px;
-    
+h1 {
+  font-weight: 1000;
+  font-size: 40px;
 }
