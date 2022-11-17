@@ -13,8 +13,8 @@ function App() {
     <BrowserRouter>
       <Routes>
       <Route path="/design" element={<DesignChosen />} />
-      <Route path="/Upload" element={<UpLoad />} />
-        <Route path="/error" element={<Error />} />
+      <Route path="/upload" element={<UpLoad />} />
+        <Route path="*" element={<Error />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/detail" element={<Detail />} />
