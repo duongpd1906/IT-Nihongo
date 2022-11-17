@@ -1,59 +1,58 @@
-.card_style{
-    background-color: transparent;
-    border: transparent;
+.card_style {
+  background-color: transparent;
+  border: transparent;
 }
 
-.card_img{
-    /* border-top-left-radius: 20px;
+.card_img {
+  /* border-top-left-radius: 20px;
     border-top-right-radius: 20px; */
-    border-radius: 20px;
-    float: left;
-    width:  300px;
-    height: 300px;
-    overflow: hidden;
+  border-radius: 20px;
+  float: left;
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
 }
-.card-title{
-    font-size: 30px !important;
+.card-title {
+  font-size: 30px !important;
 }
-.card-body{
-    padding-bottom: 0;
+.card-body {
+  padding-bottom: 0;
 }
-.container{
-    position: relative;
-    /* display: flex; */
-    /* align-items: center;
+.container {
+  position: relative;
+  /* display: flex; */
+  /* align-items: center;
     justify-content: center; */
-    /* margin-right: 10%; */
-    width: fit-content;
+  /* margin-right: 10%; */
+  width: fit-content;
 }
-.row{
-    /* height: 30%; */
-   
+.row {
+  /* height: 30%; */
 }
-.col{
-    margin-left: 50px;
-    margin-right: 50px;
-    height: fit-content;
+.col {
+  margin-left: 50px;
+  margin-right: 50px;
+  height: fit-content;
 }
-.topic{
-    width:fit-content;
+.topic {
+  width: fit-content;
 }
-.form-check-input[type=radio] {
-    border-radius: 20%;
+.form-check-input[type='radio'] {
+  border-radius: 20%;
 }
-Form{
-    background-color: transparent !important;
-    padding: 0 !important;
-    height: auto;
+.topic Form {
+  background-color: transparent !important;
+  padding: 0 !important;
+  height: auto;
 }
-label{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 5px;
-    margin-bottom: 5px;
-    font-size: 25px !important; 
+.topic label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 5px;
+  margin-bottom: 5px;
+  font-size: 25px !important;
 }
-.form-check-input:checked[type=radio] {
-    background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27%3e%3cpath fill=%27none%27 stroke=%27%23fff%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%273%27 d=%27m6 10 3 3 6-6%27/%3e%3c/svg%3e") !important;
+.form-check-input:checked[type='radio'] {
+  background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27%3e%3cpath fill=%27none%27 stroke=%27%23fff%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%273%27 d=%27m6 10 3 3 6-6%27/%3e%3c/svg%3e') !important;
 }
