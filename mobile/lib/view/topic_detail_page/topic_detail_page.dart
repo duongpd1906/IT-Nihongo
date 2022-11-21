@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/data/model/topic.dart';
+import 'package:mobile/view/widget/common_input.dart';
 import 'package:mobile/view/widget/evaluate_components.dart';
 
 import '../constant/app_colors.dart';
@@ -160,6 +161,29 @@ class _TopicDetailPageState extends State<TopicDetailPage> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  children: const [
+                    CommonInput(
+                      hintText: AppTexts.enterComment,
+                    ),
+                    SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: Icon(
+                        Icons.arrow_circle_right_outlined,
+                        size: 40,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 15),
+              const Divider(
+                height: 2,
+                color: Colors.lightBlue,
               ),
               ListView.separated(
                 shrinkWrap: true,
