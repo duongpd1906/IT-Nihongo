@@ -1,4 +1,4 @@
-#login {
+#register {
   width: 100%;
   padding-left: 15px;
   padding-right: 15px;
@@ -9,12 +9,12 @@
   background-position: center center;
 }
 
-.login-container,
-.login-background,
-.login-form {
+.register-container,
+.register-background,
+.register-form {
   min-height: 100vh;
 }
-.login-container {
+.register-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -22,28 +22,28 @@
   margin-left: -15px;
 }
 
-.login-background,
-.login-form {
+.register-background,
+.register-form {
   position: relative;
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
 }
 
-.login-background {
+.register-background {
   display: none;
 }
 
-.login-form {
+.register-form {
   background-color: rgba(255, 255, 255, 0.6);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 42% 58% 36% 64% / 60% 37% 63% 40%;
+  /* border-radius: 42% 58% 36% 64% / 60% 37% 63% 40%; */
 }
 
-.login-form-title {
+.register-form-title {
   text-align: center;
   font-size: 36px;
   line-height: 40px;
@@ -51,7 +51,7 @@
   margin-bottom: 35px;
 }
 
-.login-form-container {
+.register-form-container {
   width: 70%;
   max-width: 450px;
   display: flex;
@@ -59,7 +59,7 @@
   align-items: center;
 }
 
-.login-form-group {
+.register-form .form-input {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,14 +67,15 @@
   margin-bottom: 15px;
 }
 
-.login-form-label {
+.register-form .form-input label {
   text-align: left;
   font-size: 14px;
   line-height: 16px;
   font-weight: 600;
+  margin-bottom: 8px;
 }
 
-.login-form-control {
+.register-form .form-input input {
   width: 100%;
   height: 44px;
   background: #ffffff;
@@ -85,34 +86,16 @@
   border: 2px solid #ffffff;
 }
 
-.login-form-control:focus {
+.register-form .form-input input:focus {
   border: 2px solid #000;
   box-shadow: none;
 }
 
-.login-form-text {
+.register-form .form-input span {
   font-size: 12px;
 }
 
-.login-form-check {
-  position: relative;
-  display: block;
-  min-height: 1.5rem;
-  padding-left: 1.5rem;
-}
-
-.login-form-check .form-check-input {
-  padding: 8px;
-}
-
-.login-form-check .form-check-label {
-  text-align: left;
-  font-size: 14px;
-  line-height: 16px;
-  font-weight: 600;
-}
-
-.login-form-button {
+.register-form-button {
   width: 100%;
   height: 44px;
   color: #fff;
@@ -121,43 +104,45 @@
   color: #fff;
   border: none;
   border: 2px solid #000;
+  margin-top: 10px;
 }
 
-.login-form-button .btn-check:checked + .btn,
-.login-form-button .btn.active,
-.login-form-button .btn.show,
-.login-form-button .btn:first-child:active,
+.register-form-button .btn-check:checked + .btn,
+.register-form-button .btn.active,
+.register-form-button .btn.show,
+.register-form-button .btn:first-child:active,
 :not(.btn-check) + .btn:active,
-.login-form-button:hover,
-.login-form-button:focus-visible {
+.register-form-button:hover,
+.register-form-button:focus-visible {
   background-color: rgba(0, 0, 0, 0.8);
   border: 2px solid #000;
 }
 
-.form-link-register,
-.form-link-register a {
+.form-link-login,
+.form-link-login a {
   margin-top: 20px;
   color: #000;
   font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  .login-background {
-    flex: 0 0 30%;
-    max-width: 30%;
+  .register-background,
+  .register-form {
+    flex: 0 0 40%;
+    max-width: 40%;
   }
-  .login-form {
-    flex: 0 0 70%;
-    max-width: 70%;
+  .register-form {
+    flex: 0 0 60%;
+    max-width: 60%;
   }
 
-  .login-background {
+  .register-background {
     display: block;
   }
 }
 
 @media (min-width: 1440px) {
-  .login-form-container {
+  .register-form-container {
     max-width: 550px;
   }
 }

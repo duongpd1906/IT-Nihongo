@@ -1,0 +1,13 @@
+.list-topic .carousel-indicators {
+  margin-bottom: -1rem;
+}
+
+.list-topic .carousel-control-next-icon {
+  background-image: url('../../assets/img/arrow-right.svg');
+  filter: none;
+}
+
+.list-topic .carousel-control-prev-icon {
+  background-image: url('../../assets/img/arrow-left.svg');
+  filter: none;
+}
