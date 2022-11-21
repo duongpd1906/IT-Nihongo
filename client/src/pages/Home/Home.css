@@ -1,65 +1,137 @@
-html, body{
-    /* background-image: url("https://phuot3mien.com/wp-content/uploads/2020/03/cau-rong-da-nang-phuot3mien.jpg");
+html,
+body {
+  /* background-image: url("https://phuot3mien.com/wp-content/uploads/2020/03/cau-rong-da-nang-phuot3mien.jpg");
     opacity: 0.5; */
-    /* overflow: hidden; */
-    
-    min-height: 100%;
+  /* overflow: hidden; */
+
+  min-height: 100%;
 }
-body{
-    position: relative;
-    background-color: transparent !important;
-    background-size: auto;
+body {
+  position: relative;
+  background-color: transparent !important;
+  background-size: auto;
 }
-.demo-bg{
-    opacity: 0.3;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+.home .demo-bg {
+  opacity: 0.3;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
-.header{
-    display: flex;
-    height: fit-content;
+.home .header {
+  display: flex;
+  height: fit-content;
+  padding: 10px 20px;
 }
-.logo{
-    /* display: inline-block; */
-    font-size: 30px;
-    color: white;
-    height: 90px;
-    width: 90px;
-    /* background-color: black !important; */
-    border-radius: 50% !important; 
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    margin-right: auto;
+.home .header .logo {
+  /* display: inline-block; */
+  font-size: 30px;
+  color: white;
+  height: 90px;
+  width: 90px;
+  /* background-color: black !important; */
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  margin-right: auto;
 }
-.logout{
-    /* position: absolute;
+.home .header .user {
+  /* position: absolute;
     right: 0; */
-    font-weight: bold;
-    font-size: 18px;
+  font-weight: bold;
+  font-size: 18px;
 }
-.logout_btn{
-    width: auto;
-    color: rgba(19, 19, 233, 0.896);
-    margin: 0;
-    background-color: transparent;
+
+.home .user_is-activated {
+  position: relative;
+  display: inline-block;
 }
-.add{
-    height: 70px;
-    width: 70px;
-    border-radius: 50% !important; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+
+.home .user_info {
+  cursor: pointer;
 }
-.body{
-    /* display: flex; */
+
+.home .user_ava {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
-.row 
-{
-    margin: 20px;
+
+.home .user_ava img {
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.home .user_name {
+  display: inline-block;
+  color: #000;
+  margin-left: 5px;
+}
+
+.home .user_logout {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 100%;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.home .user_is-activated:hover .user_logout {
+  display: block;
+}
+
+.home .user_logout button {
+  background: #fff;
+  width: 100%;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 3px 0;
+}
+
+.home .user_login-link a {
+  width: auto;
+  color: rgba(19, 19, 233, 0.896);
+  margin: 0;
+  background-color: transparent;
+  border: none;
+  font-weight: 600;
+  text-decoration: none;
+}
+.home .button-add {
+  height: 70px;
+  width: 70px;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-left: auto;
+  margin-right: 10%;
+}
+.main-content {
+  /* display: flex; */
+}
+.home .row {
+  margin: 20px;
+}
+
+@media (min-width: 1024px) {
+  .home .button-add {
+    margin-right: 12%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .home .button-add {
+    margin-right: 20%;
+  }
 }

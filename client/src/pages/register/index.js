@@ -1,9 +1,8 @@
-import "./style.css";
-import FormInput from "../../components/FormInput";
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import FormInput from "../../components/FormInput";
 import { useAppContext } from "../../context/appContext";
-import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
+import "./register.css";
 
 
 function Register() {
@@ -82,29 +81,37 @@ function Register() {
 
 	useEffect(() => {
 		if (user) {
-			setTimeout(() => {
-				navigate("/");
-			}, 1000);
+			// setTimeout(() => {
+			// 	navigate("/");
+			// }, 1000);
 		}
 	}, [user, navigate]);
 
 	return (
-		<div className="App">
-			<form className="form1" onSubmit={handleSubmit}>
-				<h1 className="theh1">サインアップ</h1>
-				{inputs.map((input) => (
-					<FormInput
-						key={input.id}
-						{...input}
-						value={values[input.name]}
-						onChange={onChange}
-					/>
-				))}
-				<button className="btn">サインアップ</button>
-        <Link to="/login" className="link-login">
-          ログイン
-        </Link>
-			</form>
+		<div id="register">
+			<div className="register-container">
+				<div className="register-background"></div>
+				<div className="register-form">
+					<h2 className="register-form-title">サインアップ</h2>
+					<form className="register-form-container" onSubmit={handleSubmit}>
+						{inputs.map((input) => (
+							<FormInput
+								key={input.id}
+								{...input}
+								value={values[input.name]}
+								onChange={onChange}
+							/>
+						))}
+						<button className="register-form-button">サインアップ</button>
+						<p className="form-link-login">
+							まだアカウントを持っていませんか?
+							<Link to="/login">
+								<b> ログイン</b>
+							</Link>
+						</p>
+					</form>
+				</div>
+			</div>
 		</div>
 	);
 }
