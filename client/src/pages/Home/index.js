@@ -8,8 +8,12 @@ import ListTopic from "./ListTopic.js";
 
 function Home() {
 	let navigate = useNavigate()
-	const { user, logoutUser } = useAppContext();
+	const { user, logoutUser, getAllTopics, topics, page } = useAppContext();
 	const [isActivated, setIsActivated] = useState(false);
+
+	useEffect(() => {
+		getAllTopics()
+	},[page])
 
 	useEffect(() => {
 		if (user) {
