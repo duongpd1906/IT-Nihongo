@@ -29,7 +29,7 @@ const initialState = {
 	alertType: "",
 	user: user ? JSON.parse(user) : null,
 	token: token,
-	topics: [],
+	listTopics: [],
 	totalTopics: 0,
 	numOfPages: 1,
 	page: 1,
@@ -39,35 +39,6 @@ const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
-
-	// // axios
-	// const authFetch = axios.create({
-	// 	baseURL: "/api",
-	// });
-	// // request
-
-	// authFetch.interceptors.request.use(
-	// 	(config) => {
-	// 		config.headers.common["Authorization"] = `Bearer ${state.token}`;
-	// 		return config;
-	// 	},
-	// 	(error) => {
-	// 		return Promise.reject(error);
-	// 	}
-	// );
-	// // response
-
-	// authFetch.interceptors.response.use(
-	// 	(response) => {
-	// 		return response;
-	// 	},
-	// 	(error) => {
-	// 		if (error.response.status === 401) {
-	// 			logoutUser();
-	// 		}
-	// 		return Promise.reject(error);
-	// 	}
-	// );
 
 	const authFetch = axios.create({
 		baseURL: "/api",
@@ -185,14 +156,14 @@ const AppProvider = ({ children }) => {
 	};
 
 	const getAllTopics = async () => {
-		const page = state;
 		dispatch({ type: GET_TOPICS_BEGIN });
 		try {
-			const { data } = await axios.get(`/api/topic?page=${page}`);
-			const { topics, totalTopics, numOfPages } = data;
+			const { data } = await axios.get(`/api/topic`);
+			console.log(data);
+			const { listTopics } = data;
 			dispatch({
 				type: GET_TOPICS_SUCCESS,
-				payload: { topics, totalTopics, numOfPages },
+				payload: { listTopics},
 			});
 		} catch (error) {
 			console.log(error);

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Notification from "../../components/Notification.js";
+import Alert from "../../components/Notification.js";
 import { useAppContext } from "../../context/appContext";
 import "./upload.css";
 
@@ -7,21 +7,16 @@ function UpLoad() {
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [topicName, setTopicName] = useState(null);
 
-	// On file select (from the pop up)
 	const onTextChange = (e) => {
 		setTopicName(e.target.value);
 	};
 	const onFileChange = (e) => {
-		// Update the state
 		setSelectedFile(e.target.files[0]);
 	};
 
-	// On file upload (click the upload button)
 	const onFileUpload = () => {
-		// Create an object of formData
 		const formData = new FormData();
 
-		// Update the formData object
 		formData.append("image", selectedFile);
 
 		formData.append("topicName", topicName);
@@ -29,8 +24,6 @@ function UpLoad() {
 		addTopic(formData);
 	};
 
-	// File content to be displayed after
-	// file upload is complete
 	const fileData = () => {
 		if (selectedFile) {
 			return (
@@ -88,7 +81,7 @@ function UpLoad() {
 				</div>
 				{fileData()}
 			</div>
-			<Notification type="success" title="Success!" content="Upload topic successfully" />
+			<Alert type="error" title="Success!" content="Upload topic successfully" />
 		</div>
 	);
 }
