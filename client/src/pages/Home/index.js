@@ -1,11 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
-import Badge from "react-bootstrap/Badge";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppContext } from "../../context/appContext";
 import "./Home.css";
 import ListTopic from "./ListTopic.js";
-
 function Home() {
     let navigate = useNavigate()
     const { user, logoutUser } = useAppContext();
@@ -32,8 +30,35 @@ function Home() {
                 alt=""
             ></img>
             <div className="header">
-                <div className="logo">竜</div>
-                <div className="user">
+                <div className="header-logo">竜</div>
+                <div className="header-element header-element--home">Home</div>
+                <div className="header-element header-element--add">
+                    <Link to="/upload">
+                        Add new topic
+                    </Link>
+                </div>
+
+                {
+                    isActivated ? (
+                        <div>
+                            <div className="header-element">
+                                <div className="user_ava">
+                                    <img
+                                        src={testUser.ava}
+                                        alt="user-ava"
+                                    />
+                                </div></div>
+                            <div className="header-element header-element--logout">Logout</div>
+                        </div>
+                    ) : (
+                        <div className="header-element header-element--login">                              <Link to="/login">
+                            ログイン
+                        </Link>
+                        </div>
+                    )
+                }
+
+                {/* <div className="user">
                     {isActivated ? (
                         <div className="user_is-activated">
                             <div className="user_info">
@@ -59,13 +84,13 @@ function Home() {
                             </Link>
                         </div>
                     )}
-                </div>
+                </div> */}
             </div>
 
             <div className="main-content">
-                <Badge className="button-add" bg="dark" onClick={() => navigate("/upload")}>
+                {/* <Badge className="button-add" bg="dark" onClick={() => navigate("/upload")}>
                     PLUS
-                </Badge>
+                </Badge> */}
                 <ListTopic></ListTopic>
             </div>
         </div>

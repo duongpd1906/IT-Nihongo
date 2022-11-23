@@ -6,10 +6,10 @@ const Topic = (props) => {
     const { src, name } = props;
     return (
         <div className="topic">
-            <Card className="card_style" style={{ width: '18rem', height: '13rem' }}>
+            <Card className="card_style">
                 <Card.Img className="card_img" variant="top" src={src} />
 
-                <Card.Body style={{ textAlign: 'center', backgroundColor: 'transparent' }}>
+                <Card.Body>
                     <Card.Title>{name}</Card.Title>
                     <Card.Text>
                         <Form>
