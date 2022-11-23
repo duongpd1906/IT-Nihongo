@@ -24,17 +24,20 @@ const getAllTopic = async (req, res) => {
 		let results = Topic.find().populate("createdBy");
 		const totalTopics = await Topic.countDocuments(results);
 
-		const page = Number(req.query.page) || 1;
-		const limit = Number(req.query.limit) || 4;
-		const skip = (page - 1) * limit;
-
-		results.skip(skip).limit(limit);
-
-		const topics = await results;
+		const limit = 4;
 
 		const numOfPages = Math.ceil(totalTopics / limit);
 
-		res.status(StatusCodes.OK).json({ topics, totalTopics, numOfPages });
+		const listTopics = []
+		for (let i = 1; i <= numOfPages; i++) {
+			const test2 = Topic.find().populate("createdBy");
+			const skip = (i - 1) * limit;
+			const test = test2.skip(skip).limit(limit);
+			const topics = await test;
+			listTopics.push({topics : topics})
+		}
+
+		res.status(StatusCodes.OK).json({ listTopics });
 	} catch (error) {
 		console.error(error);
 		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);

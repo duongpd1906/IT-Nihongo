@@ -15,7 +15,7 @@ function Register() {
 		confirmPassword: "",
 	});
 
-	const { user, registerUser } = useAppContext();
+	const { user, registerUser, showAlert, displayAlert } = useAppContext();
 
 	const inputs = [
 		{
@@ -65,6 +65,7 @@ function Register() {
 		e.preventDefault();
 		const { email, password, username } = values;
 		if (!email || !password || !username) {
+			displayAlert();
 			return;
 		}
 		const currentUser = { email, password, username };
@@ -81,14 +82,15 @@ function Register() {
 
 	useEffect(() => {
 		if (user) {
-			// setTimeout(() => {
-			// 	navigate("/");
-			// }, 1000);
+			setTimeout(() => {
+				navigate("/");
+			}, 3000);
 		}
 	}, [user, navigate]);
 
 	return (
 		<div id="register">
+			{showAlert && <notification />}
 			<div className="register-container">
 				<div className="register-background"></div>
 				<div className="register-form">

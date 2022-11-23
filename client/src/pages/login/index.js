@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link, useNavigate } from "react-router-dom";
+import Notification from "../../components/Notification";
 import { useAppContext } from "../../context/appContext";
 import "./login.css";
 
@@ -19,12 +20,13 @@ function Login() {
 		setValues({ ...values, [e.target.name]: e.target.value });
 	};
 
-	const { user, loginUser } = useAppContext();
+	const { user, loginUser, showAlert, displayAlert } = useAppContext();
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 		const { email, password } = values;
 		if (!email || !password) {
+			displayAlert();
 			return;
 		}
 		const currentUser = { email, password };
@@ -38,20 +40,27 @@ function Login() {
 		if (user) {
 			setTimeout(() => {
 				navigate("/");
-			}, 1000);
+			}, 3000);
 		}
 	}, [user, navigate]);
 
 	return (
 		<div id="login">
+			{showAlert && <Notification />}
 			<div className="login-container">
 				<div className="login-background"></div>
 				<div className="login-form">
 					<h2 className="login-form-title">ログイン</h2>
 					<Form className="login-form-container" onSubmit={onSubmit}>
-						<Form.Group className="login-form-group" controlId="formBasicEmail">
-							<Form.Label className="login-form-label">電子メールアドレス</Form.Label>
-							<Form.Control className="login-form-control"
+						<Form.Group
+							className="login-form-group"
+							controlId="formBasicEmail"
+						>
+							<Form.Label className="login-form-label">
+								電子メールアドレス
+							</Form.Label>
+							<Form.Control
+								className="login-form-control"
 								type="email"
 								name="email"
 								placeholder="Enter email"
@@ -62,9 +71,15 @@ function Login() {
 								あなたのメールを他の人と共有することは決してありません。
 							</Form.Text>
 						</Form.Group>
-						<Form.Group className="login-form-group" controlId="formBasicPassword">
-							<Form.Label className="login-form-label">パスワード</Form.Label>
-							<Form.Control className="login-form-control"
+						<Form.Group
+							className="login-form-group"
+							controlId="formBasicPassword"
+						>
+							<Form.Label className="login-form-label">
+								パスワード
+							</Form.Label>
+							<Form.Control
+								className="login-form-control"
 								type="password"
 								placeholder="Password"
 								name="password"
@@ -72,13 +87,17 @@ function Login() {
 								onChange={handleChange}
 							/>
 						</Form.Group>
-						<Form.Group className="login-form-group" controlId="formBasicCheckbox">
-							<Form.Check className="login-form-check" type="checkbox" label="ログインターンを保存" />
-						</Form.Group>
-						<Button
-							className="login-form-button"
-							type="submit"
+						<Form.Group
+							className="login-form-group"
+							controlId="formBasicCheckbox"
 						>
+							<Form.Check
+								className="login-form-check"
+								type="checkbox"
+								label="ログインターンを保存"
+							/>
+						</Form.Group>
+						<Button className="login-form-button" type="submit">
 							送信
 						</Button>
 						<p className="form-link-register">

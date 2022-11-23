@@ -112,7 +112,7 @@ const reducer = (state, action) => {
 			isLoading: false,
 			showAlert: true,
 			alertType: "success",
-			alertText: "Login Successful! Redirecting...",
+			alertText: "Create Topic Successful!",
 		};
 	}
 
@@ -138,11 +138,9 @@ const reducer = (state, action) => {
 			...state,
 			isLoading: false,
 			showAlert: true,
-			topics: action.payload.topics,
-			totalTopics: action.payload.totalTopics,
-			numOfPages: action.payload.numOfPages,
+			listTopics: action.payload.listTopics,
 			alertType: "success",
-			alertText: "Login Successful! Redirecting...",
+			alertText: "Get topic Successful",
 		};
 	}
 

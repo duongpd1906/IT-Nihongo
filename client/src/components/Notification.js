@@ -1,13 +1,15 @@
+import { useAppContext } from "../context/appContext";
 import "./Notification.css";
 
-const Notification = ({ type, title, content }) => {
+const Notification = () => {
+  const { alertType, alertText } = useAppContext();
 
   return (
-    <div className={`notification notification--${type}`}>
+    <div className={`notification notification--${alertType}`}>
       <div className="notification__container">
         <button className="notification__close">x</button>
-        <p className="notification__title">{title}</p>
-        <p className="notification__content">{content}</p>
+        <p className="notification__title">{alertType}</p>
+        <p className="notification__content">{alertText}</p>
       </div>
     </div>
   );
