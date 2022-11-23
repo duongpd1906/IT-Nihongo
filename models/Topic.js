@@ -11,9 +11,13 @@ const TopicSchema = new mongoose.Schema({
 		ref: "User",
 		required: [true, "Please provide user"],
 	},
-	image: {
-		type: String,
-	},
+	list_img: [
+		{
+			image: {
+				type: String,
+			},
+		},
+	],	
 });
 
 export default mongoose.model("Topic", TopicSchema);

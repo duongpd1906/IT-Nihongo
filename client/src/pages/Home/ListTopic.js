@@ -11,6 +11,7 @@ const ListTopic = (props) => {
 
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
+        console.log(selectedIndex);
     };
 
     const topicList = [
