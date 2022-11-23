@@ -1,7 +1,7 @@
-import "./upload.css";
-
 import React, { useState } from "react";
+import Notification from "../../components/Notification.js";
 import { useAppContext } from "../../context/appContext";
+import "./upload.css";
 
 function UpLoad() {
 	const [selectedFile, setSelectedFile] = useState(null);
@@ -44,7 +44,7 @@ function UpLoad() {
 						Last Modified:{" "}
 						{selectedFile.lastModifiedDate.toDateString()}
 					</p>
-          <img src={URL.createObjectURL(selectedFile)} alt="..." width="250" height="250"></img>
+					<img src={URL.createObjectURL(selectedFile)} alt="..." width="250" height="250"></img>
 				</div>
 			);
 		} else {
@@ -88,6 +88,7 @@ function UpLoad() {
 				</div>
 				{fileData()}
 			</div>
+			<Notification type="success" title="Success!" content="Upload topic successfully" />
 		</div>
 	);
 }
