@@ -11,6 +11,11 @@ body {
   background-color: transparent !important;
   background-size: auto;
 }
+
+.home {
+  position: relative;
+}
+
 .home .demo-bg {
   opacity: 0.3;
   position: absolute;
@@ -23,6 +28,7 @@ body {
   display: flex;
   height: fit-content;
   padding: 10px 20px;
+  background-color: #ffffff;
 }
 .home .header .logo {
   /* display: inline-block; */
