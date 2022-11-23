@@ -12,6 +12,12 @@ import {
 	LOGIN_USER_BEGIN,
 	LOGIN_USER_SUCCESS,
 	LOGIN_USER_ERROR,
+	ADD_TOPIC_BEGIN,
+	ADD_TOPIC_ERROR,
+	ADD_TOPIC_SUCCESS,
+	GET_TOPICS_BEGIN,
+	GET_TOPICS_SUCCESS,
+	GET_TOPICS_ERROR,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -23,6 +29,10 @@ const initialState = {
 	alertType: "",
 	user: user ? JSON.parse(user) : null,
 	token: token,
+	topics: [],
+	totalTopics: 0,
+	numOfPages: 1,
+	page: 1,
 };
 
 const AppContext = React.createContext();
@@ -30,30 +40,57 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
-	// axios
+	// // axios
+	// const authFetch = axios.create({
+	// 	baseURL: "/api",
+	// });
+	// // request
+
+	// authFetch.interceptors.request.use(
+	// 	(config) => {
+	// 		config.headers.common["Authorization"] = `Bearer ${state.token}`;
+	// 		return config;
+	// 	},
+	// 	(error) => {
+	// 		return Promise.reject(error);
+	// 	}
+	// );
+	// // response
+
+	// authFetch.interceptors.response.use(
+	// 	(response) => {
+	// 		return response;
+	// 	},
+	// 	(error) => {
+	// 		if (error.response.status === 401) {
+	// 			logoutUser();
+	// 		}
+	// 		return Promise.reject(error);
+	// 	}
+	// );
+
 	const authFetch = axios.create({
 		baseURL: "/api",
 	});
-	// request
 
 	authFetch.interceptors.request.use(
 		(config) => {
-			config.headers.common["Authorization"] = `Bearer ${state.token}`;
+			config.headers["Authorization"] = `Bearer ${state.token}`;
 			return config;
 		},
 		(error) => {
 			return Promise.reject(error);
 		}
 	);
-	// response
-
+	// response interceptor
 	authFetch.interceptors.response.use(
 		(response) => {
 			return response;
 		},
 		(error) => {
+			console.log(error.response);
 			if (error.response.status === 401) {
-				logoutUser();
+				console.log("AUTH ERROR");
 			}
 			return Promise.reject(error);
 		}
@@ -131,6 +168,41 @@ const AppProvider = ({ children }) => {
 		removeUserFromLocalStorage();
 	};
 
+	const addTopic = async (formData) => {
+		dispatch({ type: ADD_TOPIC_BEGIN });
+		try {
+			await authFetch.post(`/topic`, formData);
+			dispatch({
+				type: ADD_TOPIC_SUCCESS,
+			});
+		} catch (error) {
+			console.log(error);
+			dispatch({
+				type: ADD_TOPIC_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+	};
+
+	const getAllTopics = async () => {
+		const page = state;
+		dispatch({ type: GET_TOPICS_BEGIN });
+		try {
+			const { data } = await axios.get(`/api/topic?page=${page}`);
+			const { topics, totalTopics, numOfPages } = data;
+			dispatch({
+				type: GET_TOPICS_SUCCESS,
+				payload: { topics, totalTopics, numOfPages },
+			});
+		} catch (error) {
+			console.log(error);
+			dispatch({
+				type: GET_TOPICS_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+	};
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -139,6 +211,8 @@ const AppProvider = ({ children }) => {
 				registerUser,
 				loginUser,
 				logoutUser,
+				addTopic,
+				getAllTopics,
 			}}
 		>
 			{children}

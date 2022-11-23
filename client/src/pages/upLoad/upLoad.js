@@ -1,101 +1,95 @@
-import axios from 'axios';
 import "./upload.css";
 
-import React, { Component } from 'react';
+import React, { useState } from "react";
+import { useAppContext } from "../../context/appContext";
 
-class UpLoad extends Component {
+function UpLoad() {
+	const [selectedFile, setSelectedFile] = useState(null);
+	const [topicName, setTopicName] = useState(null);
 
-  state = {
+	// On file select (from the pop up)
+	const onTextChange = (e) => {
+		setTopicName(e.target.value);
+	};
+	const onFileChange = (e) => {
+		// Update the state
+		setSelectedFile(e.target.files[0]);
+	};
 
-    // Initially, no file is selected
-    selectedFile: null
-  };
+	// On file upload (click the upload button)
+	const onFileUpload = () => {
+		// Create an object of formData
+		const formData = new FormData();
 
-  // On file select (from the pop up)
-  onFileChange = event => {
+		// Update the formData object
+		formData.append("image", selectedFile);
 
-    // Update the state
-    this.setState({ selectedFile: event.target.files[0] });
+		formData.append("topicName", topicName);
 
-  };
+		addTopic(formData);
+	};
 
-  // On file upload (click the upload button)
-  onFileUpload = () => {
+	// File content to be displayed after
+	// file upload is complete
+	const fileData = () => {
+		if (selectedFile) {
+			return (
+				<div>
+					<h2>File Details:</h2>
+					<p>File Name: {selectedFile.name}</p>
 
-    // Create an object of formData
-    const formData = new FormData();
+					<p>File Type: {selectedFile.type}</p>
 
-    // Update the formData object
-    formData.append(
-      "myFile",
-      this.state.selectedFile,
-      this.state.selectedFile.name
-    );
+					<p>
+						Last Modified:{" "}
+						{selectedFile.lastModifiedDate.toDateString()}
+					</p>
+          <img src={URL.createObjectURL(selectedFile)} alt="..." width="250" height="250"></img>
+				</div>
+			);
+		} else {
+			return (
+				<div>
+					<br />
+				</div>
+			);
+		}
+	};
 
-    // Details of the uploaded file
-    console.log(this.state.selectedFile);
+	const { addTopic } = useAppContext();
 
-    // Request made to the backend api
-    // Send formData object
-    axios.post("api/uploadfile", formData);
-  };
+	return (
+		<div className="upload-form">
+			<div className="upload-container">
+				<div className="upload-title">
+					<h1>新しいトピックを追加</h1>
+				</div>
+				<div className="new-topic-name">
+					<p>トピックの名</p>
+					<input
+						type="text"
+						placeholder="Type the name of new topic"
+						onChange={onTextChange}
+					></input>
+				</div>
 
-  // File content to be displayed after
-  // file upload is complete
-  fileData = () => {
-
-    if (this.state.selectedFile) {
-
-      return (
-        <div>
-          <h2>File Details:</h2>
-          <p>File Name: {this.state.selectedFile.name}</p>
-
-          <p>File Type: {this.state.selectedFile.type}</p>
-
-          <p>
-            Last Modified:{" "}
-            {this.state.selectedFile.lastModifiedDate.toDateString()}
-          </p>
-
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <br />
-
-        </div>
-      );
-    }
-  };
-
-  render() {
-
-    return (
-      <div className='upload-form'>
-        <div className='upload-container'>
-          <div className='upload-title'>
-            <h1>
-              新しいトピックを追加
-            </h1>
-          </div>
-          <div className='new-topic-name'>
-            <p>トピックの名</p>
-            <input type="text" placeholder='Type the name of new topic'></input>
-          </div>
-
-          <div className='upfile-form'>
-            <input type="file" className='upfile-input' onChange={this.onFileChange} />
-            <button className="upload-form__button-submit" onClick={this.onFileUpload}>
-              upload
-            </button>
-          </div>
-          {this.fileData()}
-        </div>
-      </div>
-    );
-  }
+				<div className="upfile-form">
+					<input
+						type="file"
+						className="upfile-input"
+						onChange={onFileChange}
+					/>
+					<button
+						className="upload-form__button-submit"
+						onClick={onFileUpload}
+					>
+						upload
+					</button>
+				</div>
+				{fileData()}
+			</div>
+		</div>
+	);
 }
 
 export default UpLoad;
