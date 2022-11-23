@@ -6,22 +6,24 @@ import Error from "./pages/Error/Error";
 import Detail from "./pages/detail";
 import UpLoad from "./pages/upLoad/upLoad";
 import DesignChosen from "./pages/designPage/Design";
-
+import SharedLayout from "./pages/SharedLayout";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-      <Route path="/design" element={<DesignChosen />} />
-      <Route path="/upload" element={<UpLoad />} />
-        <Route path="*" element={<Error />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/detail" element={<Detail />} />
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
-  );
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<SharedLayout />}>
+					<Route index element={<Home />} />
+					<Route path="/upload" element={<UpLoad />} />
+					<Route path="/detail" element={<Detail />} />
+					<Route path="/design" element={<DesignChosen />} />
+				</Route>
+				<Route path="*" element={<Error />} />
+				<Route path="/register" element={<Register />} />
+				<Route path="/login" element={<Login />} />
+			</Routes>
+		</BrowserRouter>
+	);
 }
 
 export default App;
