@@ -4,39 +4,31 @@ function Detail() {
 
     return (
         <div className="detail-page">
-            HEllo
+            <img src="https://noithatkendesign.vn/storage/app/media/uploaded-files/thiet-ke-quan-cafe-the-coffee-house-02.jpg" alt="detail" className="detail-page-bg" />
+
+            <div className="detail-page-container">
+                <h2 className="detail-page-title">詳細 デザイン</h2>
+                <div className="detail-page-main-content">
+                    <img src="https://noithatkendesign.vn/storage/app/media/uploaded-files/thiet-ke-quan-cafe-the-coffee-house-02.jpg" alt="detail" className="detail-page-image" />
+
+                    <form className="form">
+                        <div className="input-group">
+                            <label className="input-label" htmlFor="description">額</label>
+                            <input className="input-control" type="text" />
+                        </div>
+                        <div className="input-group">
+                            <label className="input-label" htmlFor="position">位置</label>
+                            <input className="input-control" type="text" />
+                        </div>
+                        <div className="input-group">
+                            <label className="input-label" htmlFor="explanation">説明</label>
+                            <input className="input-control" type="text" />
+                        </div>
+                        <button type="submit" className="form-btn-submit">確認</button>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        // <div className="Appct">
-        //     <div className="slider">
-        //         <div className="labell1">
-        //             <label>詳細</label><br></br>
-        //         </div>
-        //         <div className="labell2">
-        //             <label>デザイン</label>
-        //         </div>
-        //     </div>
-
-        //     <form className="form">
-        //         <img className="img" src='../../assets/img/down.jpg' alt="detail" />
-        //         <div className="input-container">
-        //             <label>額</label><br></br>
-        //             <input type="text" name="額" className="input" required />
-        //         </div>
-        //         <div className="input-container">
-        //             <label>位置</label><br></br>
-        //             <input type="text" name="位置" className="input" required />
-        //         </div>
-
-        //         <div className="input-container">
-        //             <label>説明</label><br></br>
-        //             <input type="text" name="説明" className="input" required />
-
-        //         </div>
-        //         <button type="submit" className="btn">確認</button>
-
-        //     </form>
-        // </div>
     );
 
 }

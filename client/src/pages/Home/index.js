@@ -8,7 +8,7 @@ function Home() {
             <img
                 className="demo-bg"
                 src="https://statics.vinpearl.com/dinh-ban-co-2_1629274421.jpg"
-                alt=""
+                alt="home background"
             ></img>
             <div className="main-content">
                 <ListTopic></ListTopic>
