@@ -1,4 +1,4 @@
-* {
+/* * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -9,15 +9,6 @@
   color: #000;
 }
 
-.Appct .header {
-  height: 46px;
-  background-color: rgb(105, 100, 100);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
 .chung {
   display: flex;
   justify-content: center;
@@ -25,14 +16,6 @@
 
 .chung li {
   display: inline-block;
-}
-
-.logoo {
-  /* margin-right: 1350px; */
-  margin-left: 10px;
-  margin-right: 80rem;
-  margin-top: 4px;
-  margin-bottom: 4px;
 }
 
 #dn {
@@ -53,19 +36,15 @@ a {
 .form {
   align-items: center;
   justify-content: center;
-  /* background-color: yellow; */
   background-color: #fff;
-  /* padding: 0px 60px; */
   border-radius: 10px;
   margin-left: auto;
   margin-right: auto;
   width: fit-content;
-  /* margin-top: 10px; */
   width: 40rem;
 }
 
 .img {
-  /* margin-top: 24px; */
   border-radius: 24px;
   width: 100%;
 }
@@ -76,16 +55,6 @@ a {
 
 .Appct .btn:hover {
   background: #000;
-}
-
-.labell1 {
-  /* margin-left: 480px; */
-  /* display: inline-block; */
-}
-
-.labell2 {
-  /* justify-content: space-evenly; */
-  /* margin-left: 500px; */
 }
 
 .btntv {
@@ -103,4 +72,4 @@ a {
 label {
   font-weight: bold;
   color: #000;
-}
+} */
