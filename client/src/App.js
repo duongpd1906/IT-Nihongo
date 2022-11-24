@@ -18,6 +18,7 @@ function App() {
 					<Route path="/detail" element={<Detail />} />
 					<Route path="/design" element={<DesignChosen />} />
 				</Route>
+        <Route path="/admindetail" element={<AdminDetailVote />} />
 				<Route path="*" element={<Error />} />
 				<Route path="/register" element={<Register />} />
 				<Route path="/login" element={<Login />} />
