@@ -1,59 +1,33 @@
-import './stylect.css';
-import imgg from '../../assets/img/down.jpg';
-import logoo from '../../assets/img/logoo.png';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons'
-
-
+import './Detail.css';
 
 function Detail() {
 
     return (
-        <div className="Appct">
-            {/* <h1>Hello chi tiet </h1> */}
-            <div className="header">
-                <ul className="chung">
-                    <li><img className="logoo" src={logoo} /></li>
-                    <li><h1 id="dn">ログインは<a href="/login">こちら</a></h1></li>
-                </ul> 
+        <div className="detail-page">
+            <img src="https://noithatkendesign.vn/storage/app/media/uploaded-files/thiet-ke-quan-cafe-the-coffee-house-02.jpg" alt="detail" className="detail-page-bg" />
+
+            <div className="detail-page-container">
+                <h2 className="detail-page-title">詳細 デザイン</h2>
+                <div className="detail-page-main-content">
+                    <img src="https://noithatkendesign.vn/storage/app/media/uploaded-files/thiet-ke-quan-cafe-the-coffee-house-02.jpg" alt="detail" className="detail-page-image" />
+
+                    <form className="form">
+                        <div className="input-group">
+                            <label className="input-label" htmlFor="description">額</label>
+                            <input className="input-control" type="text" />
+                        </div>
+                        <div className="input-group">
+                            <label className="input-label" htmlFor="position">位置</label>
+                            <input className="input-control" type="text" />
+                        </div>
+                        <div className="input-group">
+                            <label className="input-label" htmlFor="explanation">説明</label>
+                            <input className="input-control" type="text" />
+                        </div>
+                        <button type="submit" className="form-btn-submit">確認</button>
+                    </form>
+                </div>
             </div>
-
-            {/* <FontAwesomeIcon icon={faArrowLeft} /> */}
-
-            <div className="slider">
-                <div className="labell1">
-                    {/* <div className="btntv">--</div> */}
-                    <Link to="/">
-                        {/* <input className="btntv" type="button" value={faArrowLeft} ></input> */}
-                        <FontAwesomeIcon className="btntv" icon={faArrowCircleLeft} />
-                    </Link>
-                    <label>詳細</label><br></br>
-                </div>
-                <div className="labell2">
-                    <label>デザイン</label>
-                </div>
-            </div>
-
-            <form className="form">
-                <img className="img" src={imgg} />
-                <div className="input-container">
-                    <label>額</label><br></br>
-                    <input type="text" name="額" className="input" required />
-                </div>
-                <div className="input-container">
-                    <label>位置</label><br></br>
-                    <input type="text" name="位置" className="input" required />
-                </div>
-
-                <div className="input-container">
-                    <label>説明</label><br></br>
-                    <input type="text" name="説明" className="input" required />
-
-                </div>
-                <button type="submit" className="btn">確認</button>
-
-            </form>
         </div>
     );
 

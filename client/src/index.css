@@ -18,3 +18,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.dashboard-page {
+  width: calc(100% - 120px);
+  height: 100%;
+  margin-left: 120px;
+}
