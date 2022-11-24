@@ -7,12 +7,22 @@ const createTopic = async (req, res) => {
 	const createdBy = req.user.userId;
 	const image = "http://127.0.0.1:5000/images/" + req.file.filename;
 	try {
-		const topic = await Topic.create({ topicName, createdBy });
-		const newImage = {
-			image: image,
-		};
-		await topic.updateOne({ $push: { list_img: newImage } });
-		res.status(StatusCodes.OK).json({ msg: "Create topic Success" });
+		const count = await Topic.find({ topicName: topicName }).count();
+		if (count === 0) {
+			const topic = await Topic.create({ topicName, createdBy });
+			const newImage = {
+				image: image,
+			};
+			await topic.updateOne({ $push: { list_img: newImage } });
+			res.status(StatusCodes.OK).json({ msg: "Create topic Success" });
+		} else {
+			const topic = await Topic.findOne({ topicName: topicName });
+			const newImage = {
+				image: image,
+			};
+			await topic.updateOne({ $push: { list_img: newImage } });
+			res.status(StatusCodes.OK).json({ msg: "Add Image Success" });
+		}
 	} catch (error) {
 		console.error(error);
 		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
@@ -28,13 +38,13 @@ const getAllTopic = async (req, res) => {
 
 		const numOfPages = Math.ceil(totalTopics / limit);
 
-		const listTopics = []
+		const listTopics = [];
 		for (let i = 1; i <= numOfPages; i++) {
 			const test2 = Topic.find().populate("createdBy");
 			const skip = (i - 1) * limit;
 			const test = test2.skip(skip).limit(limit);
 			const topics = await test;
-			listTopics.push({topics : topics})
+			listTopics.push({ topics: topics });
 		}
 
 		res.status(StatusCodes.OK).json({ listTopics });
