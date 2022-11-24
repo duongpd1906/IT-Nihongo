@@ -1,0 +1,61 @@
+table {
+    overflow-y: scroll;
+    margin-left: 20px;
+    margin-right: 500px;
+    border: 1px solid #000;
+
+}
+
+.header-detail {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.title {
+    font-weight: 1000;
+    font-style: bold;
+    margin-left: 30px;
+    margin-top: 20px;
+}
+
+.user {
+    font-weight: 1000;
+    margin-top: 20px;
+    margin-left: 800px;
+}
+
+.title-detail {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.design {
+    display: flex;
+    font-weight: 1000;
+    flex-direction: row;
+    margin-left: 700px;
+}
+
+.design-image {
+    margin-left: 10px;
+}
+
+.screen-name {
+    margin-left: 35px;
+    font-weight: 1000;
+}
+
+img {
+    border-radius: 10px;
+    height: 120px;
+}
+
+.button-back {
+    width: 90px;
+    height: 40px;
+    color: #fff;
+    background-color: black;
+}
