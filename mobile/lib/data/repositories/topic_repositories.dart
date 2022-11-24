@@ -11,50 +11,37 @@ final users = [
 ];
 
 final topics = [
-    Topic(
-      0,
-      'THE DAY COFFEE',
-      '56 Nguyễn Lương Bằng',
-      '若者向けの喫茶店',
-      [
-        AppImages.imgCafe,
-        AppImages.imgCafe2,
-        AppImages.imgCafe3,
-        AppImages.imgCafe4,
-      ],
-      1000,
-      500,
-    ),
-    Topic(
-      1,
-      'THE COFFEE HOUSE',
-      '56 Nguyễn Lương Bằng',
-      '若者向けの喫茶店',
-      [
-        AppImages.imgCafe,
-        AppImages.imgCafe2,
-        AppImages.imgCafe3,
-        AppImages.imgCafe4,
-      ],
-      3,
-      50,
-    ),
-    Topic(
+  Topic(
+    0,
+    'THE DAY COFFEE',
+    '56 Nguyễn Lương Bằng',
+    '若者向けの喫茶店',
+    [
+      AppImages.imgCafe,
+      AppImages.imgCafe2,
+      AppImages.imgCafe3,
+      AppImages.imgCafe4,
+    ],
+    1000,
+    500,
+  ),
+  Topic(
+    1,
+    'THE COFFEE HOUSE',
+    '56 Nguyễn Lương Bằng',
+    '若者向けの喫茶店',
+    [
+      AppImages.imgCafe,
+      AppImages.imgCafe2,
+      AppImages.imgCafe3,
+      AppImages.imgCafe4,
+    ],
+    3,
+    50,
+  ),
+  Topic(
       2,
-        'THE MAIN COFFEE',
-        '56 Nguyễn Lương Bằng',
-        '若者向けの喫茶店',
-        [
-          AppImages.imgCafe,
-          AppImages.imgCafe2,
-          AppImages.imgCafe3,
-          AppImages.imgCafe4,
-        ],
-        45,
-        80),
-    Topic(
-      3,
-      'THE BEST COFFEE',
+      'THE MAIN COFFEE',
       '56 Nguyễn Lương Bằng',
       '若者向けの喫茶店',
       [
@@ -63,10 +50,51 @@ final topics = [
         AppImages.imgCafe3,
         AppImages.imgCafe4,
       ],
-      9,
-      2,
-    ),
-  ];
+      45,
+      80),
+  Topic(
+    3,
+    'THE BEST COFFEE',
+    '56 Nguyễn Lương Bằng',
+    '若者向けの喫茶店',
+    [
+      AppImages.imgCafe,
+      AppImages.imgCafe2,
+      AppImages.imgCafe3,
+      AppImages.imgCafe4,
+    ],
+    9,
+    2,
+  ),
+  Topic(
+    4,
+    'THE BEST BEST COFFEE',
+    '56 Nguyễn Lương Bằng',
+    '若者向けの喫茶店',
+    [
+      AppImages.imgCafe,
+      AppImages.imgCafe2,
+      AppImages.imgCafe3,
+      AppImages.imgCafe4,
+    ],
+    9,
+    2,
+  ),
+  Topic(
+    5,
+    'THE Number 1 COFFEE',
+    '56 Nguyễn Lương Bằng',
+    '若者向けの喫茶店',
+    [
+      AppImages.imgCafe,
+      AppImages.imgCafe2,
+      AppImages.imgCafe3,
+      AppImages.imgCafe4,
+    ],
+    9,
+    2,
+  ),
+];
 
 class TopicRepositories {
   Future<List<Topic>> getTopics() async {

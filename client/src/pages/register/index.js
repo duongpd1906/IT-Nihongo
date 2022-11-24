@@ -1,9 +1,8 @@
-import "./style.css";
-import FormInput from "../../components/FormInput";
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import FormInput from "../../components/FormInput";
 import { useAppContext } from "../../context/appContext";
-import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
+import "./register.css";
 
 
 function Register() {
@@ -16,7 +15,7 @@ function Register() {
 		confirmPassword: "",
 	});
 
-	const { user, registerUser } = useAppContext();
+	const { user, registerUser, showAlert, displayAlert } = useAppContext();
 
 	const inputs = [
 		{
@@ -27,7 +26,6 @@ function Register() {
 			errorMessage:
 				"Username should be 3-16 characters and shouldn't include any special character!",
 			label: "ユーザ名",
-			pattern: "^[A-Za-z0-9]{3,16}$",
 			required: true,
 		},
 		{
@@ -47,7 +45,6 @@ function Register() {
 			errorMessage:
 				"Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
 			label: "パスワード",
-			pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
 			required: true,
 		},
 		{
@@ -66,6 +63,7 @@ function Register() {
 		e.preventDefault();
 		const { email, password, username } = values;
 		if (!email || !password || !username) {
+			displayAlert();
 			return;
 		}
 		const currentUser = { email, password, username };
@@ -84,27 +82,36 @@ function Register() {
 		if (user) {
 			setTimeout(() => {
 				navigate("/");
-			}, 1000);
+			}, 3000);
 		}
 	}, [user, navigate]);
 
 	return (
-		<div className="App">
-			<form className="form1" onSubmit={handleSubmit}>
-				<h1 className="theh1">サインアップ</h1>
-				{inputs.map((input) => (
-					<FormInput
-						key={input.id}
-						{...input}
-						value={values[input.name]}
-						onChange={onChange}
-					/>
-				))}
-				<button className="btn">サインアップ</button>
-        <Link to="/login" className="link-login">
-          ログイン
-        </Link>
-			</form>
+		<div id="register">
+			{showAlert && <notification />}
+			<div className="register-container">
+				<div className="register-background"></div>
+				<div className="register-form">
+					<h2 className="register-form-title">サインアップ</h2>
+					<form className="register-form-container" onSubmit={handleSubmit}>
+						{inputs.map((input) => (
+							<FormInput
+								key={input.id}
+								{...input}
+								value={values[input.name]}
+								onChange={onChange}
+							/>
+						))}
+						<button className="register-form-button">サインアップ</button>
+						<p className="form-link-login">
+							まだアカウントを持っていませんか?
+							<Link to="/login">
+								<b> ログイン</b>
+							</Link>
+						</p>
+					</form>
+				</div>
+			</div>
 		</div>
 	);
 }

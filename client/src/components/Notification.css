@@ -1,0 +1,57 @@
+.notification {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.notification--success .notification__container {
+  background: linear-gradient(to bottom right, #b0db7d 40%, #99dbb4 100%);
+}
+
+.notification--danger .notification__container {
+  background: linear-gradient(to bottom left, #ef8d9c 40%, #ffc39e 100%);
+}
+
+.notification__container {
+  padding: 20px 20px;
+  border-radius: 10px;
+  background: linear-gradient(to bottom right, #b0db7d 40%, #99dbb4 100%);
+  box-shadow: 5px 5px 20px rgb(203, 205, 211, 0.1);
+  text-align: center;
+  position: relative;
+}
+
+.notification__title {
+  font-size: 0.9em;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.notification__content {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(119, 119, 119, 1.1);
+  letter-spacing: 1px;
+  margin-bottom: 0;
+}
+
+.notification__close {
+  margin: 5px 5px 0 0;
+  position: absolute;
+  border: none;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  background: rgba(119, 119, 119, 0.3);
+  color: #fff;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  font-size: 12px;
+  font-weight: 500;
+}

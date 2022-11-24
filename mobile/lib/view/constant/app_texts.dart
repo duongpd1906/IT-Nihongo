@@ -3,7 +3,7 @@ class AppTexts {
 
   static const welcomeBack = 'Welcome back!';
   static const enterFullName = 'フルネームを入れて下さい';
-  static const enterYourEmail = 'メールアドレスを入力';
+  static const enterYourEmail = 'メールアドレスを入力してください';
   static const enterYourPass = 'パスワードを入力してください';
   static const forgotPassword = 'パスワードをお忘れですか';
   static const login = 'ログイン';
@@ -17,6 +17,7 @@ class AppTexts {
   static const design = 'デザイン';
   static const comment = 'コメント: ';
   static const evaluate = '評価: ';
+  static const enterComment = 'コメントを入力してください';
   static String ideaName(String name) => 'アイデア名: $name';
   static String address(String address) => '住所: $address';
   static String description(String description) => '説明: $description';

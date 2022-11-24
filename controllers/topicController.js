@@ -7,21 +7,49 @@ const createTopic = async (req, res) => {
 	const createdBy = req.user.userId;
 	const image = "http://127.0.0.1:5000/images/" + req.file.filename;
 	try {
-		const topic = await Topic.create({ topicName, createdBy, image });
-		res.status(StatusCodes.OK).json({ topic });
+		const count = await Topic.find({ topicName: topicName }).count();
+		if (count === 0) {
+			const topic = await Topic.create({ topicName, createdBy });
+			const newImage = {
+				image: image,
+			};
+			await topic.updateOne({ $push: { list_img: newImage } });
+			res.status(StatusCodes.OK).json({ msg: "Create topic Success" });
+		} else {
+			const topic = await Topic.findOne({ topicName: topicName });
+			const newImage = {
+				image: image,
+			};
+			await topic.updateOne({ $push: { list_img: newImage } });
+			res.status(StatusCodes.OK).json({ msg: "Add Image Success" });
+		}
 	} catch (error) {
-		console.log(error);
-		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(
-			"SOME THING WENT WRONG"
-		);
+		console.error(error);
+		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
 	}
 };
 
 const getAllTopic = async (req, res) => {
 	try {
-		const tpoics = await Topic.find().populate("createdBy");
-		res.status(StatusCodes.OK).json(tpoics);
+		let results = Topic.find().populate("createdBy");
+		const totalTopics = await Topic.countDocuments(results);
+
+		const limit = 4;
+
+		const numOfPages = Math.ceil(totalTopics / limit);
+
+		const listTopics = [];
+		for (let i = 1; i <= numOfPages; i++) {
+			const test2 = Topic.find().populate("createdBy");
+			const skip = (i - 1) * limit;
+			const test = test2.skip(skip).limit(limit);
+			const topics = await test;
+			listTopics.push({ topics: topics });
+		}
+
+		res.status(StatusCodes.OK).json({ listTopics });
 	} catch (error) {
+		console.error(error);
 		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
 	}
 };
@@ -38,9 +66,18 @@ const updateTopic = async (req, res) => {
 	const image = "http://127.0.0.1:5000/images/" + req.file.filename;
 
 	checkPermissions(req.user, topic.createdBy);
+
+	const newImage = {
+		image: image,
+	};
 	const updatedTopic = await Topic.findOneAndUpdate(
 		{ _id: id },
-		{ topicName, image },
+		{ topicName },
+		{
+			$push: {
+				list_image: newImage,
+			},
+		},
 		{
 			new: true,
 			runValidators: true,
@@ -62,7 +99,7 @@ const deleteTopic = async (req, res) => {
 
 	await topic.remove();
 
-	res.status(StatusCodes.OK).json({ msg: "Success! Job removed" });
+	res.status(StatusCodes.OK).json({ msg: "Success! Topics removed" });
 };
 
 export { createTopic, updateTopic, getAllTopic, deleteTopic };
