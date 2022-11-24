@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
+import Notification from "../../components/Notification.js";
 import Alert from "../../components/Notification.js";
 import { useAppContext } from "../../context/appContext";
 import "./upload.css";
 
 function UpLoad() {
+	const { state } = useLocation();
+
 	const [selectedFile, setSelectedFile] = useState(null);
-	const [topicName, setTopicName] = useState(null);
+	const [topicName, setTopicName] = useState(state.topic);
 
 	const onTextChange = (e) => {
 		setTopicName(e.target.value);
@@ -20,6 +24,8 @@ function UpLoad() {
 		formData.append("image", selectedFile);
 
 		formData.append("topicName", topicName);
+
+		displayAlert();
 
 		addTopic(formData);
 	};
@@ -37,7 +43,12 @@ function UpLoad() {
 						Last Modified:{" "}
 						{selectedFile.lastModifiedDate.toDateString()}
 					</p>
-					<img src={URL.createObjectURL(selectedFile)} alt="..." width="250" height="250"></img>
+					<img
+						src={URL.createObjectURL(selectedFile)}
+						alt="..."
+						width="250"
+						height="250"
+					></img>
 				</div>
 			);
 		} else {
@@ -49,10 +60,12 @@ function UpLoad() {
 		}
 	};
 
-	const { addTopic } = useAppContext();
+	const { addTopic, showAlert, displayAlert } = useAppContext();
+
 
 	return (
 		<div className="upload-form">
+			{showAlert && <Notification />}
 			<div className="upload-container">
 				<div className="upload-title">
 					<h1>新しいトピックを追加</h1>
@@ -63,6 +76,7 @@ function UpLoad() {
 						type="text"
 						placeholder="Type the name of new topic"
 						onChange={onTextChange}
+						value={state ? state.topic : ""}
 					></input>
 				</div>
 
@@ -81,7 +95,6 @@ function UpLoad() {
 				</div>
 				{fileData()}
 			</div>
-			<Alert type="error" title="Success!" content="Upload topic successfully" />
 		</div>
 	);
 }
