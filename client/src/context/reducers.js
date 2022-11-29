@@ -137,10 +137,7 @@ const reducer = (state, action) => {
 		return {
 			...state,
 			isLoading: false,
-			showAlert: true,
 			listTopics: action.payload.listTopics,
-			alertType: "success",
-			alertText: "Get topic Successful",
 		};
 	}
 

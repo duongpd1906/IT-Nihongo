@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Notification from "../../components/Notification.js";
-import Alert from "../../components/Notification.js";
 import { useAppContext } from "../../context/appContext";
 import "./upload.css";
 

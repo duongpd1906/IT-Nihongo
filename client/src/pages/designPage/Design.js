@@ -3,10 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
 import "./Design.css";
-import { dataDigitalBestSeller } from "./data";
 import imgGirl from "../../assets/img/unnamed.png";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -60,7 +57,6 @@ function DesignChosen() {
 
 	const { state } = useLocation();
 
-	console.log(state);
 
 	return (
 		<div className="design-form">

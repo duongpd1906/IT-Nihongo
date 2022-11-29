@@ -153,6 +153,7 @@ const AppProvider = ({ children }) => {
 				payload: { msg: error.response.data.msg },
 			});
 		}
+		clearAlert()
 	};
 
 	const getAllTopics = async () => {
@@ -172,6 +173,7 @@ const AppProvider = ({ children }) => {
 				payload: { msg: error.response.data.msg },
 			});
 		}
+		clearAlert()
 	};
 
 	return (

@@ -1,7 +1,6 @@
 import Table from 'react-bootstrap/Table';
 import './AdminDetail.css';
 import { VoteDetail } from './utils';
-import Button from 'react-bootstrap/Button';
 import img from "./down.jpg"
 
 

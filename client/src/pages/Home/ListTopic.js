@@ -15,7 +15,6 @@ const ListTopic = (props) => {
 
 	const { getAllTopics, listTopics } = useAppContext();
 
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		getAllTopics();
