@@ -30,9 +30,16 @@ const Sidebar = (props) => {
 			>
 				Home
 			</div>
-			<Link to="/upload" className="header-element header-element--add">
+			<div
+				className="header-element header-element--add"
+				onClick={() =>
+					navigate("/upload", {
+						state: { topic: "" },
+					})
+				}
+			>
 				Add new topic
-			</Link>
+			</div>
 
 			{isActivated ? (
 				<div>
