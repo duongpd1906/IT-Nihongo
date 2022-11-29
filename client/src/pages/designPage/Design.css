@@ -95,24 +95,28 @@ body {
   .design-display{
     margin-top: 5px;
     border: 1px solid #fff;
-    background: black;
     border-radius: 15px;
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 40%;
     overflow: hidden;
-    width: 600px;
-    height: 250px;
+    width: 350px;
+    height: 350px;
     color: #fff;
     object-fit: cover;
     cursor: pointer;
   }
 
   .design-display img {
-    max-width: 100%;
-    object-fit: contain;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 350px;
+    height: 350px;
   }
+
+
   
   .card-top h1 {
     font-size: 0.9rem;
@@ -139,5 +143,15 @@ body {
     left: 0;
     right: 0;
     height: 2px;
+  }
+
+  .design-form .demo-bg {
+    opacity: 0.3;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
   }
   

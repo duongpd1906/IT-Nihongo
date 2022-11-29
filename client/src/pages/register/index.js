@@ -15,7 +15,7 @@ function Register() {
 		confirmPassword: "",
 	});
 
-	const { user, registerUser } = useAppContext();
+	const { user, registerUser, showAlert, displayAlert } = useAppContext();
 
 	const inputs = [
 		{
@@ -26,7 +26,6 @@ function Register() {
 			errorMessage:
 				"Username should be 3-16 characters and shouldn't include any special character!",
 			label: "ユーザ名",
-			pattern: "^[A-Za-z0-9]{3,16}$",
 			required: true,
 		},
 		{
@@ -46,7 +45,6 @@ function Register() {
 			errorMessage:
 				"Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
 			label: "パスワード",
-			pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
 			required: true,
 		},
 		{
@@ -65,6 +63,7 @@ function Register() {
 		e.preventDefault();
 		const { email, password, username } = values;
 		if (!email || !password || !username) {
+			displayAlert();
 			return;
 		}
 		const currentUser = { email, password, username };
@@ -81,14 +80,15 @@ function Register() {
 
 	useEffect(() => {
 		if (user) {
-			// setTimeout(() => {
-			// 	navigate("/");
-			// }, 1000);
+			setTimeout(() => {
+				navigate("/");
+			}, 3000);
 		}
 	}, [user, navigate]);
 
 	return (
 		<div id="register">
+			{showAlert && <notification />}
 			<div className="register-container">
 				<div className="register-background"></div>
 				<div className="register-form">
