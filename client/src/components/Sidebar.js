@@ -22,16 +22,16 @@ const Sidebar = (props) => {
 	}, [user]);
 
 	return (
-		<div className="header">
-			<div className="header-logo">竜</div>
+		<div className="sidebar">
+			<div className="sidebar-logo">竜</div>
 			<div
-				className="header-element header-element--home"
+				className="sidebar-element sidebar-element--home"
 				onClick={() => navigate("/")}
 			>
 				Home
 			</div>
 			<div
-				className="header-element header-element--add"
+				className="sidebar-element sidebar-element--add"
 				onClick={() =>
 					navigate("/upload", {
 						state: { topic: "" },
@@ -43,13 +43,13 @@ const Sidebar = (props) => {
 
 			{isActivated ? (
 				<div>
-					<div className="header-element">
+					<div className="sidebar-element">
 						<div className="user_ava">
 							<img src={testUser.ava} alt="user-ava" />
 						</div>
 					</div>
 					<div
-						className="header-element header-element--logout"
+						className="sidebar-element sidebar-element--logout"
 						onClick={logoutUser}
 					>
 						Logout
@@ -58,7 +58,7 @@ const Sidebar = (props) => {
 			) : (
 				<Link
 					to="/login"
-					className="header-element header-element--login"
+					className="sidebar-element sidebar-element--login"
 				>
 					ログイン
 				</Link>

@@ -14,6 +14,11 @@ import {
 	GET_TOPICS_BEGIN,
 	GET_TOPICS_SUCCESS,
 	GET_TOPICS_ERROR,
+	HANDLE_CHANGE,
+	CREATE_OR_UPDATE_VOTE_BEGIN,
+	CREATE_OR_UPDATE_VOTE_SUCCESS,
+	CREATE_OR_UPDATE_VOTE_ERROR,
+	CLEAR_VALUES,
 } from "./actions";
 import { initialState } from "./appContext";
 
@@ -148,6 +153,54 @@ const reducer = (state, action) => {
 			showAlert: true,
 			alertType: "danger",
 			alertText: action.payload.msg,
+		};
+	}
+
+	if (action.type === HANDLE_CHANGE) {
+		return {
+			...state,
+			[action.payload.name]: action.payload.value,
+		};
+	}
+
+	if (action.type === CREATE_OR_UPDATE_VOTE_BEGIN) {
+		return {
+			...state,
+			isLoading: true,
+		};
+	}
+
+	if (action.type === CREATE_OR_UPDATE_VOTE_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			alertType: "success",
+			alertText: "SUCCESS",
+		};
+	}
+
+	if (action.type === CREATE_OR_UPDATE_VOTE_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "danger",
+			alertText: action.payload.msg,
+		};
+	}
+
+	if (action.type === CLEAR_VALUES) {
+		const initialState = {
+			vote: "",
+			design: "",
+			position: "",
+			amount: "",
+			description: "",
+		};
+
+		return {
+			...state,
+			...initialState,
 		};
 	}
 

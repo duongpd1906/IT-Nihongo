@@ -1,4 +1,4 @@
-.header {
+.sidebar {
   float: left;
   height: 100%;
   width: 120px;
@@ -9,7 +9,7 @@
   padding: 10px 0;
   background-color: #000000;
 }
-.header-logo {
+.sidebar-logo {
   font-size: 30px;
   color: white;
   margin: 0 auto;
@@ -18,7 +18,7 @@
   border-bottom: 1px solid grey;
 }
 
-.header-element {
+.sidebar-element {
   color: #ffffff;
   text-transform: uppercase;
   font-size: 12px;
@@ -37,31 +37,31 @@
   cursor: pointer;
 }
 
-.header-element:hover {
+.sidebar-element:hover {
   color: #ffffff;
 }
 
-.header-element--home::before {
+.sidebar-element--home::before {
   content: url('../assets/img/home-icon.svg');
   cursor: pointer;
 }
 
-.header-element--add::before {
+.sidebar-element--add::before {
   content: url('../assets/img/add-icon.svg');
   cursor: pointer;
 }
 
-.header-element--login::before {
+.sidebar-element--login::before {
   content: url('../assets/img/user-icon.svg');
   cursor: pointer;
 }
 
-.header-element--logout::before {
+.sidebar-element--logout::before {
   content: url('../assets/img/logout-icon.svg');
   cursor: pointer;
 }
 
-.header .user {
+.sidebar .user {
   /* position: absolute;
     right: 0; */
   font-weight: bold;
