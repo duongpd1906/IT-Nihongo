@@ -18,6 +18,11 @@ import {
 	GET_TOPICS_BEGIN,
 	GET_TOPICS_SUCCESS,
 	GET_TOPICS_ERROR,
+	HANDLE_CHANGE,
+	CREATE_OR_UPDATE_VOTE_SUCCESS,
+	CREATE_OR_UPDATE_VOTE_ERROR,
+	CLEAR_VALUES,
+	CREATE_OR_UPDATE_VOTE_BEGIN,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -33,6 +38,11 @@ const initialState = {
 	totalTopics: 0,
 	numOfPages: 1,
 	page: 1,
+	vote: false,
+	design: "",
+	amount: "",
+	position: "",
+	description: "",
 };
 
 const AppContext = React.createContext();
@@ -153,18 +163,17 @@ const AppProvider = ({ children }) => {
 				payload: { msg: error.response.data.msg },
 			});
 		}
-		clearAlert()
+		clearAlert();
 	};
 
 	const getAllTopics = async () => {
 		dispatch({ type: GET_TOPICS_BEGIN });
 		try {
 			const { data } = await axios.get(`/api/topic`);
-			console.log(data);
 			const { listTopics } = data;
 			dispatch({
 				type: GET_TOPICS_SUCCESS,
-				payload: { listTopics},
+				payload: { listTopics },
 			});
 		} catch (error) {
 			console.log(error);
@@ -173,7 +182,34 @@ const AppProvider = ({ children }) => {
 				payload: { msg: error.response.data.msg },
 			});
 		}
-		clearAlert()
+		clearAlert();
+	};
+
+	const handleChange = ({ name, value }) => {
+		dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
+	};
+
+	const createOrUpadateTopic = async () => {
+		dispatch({ type: CREATE_OR_UPDATE_VOTE_BEGIN });
+		try {
+			const { vote, design, position, amount, description } = state;
+			await authFetch.post("/vote", {
+				vote,
+				design,
+				position,
+				amount,
+				description,
+			});
+			dispatch({ type: CREATE_OR_UPDATE_VOTE_SUCCESS });
+			dispatch({ type: CLEAR_VALUES });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: CREATE_OR_UPDATE_VOTE_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
 	};
 
 	return (
@@ -186,6 +222,8 @@ const AppProvider = ({ children }) => {
 				logoutUser,
 				addTopic,
 				getAllTopics,
+				handleChange,
+				createOrUpadateTopic,
 			}}
 		>
 			{children}

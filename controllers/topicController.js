@@ -17,6 +17,7 @@ const createTopic = async (req, res) => {
 			res.status(StatusCodes.OK).json({ msg: "Create topic Success" });
 		} else {
 			const topic = await Topic.findOne({ topicName: topicName });
+			checkPermissions(req.user, topic.createdBy);
 			const newImage = {
 				image: image,
 			};
