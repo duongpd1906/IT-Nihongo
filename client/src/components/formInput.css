@@ -16,7 +16,7 @@ label {
   color: gray;
 }
 
-span {
+.form-input span {
   font-size: 12px;
   padding: 3px;
   color: red;
