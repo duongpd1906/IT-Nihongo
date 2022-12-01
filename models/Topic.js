@@ -17,7 +17,11 @@ const TopicSchema = new mongoose.Schema({
 				type: String,
 			},
 		},
-	],	
+	],
+	createdAt: {
+		type: Date,
+		default: Date.now,
+	},
 });
 
 export default mongoose.model("Topic", TopicSchema);
