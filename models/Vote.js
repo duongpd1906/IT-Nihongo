@@ -29,6 +29,10 @@ const VoteSchema = new mongoose.Schema({
 			type: String,
 		},
 	},
+	createdAt: {
+		type: Date,
+		default: Date.now,
+	},
 });
 
 export default mongoose.model("Vote", VoteSchema);

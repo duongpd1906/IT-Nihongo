@@ -19,11 +19,28 @@ const createOrUpdateVote = async (req, res) => {
 	voteFields.detail = detailFields;
 
 	try {
+		if (req.body.vote === false) {
+			const voteNo = await Vote.findOneAndUpdate(
+				{
+					createdBy: req.user.userId,
+					topic: topicId,
+					design: design,
+				},
+				{
+					vote: false,
+					createdBy: req.user.userId,
+					topic: topicId,
+					detail: {},
+				},
+				{ new: true, upsert: true, setDefaultsOnInsert: true }
+			);
+			return res.status(StatusCodes.OK).json(voteNo);
+		}
 		// Using upsert option (creates new doc if no match is found):
 		const topic = await Topic.findById(topicId);
 		voteFields.topic = topic;
 		let vote = await Vote.findOneAndUpdate(
-			{ createdBy: req.user.id },
+			{ createdBy: req.user.userId, topic: topicId, design: design },
 			{ $set: voteFields },
 			{ new: true, upsert: true, setDefaultsOnInsert: true }
 		);
@@ -36,8 +53,13 @@ const createOrUpdateVote = async (req, res) => {
 	}
 };
 
+const getAllVotes = async (req, res) => {
+	const allVotes = await Vote.find();
+	res.status(StatusCodes.OK).json({ allVotes });
+};
+
 const getVotes = async (req, res) => {
-	const votes = await Vote.find();
+	const votes = await Vote.find({ createdBy: req.params.userid });
 	res.status(StatusCodes.OK).json({ votes });
 };
 
@@ -54,4 +76,4 @@ const deleteVote = async (req, res) => {
 	}
 };
 
-export { createOrUpdateVote, getVotes, deleteVote };
+export { createOrUpdateVote, getVotes, deleteVote, getAllVotes };

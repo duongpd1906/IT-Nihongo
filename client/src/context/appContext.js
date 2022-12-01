@@ -189,7 +189,7 @@ const AppProvider = ({ children }) => {
 		dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
 	};
 
-	const createOrUpadateTopic = async () => {
+	const createOrUpadateVote = async () => {
 		dispatch({ type: CREATE_OR_UPDATE_VOTE_BEGIN });
 		try {
 			const { vote, design, position, amount, description } = state;
@@ -223,7 +223,7 @@ const AppProvider = ({ children }) => {
 				addTopic,
 				getAllTopics,
 				handleChange,
-				createOrUpadateTopic,
+				createOrUpadateVote,
 			}}
 		>
 			{children}
