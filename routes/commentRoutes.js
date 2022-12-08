@@ -5,10 +5,15 @@ const router = express.Router();
 
 import {
 	createNewComments,
+	deleteComment,
+	getAllComments,
 	getComments,
+	getCommentsOfMe,
 } from "../controllers/commentController.js";
 
-router.route("/").post(authenticateUser, createNewComments);
-router.route("/:id").get(getComments);
+router.route("/").post(authenticateUser, createNewComments).get(getAllComments);
+router.route("/:designId", getComments);
+router.route("/:id").delete(deleteComment);
+router.route("/me").get(authenticateUser, getCommentsOfMe);
 
 export default router;

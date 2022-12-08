@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
@@ -5,9 +6,9 @@ import { useAppContext } from "../../context/appContext";
 import "./Topic.css";
 
 const Topic = (props) => {
-	const { src, name_topic, list_img } = props;
+	const { src, name_topic, list_img, vote, topicId } = props;
 
-	const { handleChange } = useAppContext();
+	const { handleChange, handleTopicChange } = useAppContext();
 
 	const navigate = useNavigate();
 
@@ -19,11 +20,25 @@ const Topic = (props) => {
 		} else {
 			value = false;
 		}
+		handleTopicChange({ topicId });
 		handleChange({ name, value });
 		navigate("/design", {
 			state: { name: name_topic, list_img: list_img, src: src },
 		});
 	};
+
+	const [checkedX, setCheckedX] = useState(false);
+	const [checkedO, setCheckedO] = useState(false);
+
+	useEffect(() => {
+		if (vote) {
+			if (vote.vote) {
+				setCheckedX(true);
+			} else {
+				setCheckedO(true);
+			}
+		}
+	}, []);
 
 	return (
 		<div className="topic">
@@ -50,6 +65,7 @@ const Topic = (props) => {
 							{["radio"].map((type) => (
 								<div key={`inline-${type}`} className="mb-3">
 									<Form.Check
+										checked={checkedX}
 										inline
 										label="X"
 										value="X"
@@ -58,6 +74,7 @@ const Topic = (props) => {
 										id={`inline-${type}-X`}
 									/>
 									<Form.Check
+										checked={checkedO}
 										inline
 										label="O"
 										value="O"

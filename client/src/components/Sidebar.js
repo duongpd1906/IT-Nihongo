@@ -43,7 +43,10 @@ const Sidebar = (props) => {
 
 			{isActivated ? (
 				<div>
-					<div className="sidebar-element">
+					<div
+						className="sidebar-element"
+						onClick={() => navigate("/profile")}
+					>
 						<div className="user_ava">
 							<img src={testUser.ava} alt="user-ava" />
 						</div>

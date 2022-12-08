@@ -63,6 +63,11 @@ const getVotes = async (req, res) => {
 	res.status(StatusCodes.OK).json({ votes });
 };
 
+const getMyVotes = async (req, res) => {
+	const myVotes = await Vote.find({ createdBy: req.user.userId });
+	res.status(StatusCodes.OK).json({ myVotes });
+};
+
 const deleteVote = async (req, res) => {
 	try {
 		const id = req.params.id;
@@ -76,4 +81,4 @@ const deleteVote = async (req, res) => {
 	}
 };
 
-export { createOrUpdateVote, getVotes, deleteVote, getAllVotes };
+export { createOrUpdateVote, getVotes, deleteVote, getAllVotes, getMyVotes };
