@@ -1,11 +1,21 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import Notification from "../../components/Notification";
 import { useAppContext } from "../../context/appContext";
 import "./Detail.css";
 
 function Detail() {
 	const { state } = useLocation();
 
-	const { handleChange } = useAppContext();
+	const navigate = useNavigate();
+
+	const {
+		handleChange,
+		createOrUpadateVote,
+		amount,
+		position,
+		description,
+		showAlert,
+	} = useAppContext();
 
 	const handleDetailInput = (e) => {
 		const name = e.target.name;
@@ -13,10 +23,18 @@ function Detail() {
 		handleChange({ name, value });
 	};
 
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		createOrUpadateVote();
+		setTimeout(() => {
+			navigate("/");
+		}, 3000);
+	};
+
 	return (
 		<div className="detail-page">
+			{showAlert && <Notification />}
 			<img src={state.design} alt="detail" className="detail-page-bg" />
-
 			<div className="detail-page-container">
 				<h2 className="detail-page-title">詳細 デザイン</h2>
 				<h2 className="detail-page-title">Topic: {state.name}</h2>
@@ -42,6 +60,7 @@ function Detail() {
 								className="input-control"
 								type="text"
 								name="amount"
+								value={amount}
 							/>
 						</div>
 						<div
@@ -55,6 +74,7 @@ function Detail() {
 								className="input-control"
 								type="text"
 								name="position"
+								value={position}
 							/>
 						</div>
 						<div
@@ -71,9 +91,14 @@ function Detail() {
 								className="input-control"
 								type="text"
 								name="description"
+								value={description}
 							/>
 						</div>
-						<button type="submit" className="form-btn-submit">
+						<button
+							type="submit"
+							className="form-btn-submit"
+							onClick={handleSubmit}
+						>
 							確認
 						</button>
 					</form>

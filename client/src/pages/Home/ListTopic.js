@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import Container from "react-bootstrap/Container";
-import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { useAppContext } from "../../context/appContext";
 import "./ListTopic.css";
@@ -14,10 +13,14 @@ const ListTopic = (props) => {
 		setIndex(selectedIndex);
 	};
 
-	const { getAllTopics, listTopics, isLoading } = useAppContext();
+	const { getAllTopics, listTopics, isLoading, getMyVotes, user, myVotes } =
+		useAppContext();
 
 	useEffect(() => {
 		getAllTopics();
+		if (user) {
+			getMyVotes();
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -38,6 +41,12 @@ const ListTopic = (props) => {
 						<Container>
 							{list.topics.map((topic) => (
 								<Topic
+									vote={
+										myVotes.filter(
+											(vote) => vote.topic === topic._id
+										)[0]
+									}
+									topicId={topic._id}
 									name_topic={topic.topicName}
 									src={topic.list_img[0].image}
 									list_img={topic.list_img}

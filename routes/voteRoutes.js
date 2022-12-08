@@ -7,11 +7,11 @@ import {
 	createOrUpdateVote,
 	deleteVote,
 	getAllVotes,
-	getVotes,
+	getMyVotes,
 } from "../controllers/voteController.js";
 
 router.route("/").post(authenticateUser, createOrUpdateVote).get(getAllVotes);
-router.route("/:userid").get(getVotes);
+router.route("/me").get(authenticateUser, getMyVotes);
 router.route("/:id").delete(authenticateUser, deleteVote);
 
 export default router;

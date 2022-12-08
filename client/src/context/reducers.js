@@ -19,6 +19,10 @@ import {
 	CREATE_OR_UPDATE_VOTE_SUCCESS,
 	CREATE_OR_UPDATE_VOTE_ERROR,
 	CLEAR_VALUES,
+	GET_MY_VOTES_BEGIN,
+	GET_MY_VOTES_SUCCESS,
+	GET_MY_VOTES_ERROR,
+	HANDLE_TOPIC_CHANGE,
 } from "./actions";
 import { initialState } from "./appContext";
 
@@ -163,6 +167,13 @@ const reducer = (state, action) => {
 		};
 	}
 
+	if (action.type === HANDLE_TOPIC_CHANGE) {
+		return {
+			...state,
+			topicId: action.payload.topicId,
+		};
+	}
+
 	if (action.type === CREATE_OR_UPDATE_VOTE_BEGIN) {
 		return {
 			...state,
@@ -174,6 +185,7 @@ const reducer = (state, action) => {
 		return {
 			...state,
 			isLoading: false,
+			showAlert: true,
 			alertType: "success",
 			alertText: "SUCCESS",
 		};
@@ -201,6 +213,33 @@ const reducer = (state, action) => {
 		return {
 			...state,
 			...initialState,
+		};
+	}
+
+	if (action.type === GET_MY_VOTES_BEGIN) {
+		return {
+			...state,
+			isLoading: true,
+		};
+	}
+
+	if (action.type === GET_MY_VOTES_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			myVotes: action.payload.myVotes,
+			alertType: "success",
+			alertText: "SUCCESS",
+		};
+	}
+
+	if (action.type === GET_MY_VOTES_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "danger",
+			alertText: action.payload.msg,
 		};
 	}
 

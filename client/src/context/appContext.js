@@ -23,6 +23,12 @@ import {
 	CREATE_OR_UPDATE_VOTE_ERROR,
 	CLEAR_VALUES,
 	CREATE_OR_UPDATE_VOTE_BEGIN,
+	GET_COMMENTS_BEGIN,
+	GET_COMMENTS_ERROR,
+	GET_MY_VOTES_BEGIN,
+	GET_MY_VOTES_ERROR,
+	GET_MY_VOTES_SUCCESS,
+	HANDLE_TOPIC_CHANGE,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -39,10 +45,13 @@ const initialState = {
 	numOfPages: 1,
 	page: 1,
 	vote: false,
+	topicId: "",
 	design: "",
 	amount: "",
 	position: "",
 	description: "",
+	myComments: [],
+	myVotes: [],
 };
 
 const AppContext = React.createContext();
@@ -189,11 +198,17 @@ const AppProvider = ({ children }) => {
 		dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
 	};
 
+	const handleTopicChange = ({ topicId }) => {
+		dispatch({ type: HANDLE_TOPIC_CHANGE, payload: { topicId } });
+	};
+
 	const createOrUpadateVote = async () => {
 		dispatch({ type: CREATE_OR_UPDATE_VOTE_BEGIN });
 		try {
-			const { vote, design, position, amount, description } = state;
+			const { vote, design, position, amount, description, topicId } =
+				state;
 			await authFetch.post("/vote", {
+				topicId,
 				vote,
 				design,
 				position,
@@ -212,6 +227,36 @@ const AppProvider = ({ children }) => {
 		clearAlert();
 	};
 
+	const getComments = async () => {
+		dispatch({ type: GET_COMMENTS_BEGIN });
+		try {
+			const { data } = await axios.get(`/api`);
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: GET_COMMENTS_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+	};
+
+	const getMyVotes = async () => {
+		dispatch({ type: GET_MY_VOTES_BEGIN });
+		try {
+			const { data } = await authFetch.get(`/vote/me`);
+			const { myVotes } = data;
+			dispatch({ type: GET_MY_VOTES_SUCCESS, payload: { myVotes } });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: GET_MY_VOTES_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+	};
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -224,6 +269,8 @@ const AppProvider = ({ children }) => {
 				getAllTopics,
 				handleChange,
 				createOrUpadateVote,
+				getMyVotes,
+				handleTopicChange,
 			}}
 		>
 			{children}
