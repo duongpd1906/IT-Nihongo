@@ -4,20 +4,23 @@ import Comment from "../models/Comment.js";
 const getComments = async (req, res) => {
 	const comments = await Comment.find({
 		design: req.params.designId,
-	}).populate("createdBy");
+	}).populate("topic", ["topicName", "list_img"]);
 	res.status(StatusCodes.OK).json({ comments });
 };
 
 const getAllComments = async (req, res) => {
-	const getAllComments = await Comment.find();
+	const getAllComments = await Comment.find().populate("topic", [
+		"topicName",
+		"list_img",
+	]);
 	res.status(StatusCodes.OK).json({ getAllComments });
 };
 
 const getCommentsOfMe = async (req, res) => {
-	const commentsOfMe = await Comment.find({
+	const myComments = await Comment.find({
 		createdBy: req.user.userId,
 	}).populate("topic", ["topicName", "list_img"]);
-	res.status(StatusCodes.OK).json({ commentsOfMe });
+	res.status(StatusCodes.OK).json({ myComments });
 };
 
 const createNewComments = async (req, res) => {

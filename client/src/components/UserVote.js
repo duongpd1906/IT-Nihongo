@@ -2,50 +2,75 @@ import { useState } from "react";
 import NotificationModal from "./NotificationModal";
 import "./UserVote.css";
 
-function UserVote() {
+function UserVote(props) {
+	const [modalShown, toggleModal] = useState(false);
 
-  const [modalShown, toggleModal] = useState(false);
+	const detail = props.vote.detail;
 
-  return (
-    <div className="vote__item">
-      <div className="vote__header">
-        Topic 2
-      </div>
-      <div className="vote__main">
-        <div className="vote__detail">
-          <span className="vote__detail-title">Vote</span>
-          <div className="detail__item">
-            <span>Vote: </span>
-            <span>Yes</span>
-          </div>
-          <div className="detail__item">
-            <span>Design: </span>
-            <img src="https://images.adsttc.com/media/images/5de8/74f9/3312/fdbc/3500/005b/large_jpg/Culturist_5.jpg?1575515353" alt="design" />
-          </div>
-        </div>
-        <div className="vote__detail">
-          <span className="vote__detail-title">Detail</span>
-          <div className="detail__item">
-            <span>Amount: </span>
-            <span>2</span>
-          </div>
-          <div className="detail__item">
-            <span>Position: </span>
-            <span>anywhere</span>
-          </div>
-          <div className="detail__item">
-            <span>Description: </span>
-            <span>none</span>
-          </div>
-        </div>
-        <div className="cta">
-          <button className="btn-edit">edit</button>
-          <button className="btn-delete" onClick={() => { toggleModal(!modalShown) }}>delete</button>
-        </div>
-      </div>
-      <NotificationModal shown={modalShown} close={() => { toggleModal(false) }} >Are you want to permanently delete this Vote?</NotificationModal>
-    </div>
-  );
+	const topic = props.vote.topic;
+
+	const design = topic.list_img.filter(
+		(img) => img._id === props.vote.design
+	)[0];
+
+	console.log(props.vote);
+
+	return (
+		<div className="vote__item">
+			<div className="vote__header">{topic.topicName}</div>
+			<div className="vote__main">
+				<div className="vote__detail">
+					<span className="vote__detail-title">Vote</span>
+					<div className="detail__item">
+						<span>Vote: </span>
+						<span>{props.vote.vote ? "YES" : "NO"}</span>
+					</div>
+					<div className="detail__item">
+						<span>Design: </span>
+						{design && <img src={design.image} alt="design" />}
+					</div>
+				</div>
+				<div className="vote__detail">
+					<span className="vote__detail-title">Detail</span>
+					{detail && (
+						<>
+							<div className="detail__item">
+								<span>Amount: </span>
+								<span>{detail.amount}</span>
+							</div>
+							<div className="detail__item">
+								<span>Position: </span>
+								<span>{detail.position}</span>
+							</div>
+							<div className="detail__item">
+								<span>Description: </span>
+								<span>{detail.description}</span>
+							</div>
+						</>
+					)}
+				</div>
+				<div className="cta">
+					<button className="btn-edit">edit</button>
+					<button
+						className="btn-delete"
+						onClick={() => {
+							toggleModal(!modalShown);
+						}}
+					>
+						delete
+					</button>
+				</div>
+			</div>
+			<NotificationModal
+				shown={modalShown}
+				close={() => {
+					toggleModal(false);
+				}}
+			>
+				Are you want to permanently delete this Vote?
+			</NotificationModal>
+		</div>
+	);
 }
 
 export default UserVote;

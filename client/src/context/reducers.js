@@ -23,6 +23,12 @@ import {
 	GET_MY_VOTES_SUCCESS,
 	GET_MY_VOTES_ERROR,
 	HANDLE_TOPIC_CHANGE,
+	GET_MY_TOPICS_BEGIN,
+	GET_MY_TOPICS_SUCCESS,
+	GET_MY_TOPICS_ERROR,
+	GET_MY_COMMENTS_BEGIN,
+	GET_MY_COMMENTS_SUCCESS,
+	GET_MY_COMMENTS_ERROR,
 } from "./actions";
 import { initialState } from "./appContext";
 
@@ -234,6 +240,60 @@ const reducer = (state, action) => {
 	}
 
 	if (action.type === GET_MY_VOTES_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "danger",
+			alertText: action.payload.msg,
+		};
+	}
+
+	if (action.type === GET_MY_TOPICS_BEGIN) {
+		return {
+			...state,
+			isLoading: true,
+		};
+	}
+
+	if (action.type === GET_MY_TOPICS_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			myTopics: action.payload.myTopics,
+			alertType: "success",
+			alertText: "SUCCESS",
+		};
+	}
+
+	if (action.type === GET_MY_TOPICS_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "danger",
+			alertText: action.payload.msg,
+		};
+	}
+
+	if (action.type === GET_MY_COMMENTS_BEGIN) {
+		return {
+			...state,
+			isLoading: true,
+		};
+	}
+
+	if (action.type === GET_MY_COMMENTS_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			myTopics: action.payload.myTopics,
+			alertType: "success",
+			alertText: "SUCCESS",
+		};
+	}
+
+	if (action.type === GET_MY_COMMENTS_ERROR) {
 		return {
 			...state,
 			isLoading: false,

@@ -29,6 +29,12 @@ import {
 	GET_MY_VOTES_ERROR,
 	GET_MY_VOTES_SUCCESS,
 	HANDLE_TOPIC_CHANGE,
+	GET_MY_TOPICS_BEGIN,
+	GET_MY_TOPICS_SUCCESS,
+	GET_MY_TOPICS_ERROR,
+	GET_MY_COMMENTS_BEGIN,
+	GET_MY_COMMENTS_SUCCESS,
+	GET_MY_COMMENTS_ERROR,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -52,6 +58,7 @@ const initialState = {
 	description: "",
 	myComments: [],
 	myVotes: [],
+	myTopics: [],
 };
 
 const AppContext = React.createContext();
@@ -227,6 +234,22 @@ const AppProvider = ({ children }) => {
 		clearAlert();
 	};
 
+	const getMyTopics = async () => {
+		dispatch({ type: GET_MY_TOPICS_BEGIN });
+		try {
+			const { data } = await authFetch.get(`/topic/me`);
+			const { myTopics } = data;
+			dispatch({ type: GET_MY_TOPICS_SUCCESS, payload: { myTopics } });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: GET_MY_TOPICS_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+	};
+
 	const getComments = async () => {
 		dispatch({ type: GET_COMMENTS_BEGIN });
 		try {
@@ -257,6 +280,25 @@ const AppProvider = ({ children }) => {
 		clearAlert();
 	};
 
+	const getMyComments = async () => {
+		dispatch({ type: GET_MY_COMMENTS_BEGIN });
+		try {
+			const { data } = await authFetch.get(`/comment/me`);
+			const { myComments } = data;
+			dispatch({
+				type: GET_MY_COMMENTS_SUCCESS,
+				payload: { myComments },
+			});
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: GET_MY_COMMENTS_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+	};
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -271,6 +313,8 @@ const AppProvider = ({ children }) => {
 				createOrUpadateVote,
 				getMyVotes,
 				handleTopicChange,
+				getMyTopics,
+				getMyComments,
 			}}
 		>
 			{children}

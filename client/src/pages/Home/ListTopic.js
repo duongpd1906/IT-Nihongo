@@ -43,7 +43,8 @@ const ListTopic = (props) => {
 								<Topic
 									vote={
 										myVotes.filter(
-											(vote) => vote.topic === topic._id
+											(vote) =>
+												vote.topic._id === topic._id
 										)[0]
 									}
 									topicId={topic._id}

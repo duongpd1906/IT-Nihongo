@@ -9,6 +9,7 @@ import {
 	createTopic,
 	updateTopic,
 	deleteTopic,
+	getMyTopics,
 } from "../controllers/topicController.js";
 
 router
@@ -20,5 +21,7 @@ router
 	.route("/:id")
 	.patch(upload.single("image"), authenticateUser, updateTopic)
 	.delete(authenticateUser, deleteTopic);
+
+router.route("/me").get(authenticateUser, getMyTopics);
 
 export default router;
