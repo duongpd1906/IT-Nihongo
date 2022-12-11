@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import NeedToLogin from "../../components/NeedToLogin.js";
 import Notification from "../../components/Notification.js";
 import { useAppContext } from "../../context/appContext";
 import "./upload.css";
@@ -8,7 +9,10 @@ function UpLoad() {
 	const { state } = useLocation();
 
 	const [selectedFile, setSelectedFile] = useState(null);
-	const [topicName, setTopicName] = useState(state.topic);
+	const [topicName, setTopicName] = useState(
+		state.topic ? state.topic : null
+	);
+	const [modalShow, setModalShow] = useState(false);
 
 	const onTextChange = (e) => {
 		setTopicName(e.target.value);
@@ -59,8 +63,11 @@ function UpLoad() {
 		}
 	};
 
-	const { addTopic, showAlert, displayAlert } = useAppContext();
+	const showModal = () => {
+		setModalShow(true)
+	}
 
+	const { addTopic, showAlert, displayAlert, user } = useAppContext();
 
 	return (
 		<div className="upload-form">
@@ -75,7 +82,8 @@ function UpLoad() {
 						type="text"
 						placeholder="Type the name of new topic"
 						onChange={onTextChange}
-						value={state ? state.topic : ""}
+						value={topicName}
+						disabled={state.topic ? true : false}
 					></input>
 				</div>
 
@@ -87,13 +95,14 @@ function UpLoad() {
 					/>
 					<button
 						className="upload-form__button-submit"
-						onClick={onFileUpload}
+						onClick={user ? onFileUpload : showModal}
 					>
 						upload
 					</button>
 				</div>
 				{fileData()}
 			</div>
+			<NeedToLogin show={modalShow} onHide={() => setModalShow(false)} />
 		</div>
 	);
 }

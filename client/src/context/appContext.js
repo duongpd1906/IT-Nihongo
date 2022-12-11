@@ -18,6 +18,23 @@ import {
 	GET_TOPICS_BEGIN,
 	GET_TOPICS_SUCCESS,
 	GET_TOPICS_ERROR,
+	HANDLE_CHANGE,
+	CREATE_OR_UPDATE_VOTE_SUCCESS,
+	CREATE_OR_UPDATE_VOTE_ERROR,
+	CLEAR_VALUES,
+	CREATE_OR_UPDATE_VOTE_BEGIN,
+	GET_COMMENTS_BEGIN,
+	GET_COMMENTS_ERROR,
+	GET_MY_VOTES_BEGIN,
+	GET_MY_VOTES_ERROR,
+	GET_MY_VOTES_SUCCESS,
+	HANDLE_TOPIC_CHANGE,
+	GET_MY_TOPICS_BEGIN,
+	GET_MY_TOPICS_SUCCESS,
+	GET_MY_TOPICS_ERROR,
+	GET_MY_COMMENTS_BEGIN,
+	GET_MY_COMMENTS_SUCCESS,
+	GET_MY_COMMENTS_ERROR,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -33,6 +50,15 @@ const initialState = {
 	totalTopics: 0,
 	numOfPages: 1,
 	page: 1,
+	vote: false,
+	topicId: "",
+	design: "",
+	amount: "",
+	position: "",
+	description: "",
+	myComments: [],
+	myVotes: [],
+	myTopics: [],
 };
 
 const AppContext = React.createContext();
@@ -153,18 +179,17 @@ const AppProvider = ({ children }) => {
 				payload: { msg: error.response.data.msg },
 			});
 		}
-		clearAlert()
+		clearAlert();
 	};
 
 	const getAllTopics = async () => {
 		dispatch({ type: GET_TOPICS_BEGIN });
 		try {
 			const { data } = await axios.get(`/api/topic`);
-			console.log(data);
 			const { listTopics } = data;
 			dispatch({
 				type: GET_TOPICS_SUCCESS,
-				payload: { listTopics},
+				payload: { listTopics },
 			});
 		} catch (error) {
 			console.log(error);
@@ -173,7 +198,105 @@ const AppProvider = ({ children }) => {
 				payload: { msg: error.response.data.msg },
 			});
 		}
-		clearAlert()
+		clearAlert();
+	};
+
+	const handleChange = ({ name, value }) => {
+		dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
+	};
+
+	const handleTopicChange = ({ topicId }) => {
+		dispatch({ type: HANDLE_TOPIC_CHANGE, payload: { topicId } });
+	};
+
+	const createOrUpadateVote = async () => {
+		dispatch({ type: CREATE_OR_UPDATE_VOTE_BEGIN });
+		try {
+			const { vote, design, position, amount, description, topicId } =
+				state;
+			await authFetch.post("/vote", {
+				topicId,
+				vote,
+				design,
+				position,
+				amount,
+				description,
+			});
+			dispatch({ type: CREATE_OR_UPDATE_VOTE_SUCCESS });
+			dispatch({ type: CLEAR_VALUES });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: CREATE_OR_UPDATE_VOTE_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+	};
+
+	const getMyTopics = async () => {
+		dispatch({ type: GET_MY_TOPICS_BEGIN });
+		try {
+			const { data } = await authFetch.get(`/topic/me`);
+			const { myTopics } = data;
+			dispatch({ type: GET_MY_TOPICS_SUCCESS, payload: { myTopics } });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: GET_MY_TOPICS_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+	};
+
+	const getComments = async () => {
+		dispatch({ type: GET_COMMENTS_BEGIN });
+		try {
+			const { data } = await axios.get(`/api`);
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: GET_COMMENTS_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+	};
+
+	const getMyVotes = async () => {
+		dispatch({ type: GET_MY_VOTES_BEGIN });
+		try {
+			const { data } = await authFetch.get(`/vote/me`);
+			const { myVotes } = data;
+			dispatch({ type: GET_MY_VOTES_SUCCESS, payload: { myVotes } });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: GET_MY_VOTES_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+	};
+
+	const getMyComments = async () => {
+		dispatch({ type: GET_MY_COMMENTS_BEGIN });
+		try {
+			const { data } = await authFetch.get(`/comment/me`);
+			const { myComments } = data;
+			dispatch({
+				type: GET_MY_COMMENTS_SUCCESS,
+				payload: { myComments },
+			});
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: GET_MY_COMMENTS_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
 	};
 
 	return (
@@ -186,6 +309,12 @@ const AppProvider = ({ children }) => {
 				logoutUser,
 				addTopic,
 				getAllTopics,
+				handleChange,
+				createOrUpadateVote,
+				getMyVotes,
+				handleTopicChange,
+				getMyTopics,
+				getMyComments,
 			}}
 		>
 			{children}

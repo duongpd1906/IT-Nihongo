@@ -1,0 +1,82 @@
+.profile-page .nav-tabs {
+  width: 100%;
+}
+
+.profile-page .nav-link {
+  width: 100%;
+}
+
+.profile-page .tab-content {
+  width: 100%;
+  height: fit-content;
+  padding: 20px;
+  border: 1px solid #dee2d6;
+  border-top: none;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.tab-container {
+  width: 100%;
+}
+
+.tab-container .comment__list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.tab-container .cta {
+  padding: 5px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-left: 1px solid #dcdcdc;
+}
+
+.tab-container .btn-edit,
+.tab-container .btn-delete,
+.tab-container .btn-save {
+  display: block;
+  width: 50px;
+  padding: 5px;
+  outline: none;
+  border: none;
+  color: #ffffff;
+  font-size: 12px;
+  text-transform: capitalize;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.tab-container .btn-edit {
+  background: #d4ac0d;
+}
+
+.tab-container .btn-delete {
+  background: #cb4335;
+}
+
+.tab-container .btn-save {
+  background: #3cb371;
+}
+
+.tab-container .btn-edit.display-none {
+  display: none;
+}
+
+.tab-container .btn-save.display-none {
+  display: none;
+}
+
+.tab-container .vote__list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.tab-container .topic__list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}

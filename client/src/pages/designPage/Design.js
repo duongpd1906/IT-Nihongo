@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -6,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import "./Design.css";
 import imgGirl from "../../assets/img/unnamed.png";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAppContext } from "../../context/appContext";
 
 function DesignChosen() {
 	const navigate = useNavigate();
@@ -57,14 +59,23 @@ function DesignChosen() {
 
 	const { state } = useLocation();
 
+	const { handleChange } = useAppContext();
+
+	const handleSubmit = () => {
+		handleChange({
+			name: "design",
+			value: item ? item._id : state.list_img[0]._id,
+		});
+		navigate("/detail", {
+			state: {
+				name: state.name,
+				design: item ? item.image : state.list_img[0].image,
+			},
+		});
+	};
 
 	return (
 		<div className="design-form">
-			<img
-				className="demo-bg"
-				src="https://statics.vinpearl.com/dinh-ban-co-2_1629274421.jpg"
-				alt=""
-			></img>
 			<div className="design-title">
 				<div>Topic: {state.name}</div>
 				<p>デザインを選ぶ</p>
@@ -101,12 +112,70 @@ function DesignChosen() {
 				<div className="design-display">
 					<img src={`${item ? item.image : state.src}`}></img>
 				</div>
-				<div className="design-label2">確認</div>
+				<div className="design-label2" onClick={handleSubmit}>
+					確認
+				</div>
 				<div className="design-comment">
 					<div>このデザインをフィードバックする</div>
 					<div className="submit-button">
 						<input type="text" placeholder="comment here"></input>
 						<Button variant="outline-primary">select</Button>{" "}
+					</div>
+				</div>
+				<div className="comment-list-container">
+					<div className="comment-container">
+						<div className="user_comment">
+							<img
+								src="https://i.pinimg.com/originals/a9/c8/a3/a9c8a371859b14e6505835d0d465f9d5.jpg"
+								alt=""
+							/>
+						</div>
+						<div className="comment_main">
+							<div className="comment_header">
+								<div className="comment_information">
+									PDD Commented 40 minute ago{" "}
+								</div>
+							</div>
+							<div className="comment_body">
+								<div>This design so beautiful</div>
+							</div>
+						</div>
+					</div>
+					<div className="comment-container">
+						<div className="user_comment">
+							<img
+								src="https://i.pinimg.com/originals/a9/c8/a3/a9c8a371859b14e6505835d0d465f9d5.jpg"
+								alt=""
+							/>
+						</div>
+						<div className="comment_main">
+							<div className="comment_header">
+								<div className="comment_information">
+									PDD Commented 40 minute ago{" "}
+								</div>
+							</div>
+							<div className="comment_body">
+								<div>This design so beautiful</div>
+							</div>
+						</div>
+					</div>
+					<div className="comment-container">
+						<div className="user_comment">
+							<img
+								src="https://i.pinimg.com/originals/a9/c8/a3/a9c8a371859b14e6505835d0d465f9d5.jpg"
+								alt=""
+							/>
+						</div>
+						<div className="comment_main">
+							<div className="comment_header">
+								<div className="comment_information">
+									PDD Commented 40 minute ago{" "}
+								</div>
+							</div>
+							<div className="comment_body">
+								<div>This design so beautiful</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

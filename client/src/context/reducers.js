@@ -14,6 +14,21 @@ import {
 	GET_TOPICS_BEGIN,
 	GET_TOPICS_SUCCESS,
 	GET_TOPICS_ERROR,
+	HANDLE_CHANGE,
+	CREATE_OR_UPDATE_VOTE_BEGIN,
+	CREATE_OR_UPDATE_VOTE_SUCCESS,
+	CREATE_OR_UPDATE_VOTE_ERROR,
+	CLEAR_VALUES,
+	GET_MY_VOTES_BEGIN,
+	GET_MY_VOTES_SUCCESS,
+	GET_MY_VOTES_ERROR,
+	HANDLE_TOPIC_CHANGE,
+	GET_MY_TOPICS_BEGIN,
+	GET_MY_TOPICS_SUCCESS,
+	GET_MY_TOPICS_ERROR,
+	GET_MY_COMMENTS_BEGIN,
+	GET_MY_COMMENTS_SUCCESS,
+	GET_MY_COMMENTS_ERROR,
 } from "./actions";
 import { initialState } from "./appContext";
 
@@ -142,6 +157,143 @@ const reducer = (state, action) => {
 	}
 
 	if (action.type === GET_TOPICS_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "danger",
+			alertText: action.payload.msg,
+		};
+	}
+
+	if (action.type === HANDLE_CHANGE) {
+		return {
+			...state,
+			[action.payload.name]: action.payload.value,
+		};
+	}
+
+	if (action.type === HANDLE_TOPIC_CHANGE) {
+		return {
+			...state,
+			topicId: action.payload.topicId,
+		};
+	}
+
+	if (action.type === CREATE_OR_UPDATE_VOTE_BEGIN) {
+		return {
+			...state,
+			isLoading: true,
+		};
+	}
+
+	if (action.type === CREATE_OR_UPDATE_VOTE_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "success",
+			alertText: "SUCCESS",
+		};
+	}
+
+	if (action.type === CREATE_OR_UPDATE_VOTE_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "danger",
+			alertText: action.payload.msg,
+		};
+	}
+
+	if (action.type === CLEAR_VALUES) {
+		const initialState = {
+			vote: "",
+			design: "",
+			position: "",
+			amount: "",
+			description: "",
+		};
+
+		return {
+			...state,
+			...initialState,
+		};
+	}
+
+	if (action.type === GET_MY_VOTES_BEGIN) {
+		return {
+			...state,
+			isLoading: true,
+		};
+	}
+
+	if (action.type === GET_MY_VOTES_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			myVotes: action.payload.myVotes,
+			alertType: "success",
+			alertText: "SUCCESS",
+		};
+	}
+
+	if (action.type === GET_MY_VOTES_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "danger",
+			alertText: action.payload.msg,
+		};
+	}
+
+	if (action.type === GET_MY_TOPICS_BEGIN) {
+		return {
+			...state,
+			isLoading: true,
+		};
+	}
+
+	if (action.type === GET_MY_TOPICS_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			myTopics: action.payload.myTopics,
+			alertType: "success",
+			alertText: "SUCCESS",
+		};
+	}
+
+	if (action.type === GET_MY_TOPICS_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "danger",
+			alertText: action.payload.msg,
+		};
+	}
+
+	if (action.type === GET_MY_COMMENTS_BEGIN) {
+		return {
+			...state,
+			isLoading: true,
+		};
+	}
+
+	if (action.type === GET_MY_COMMENTS_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			myTopics: action.payload.myTopics,
+			alertType: "success",
+			alertText: "SUCCESS",
+		};
+	}
+
+	if (action.type === GET_MY_COMMENTS_ERROR) {
 		return {
 			...state,
 			isLoading: false,

@@ -14,9 +14,13 @@ import connectDB from "./db/connect.js";
 //routers
 import authRoutes from "./routes/authRoutes.js";
 import topicRoutes from "./routes/topicRoutes.js";
+import commentRoutes from "./routes/commentRoutes.js";
+import voteRoutes from "./routes/voteRoutes.js";
 
 app.use("/api/auth", authRoutes);
 app.use("/api/topic", topicRoutes);
+app.use("/api/comment", commentRoutes);
+app.use("/api/vote", voteRoutes);
 
 app.get("/", (req, res) => {
 	res.send("hello world");

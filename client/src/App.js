@@ -9,6 +9,7 @@ import DesignChosen from "./pages/designPage/Design";
 import SharedLayout from "./pages/SharedLayout";
 import AdminDetailVote from "./pages/adminDetailVote/AdminDetail";
 import Topicmanager from "./pages/Topicmanager";
+import Profile from "./pages/Profile";
 
 function App() {
 	return (
@@ -16,6 +17,7 @@ function App() {
 			<Routes>
 				<Route path="/" element={<SharedLayout />}>
 					<Route index element={<Home />} />
+					<Route path="/profile" element={<Profile />} />
 					<Route path="/upload" element={<UpLoad />} />
 					<Route path="/detail" element={<Detail />} />
 					<Route path="/design" element={<DesignChosen />} />

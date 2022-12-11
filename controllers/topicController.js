@@ -17,6 +17,7 @@ const createTopic = async (req, res) => {
 			res.status(StatusCodes.OK).json({ msg: "Create topic Success" });
 		} else {
 			const topic = await Topic.findOne({ topicName: topicName });
+			checkPermissions(req.user, topic.createdBy);
 			const newImage = {
 				image: image,
 			};
@@ -86,6 +87,11 @@ const updateTopic = async (req, res) => {
 	res.status(StatusCodes.OK).json({ updatedTopic });
 };
 
+const getMyTopics = async (req, res) => {
+	const myTopics = await Topic.find({ createdBy: req.user.userId });
+	res.status(StatusCodes.OK).json({ myTopics });
+};
+
 const deleteTopic = async (req, res) => {
 	const { id: id } = req.params;
 
@@ -102,4 +108,4 @@ const deleteTopic = async (req, res) => {
 	res.status(StatusCodes.OK).json({ msg: "Success! Topics removed" });
 };
 
-export { createTopic, updateTopic, getAllTopic, deleteTopic };
+export { createTopic, updateTopic, getAllTopic, deleteTopic, getMyTopics };

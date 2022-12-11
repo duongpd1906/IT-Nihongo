@@ -1,0 +1,53 @@
+.tab-container .topic__item {
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 5px;
+}
+
+.tab-container .topic__header {
+  padding: 5px 15px;
+  background: #dcdcdc;
+  border-bottom: 1px solid #d3d3d3;
+  text-transform: uppercase;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  border-radius: 5px 5px 0 0;
+}
+
+.tab-container .topic__main {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tab-container .topic__detail {
+  width: calc(100% - 80px);
+  padding: 10px 30px 35px;
+  flex: 1;
+}
+
+.tab-container .topic__detail-title {
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.tab-container .topic__slide-list {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.tab-container .topic__slide-list .slick-slide img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.tab-container .topic__slide-list .slick-prev:before,
+.slick-next:before {
+  color: #000000;
+}

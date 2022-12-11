@@ -10,6 +10,11 @@ body {
   .design-form{
     width: 100%;
     margin: 0 auto;
+    background-image: url("https://statics.vinpearl.com/dinh-ban-co-2_1629274421.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
   }
 
   .design-title{
@@ -47,6 +52,7 @@ body {
     border-radius: 10px;
     text-align: center;
     border: 1px solid black;
+    cursor: pointera;
   }
 
   .design-comment{
@@ -153,5 +159,73 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
+    overflow-x: scroll;
   }
+
+  .comment-list-container {
+    background: white;
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    border-radius: 5px;
+  }
+  
+  .comment-container {
+    height: 100%;
+    height: 100%;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 5px;
+    word-break: break-all;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    padding: 10px;
+    border: 1px solid #d0d7de;
+  }
+
+  .user_comment {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
+  .user_comment img {
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .comment_main {
+    display: block;
+    border-color: yellow;
+    box-sizing: border-box;
+    flex: 1;
+    background: white;
+    border-radius: 5px;
+    border: 1px solid #d0d7de;
+    color: #24292f;
+  }
+
+
+  .comment_header {
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 1px solid #d0d7de;
+    padding: 5px 15px;
+    background: #d0d7de;
+  }
+
+  .comment_information {
+    color: #57606a;
+  }
+
+  .comment_body {
+    padding: 10px 15px;
+  }
+  
   

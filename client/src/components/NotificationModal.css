@@ -1,0 +1,71 @@
+.notification-modal {
+  display: block;
+}
+
+.notification-modal .modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.notification-modal .modal__content {
+  position: absolute;
+  padding: 25px;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fdfdfd;
+  border-radius: 5px;
+  z-index: 1;
+}
+
+.notification-modal .modal__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.notification-modal .modal__title {
+  color: #ef8d9c;
+  text-transform: uppercase;
+  font-size: 26px;
+  line-height: 30px;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+
+.notification-modal .modal__text {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+.notification-modal .modal__buttons {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+
+.notification-modal .modal__button {
+  flex: 1;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.notification-modal .modal__button--cancel {
+}
+
+.notification-modal .modal__button--yes {
+  background: linear-gradient(to bottom left, #ef8d9c 40%, #ffc39e 100%);
+}
