@@ -64,7 +64,9 @@ const getVotes = async (req, res) => {
 };
 
 const getMyVotes = async (req, res) => {
-	const myVotes = await Vote.find({ createdBy: req.user.userId });
+	const myVotes = await Vote.find({ createdBy: req.user.userId }).populate(
+		"topic"
+	);
 	res.status(StatusCodes.OK).json({ myVotes });
 };
 
