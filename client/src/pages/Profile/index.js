@@ -1,10 +1,15 @@
 import React from "react";
 import JustifiedTab from "../../components/JustifiedTab";
+import Notification from "../../components/Notification";
+import { useAppContext } from "../../context/appContext";
 import "./profile.css";
 
-function index() {
+function Profile() {
+	const { showAlert } = useAppContext();
 	return (
 		<div className="profile-page">
+			{showAlert && <Notification />}
+
 			<div className="header">
 				<div className="user-information">
 					<img
@@ -22,4 +27,4 @@ function index() {
 	);
 }
 
-export default index;
+export default Profile;

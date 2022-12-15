@@ -23,8 +23,6 @@ import {
 	CREATE_OR_UPDATE_VOTE_ERROR,
 	CLEAR_VALUES,
 	CREATE_OR_UPDATE_VOTE_BEGIN,
-	GET_COMMENTS_BEGIN,
-	GET_COMMENTS_ERROR,
 	GET_MY_VOTES_BEGIN,
 	GET_MY_VOTES_ERROR,
 	GET_MY_VOTES_SUCCESS,
@@ -35,6 +33,18 @@ import {
 	GET_MY_COMMENTS_BEGIN,
 	GET_MY_COMMENTS_SUCCESS,
 	GET_MY_COMMENTS_ERROR,
+	GET_ALL_COMMENTS_BEGIN,
+	GET_ALL_COMMENTS_SUCCESS,
+	GET_ALL_COMMENTS_ERROR,
+	ADD_COMMENT_BEGIN,
+	ADD_COMMENT_SUCCESS,
+	ADD_COMMENT_ERROR,
+	UPDATE_COMMENT_BEGIN,
+	UPDATE_COMMENT_SUCCESS,
+	UPDATE_COMMENT_ERROR,
+	DELETE_COMMENT_BEGIN,
+	DELETE_COMMENT_SUCCESS,
+	DELETE_COMMENT_ERROR,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -47,6 +57,7 @@ const initialState = {
 	user: user ? JSON.parse(user) : null,
 	token: token,
 	listTopics: [],
+	allComments: [],
 	totalTopics: 0,
 	numOfPages: 1,
 	page: 1,
@@ -250,14 +261,19 @@ const AppProvider = ({ children }) => {
 		clearAlert();
 	};
 
-	const getComments = async () => {
-		dispatch({ type: GET_COMMENTS_BEGIN });
+	const getAllComments = async () => {
+		dispatch({ type: GET_ALL_COMMENTS_BEGIN });
 		try {
-			const { data } = await axios.get(`/api`);
+			const { data } = await axios.get(`/api/comment`);
+			const { allComments } = data;
+			dispatch({
+				type: GET_ALL_COMMENTS_SUCCESS,
+				payload: { allComments },
+			});
 		} catch (error) {
 			if (error.response.status === 401) return;
 			dispatch({
-				type: GET_COMMENTS_ERROR,
+				type: GET_ALL_COMMENTS_ERROR,
 				payload: { msg: error.response.data.msg },
 			});
 		}
@@ -299,6 +315,53 @@ const AppProvider = ({ children }) => {
 		clearAlert();
 	};
 
+	const addComment = async (comment) => {
+		dispatch({ type: ADD_COMMENT_BEGIN });
+		try {
+			await authFetch.post(`/comment`, comment);
+			dispatch({ type: ADD_COMMENT_SUCCESS });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: ADD_COMMENT_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+	};
+
+	const updateComment = async ({ id, text }) => {
+		dispatch({ type: UPDATE_COMMENT_BEGIN });
+		try {
+			await authFetch.patch(`/comment/${id}`, { text: text });
+			dispatch({ type: UPDATE_COMMENT_SUCCESS });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: UPDATE_COMMENT_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+		getMyComments();
+	};
+
+	const deleteComment = async (id) => {
+		dispatch({ type: DELETE_COMMENT_BEGIN });
+		try {
+			await authFetch.delete(`/comment/${id}`);
+			dispatch({ type: DELETE_COMMENT_SUCCESS });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: DELETE_COMMENT_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+		getMyComments();
+	};
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -315,6 +378,10 @@ const AppProvider = ({ children }) => {
 				handleTopicChange,
 				getMyTopics,
 				getMyComments,
+				getAllComments,
+				addComment,
+				updateComment,
+				deleteComment,
 			}}
 		>
 			{children}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import Loading from "../../components/Loading.js";
 import NeedToLogin from "../../components/NeedToLogin.js";
 import Notification from "../../components/Notification.js";
 import { useAppContext } from "../../context/appContext";
@@ -64,10 +65,15 @@ function UpLoad() {
 	};
 
 	const showModal = () => {
-		setModalShow(true)
-	}
+		setModalShow(true);
+	};
 
-	const { addTopic, showAlert, displayAlert, user } = useAppContext();
+	const { addTopic, showAlert, displayAlert, user, isLoading } =
+		useAppContext();
+
+	if (isLoading) {
+		return <Loading center />;
+	}
 
 	return (
 		<div className="upload-form">

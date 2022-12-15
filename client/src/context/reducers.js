@@ -29,6 +29,18 @@ import {
 	GET_MY_COMMENTS_BEGIN,
 	GET_MY_COMMENTS_SUCCESS,
 	GET_MY_COMMENTS_ERROR,
+	GET_ALL_COMMENTS_BEGIN,
+	GET_ALL_COMMENTS_SUCCESS,
+	GET_ALL_COMMENTS_ERROR,
+	ADD_COMMENT_BEGIN,
+	ADD_COMMENT_SUCCESS,
+	ADD_COMMENT_ERROR,
+	UPDATE_COMMENT_BEGIN,
+	UPDATE_COMMENT_SUCCESS,
+	UPDATE_COMMENT_ERROR,
+	DELETE_COMMENT_BEGIN,
+	DELETE_COMMENT_SUCCESS,
+	DELETE_COMMENT_ERROR,
 } from "./actions";
 import { initialState } from "./appContext";
 
@@ -287,13 +299,118 @@ const reducer = (state, action) => {
 		return {
 			...state,
 			isLoading: false,
-			myTopics: action.payload.myTopics,
+			myComments: action.payload.myComments,
 			alertType: "success",
 			alertText: "SUCCESS",
 		};
 	}
 
 	if (action.type === GET_MY_COMMENTS_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "danger",
+			alertText: action.payload.msg,
+		};
+	}
+
+	if (action.type === GET_ALL_COMMENTS_BEGIN) {
+		return {
+			...state,
+			isLoading: true,
+		};
+	}
+
+	if (action.type === GET_ALL_COMMENTS_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			allComments: action.payload.allComments,
+		};
+	}
+
+	if (action.type === GET_ALL_COMMENTS_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "danger",
+			alertText: action.payload.msg,
+		};
+	}
+
+	if (action.type === ADD_COMMENT_BEGIN) {
+		return {
+			...state,
+			isLoading: true,
+		};
+	}
+
+	if (action.type === ADD_COMMENT_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			alertType: "success",
+			alertText: "ADD COMMENT SUCCESSFUL",
+		};
+	}
+
+	if (action.type === ADD_COMMENT_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "danger",
+			alertText: action.payload.msg,
+		};
+	}
+
+	if (action.type === UPDATE_COMMENT_BEGIN) {
+		return {
+			...state,
+			isLoading: true,
+		};
+	}
+
+	if (action.type === UPDATE_COMMENT_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "success",
+			alertText: "UPDATE COMMENT SUCCESSFUL",
+		};
+	}
+
+	if (action.type === UPDATE_COMMENT_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "danger",
+			alertText: action.payload.msg,
+		};
+	}
+
+	if (action.type === DELETE_COMMENT_BEGIN) {
+		return {
+			...state,
+			isLoading: true,
+		};
+	}
+
+	if (action.type === DELETE_COMMENT_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "success",
+			alertText: "DELETE COMMENT SUCCESSFUL",
+		};
+	}
+
+	if (action.type === DELETE_COMMENT_ERROR) {
 		return {
 			...state,
 			isLoading: false,
