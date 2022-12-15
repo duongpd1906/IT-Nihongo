@@ -1,0 +1,12 @@
+.admin-navbar {
+  background: white;
+  color: black;
+  padding: 15px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 28px;
+  letter-spacing: 3px;
+  border-bottom: 2px solid black;
+  user-select: none;
+}

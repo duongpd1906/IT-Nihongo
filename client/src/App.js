@@ -1,15 +1,24 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AdminCommentEdit from "./pages/Admin/AdminEdit/CommentEdit";
+import AdminDesignEdit from "./pages/Admin/AdminEdit/DesignEdit";
+import AdminTopicEdit from "./pages/Admin/AdminEdit/TopicEdit";
+import AdminVoteEdit from "./pages/Admin/AdminEdit/VoteEdit";
+import AdminCommentManager from "./pages/Admin/AdminManager/CommentManager";
+import AdminDesignManager from "./pages/Admin/AdminManager/DesignManager";
+import AdminTopicManager from "./pages/Admin/AdminManager/TopicManager";
+import AdminVoteManager from "./pages/Admin/AdminManager/VoteManager";
+import AdminDetailVote from "./pages/adminDetailVote/AdminDetail";
+import AdminSharedLayout from "./pages/AdminSharedLayout";
+import DesignChosen from "./pages/designPage/Design";
+import Detail from "./pages/detail";
+import Error from "./pages/Error/Error";
 import Home from "./pages/Home";
 import Login from "./pages/login";
-import Register from "./pages/register";
-import Error from "./pages/Error/Error";
-import Detail from "./pages/detail";
-import UpLoad from "./pages/upLoad/upLoad";
-import DesignChosen from "./pages/designPage/Design";
-import SharedLayout from "./pages/SharedLayout";
-import AdminDetailVote from "./pages/adminDetailVote/AdminDetail";
-import Topicmanager from "./pages/Topicmanager";
 import Profile from "./pages/Profile";
+import Register from "./pages/register";
+import SharedLayout from "./pages/SharedLayout";
+import Topicmanager from "./pages/Topicmanager";
+import UpLoad from "./pages/upLoad/upLoad";
 
 function App() {
 	return (
@@ -21,6 +30,16 @@ function App() {
 					<Route path="/upload" element={<UpLoad />} />
 					<Route path="/detail" element={<Detail />} />
 					<Route path="/design" element={<DesignChosen />} />
+				</Route>
+				<Route path="/admin" element={<AdminSharedLayout />}>
+					<Route path="/admin/topic" element={<AdminTopicManager />} />
+					<Route path="/admin/design" element={<AdminDesignManager />} />
+					<Route path="/admin/vote" element={<AdminVoteManager />} />
+					<Route path="/admin/comment" element={<AdminCommentManager />} />
+					<Route path="/admin/topic-edit" element={<AdminTopicEdit />} />
+					<Route path="/admin/design-edit" element={<AdminDesignEdit />} />
+					<Route path="/admin/vote-edit" element={<AdminVoteEdit />} />
+					<Route path="/admin/comment-edit" element={<AdminCommentEdit />} />
 				</Route>
 				<Route path="/admindetail" element={<AdminDetailVote />} />
 				<Route path="/topicmanager" element={<Topicmanager />} />
