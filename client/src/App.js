@@ -10,12 +10,21 @@ import SharedLayout from "./pages/SharedLayout";
 import AdminDetailVote from "./pages/adminDetailVote/AdminDetail";
 import Topicmanager from "./pages/Topicmanager";
 import Profile from "./pages/Profile";
+import ProtectedRoute from "./pages/ProtectedRoute";
+import Landing from "./pages/Landing";
 
 function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<SharedLayout />}>
+				<Route
+					path="/"
+					element={
+						<ProtectedRoute>
+							<SharedLayout />
+						</ProtectedRoute>
+					}
+				>
 					<Route index element={<Home />} />
 					<Route path="/profile" element={<Profile />} />
 					<Route path="/upload" element={<UpLoad />} />
@@ -27,6 +36,9 @@ function App() {
 				<Route path="*" element={<Error />} />
 				<Route path="/register" element={<Register />} />
 				<Route path="/login" element={<Login />} />
+				<Route path="/landing" element={<SharedLayout />}>
+					<Route index element={<Landing />} />
+				</Route>
 			</Routes>
 		</BrowserRouter>
 	);
