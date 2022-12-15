@@ -28,8 +28,8 @@ function AdminTopicManager() {
         <thead>
           <tr>
             <th>#</th>
-            <th>Topic Name</th>
-            <th>Design-Qty</th>
+            <th>Topic</th>
+            <th>Number of Design</th>
             <th>Author</th>
             <th>Action</th>
           </tr>

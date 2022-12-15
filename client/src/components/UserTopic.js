@@ -4,10 +4,10 @@ import "./UserTopic.css";
 function UserTopic(props) {
 	const settings = {
 		dots: true,
-		infinite: true,
+		infinite: false,
 		speed: 500,
 		slidesToShow: 3,
-		slidesToScroll: 1,
+		slidesToScroll: 3,
 	};
 
 	const list_img = props.topic.list_img;

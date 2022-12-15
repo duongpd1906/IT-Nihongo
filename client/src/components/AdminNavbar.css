@@ -10,3 +10,9 @@
   border-bottom: 2px solid black;
   user-select: none;
 }
+
+.admin-navbar__title {
+  width: max-content;
+  margin: 0 auto;
+  cursor: pointer;
+}

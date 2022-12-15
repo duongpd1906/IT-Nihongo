@@ -30,7 +30,7 @@ function AdminVoteManager() {
         <thead>
           <tr>
             <th>#</th>
-            <th>Topic Name</th>
+            <th>Topic</th>
             <th>Design</th>
             <th>Vote Option</th>
             <th>Author</th>
