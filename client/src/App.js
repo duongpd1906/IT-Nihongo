@@ -18,7 +18,6 @@ import Profile from "./pages/Profile";
 import Register from "./pages/register";
 import SharedLayout from "./pages/SharedLayout";
 import Topicmanager from "./pages/Topicmanager";
-import Profile from "./pages/Profile";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import Landing from "./pages/Landing";
 import UpLoad from "./pages/upLoad/upLoad";
@@ -42,14 +41,35 @@ function App() {
 					<Route path="/design" element={<DesignChosen />} />
 				</Route>
 				<Route path="/admin" element={<AdminSharedLayout />}>
-					<Route path="/admin/topic" element={<AdminTopicManager />} />
-					<Route path="/admin/design" element={<AdminDesignManager />} />
+					<Route
+						path="/admin/topic"
+						element={<AdminTopicManager />}
+					/>
+					<Route
+						path="/admin/design"
+						element={<AdminDesignManager />}
+					/>
 					<Route path="/admin/vote" element={<AdminVoteManager />} />
-					<Route path="/admin/comment" element={<AdminCommentManager />} />
-					<Route path="/admin/topic-edit" element={<AdminTopicEdit />} />
-					<Route path="/admin/design-edit" element={<AdminDesignEdit />} />
-					<Route path="/admin/vote-edit" element={<AdminVoteEdit />} />
-					<Route path="/admin/comment-edit" element={<AdminCommentEdit />} />
+					<Route
+						path="/admin/comment"
+						element={<AdminCommentManager />}
+					/>
+					<Route
+						path="/admin/topic-edit"
+						element={<AdminTopicEdit />}
+					/>
+					<Route
+						path="/admin/design-edit"
+						element={<AdminDesignEdit />}
+					/>
+					<Route
+						path="/admin/vote-edit"
+						element={<AdminVoteEdit />}
+					/>
+					<Route
+						path="/admin/comment-edit"
+						element={<AdminCommentEdit />}
+					/>
 				</Route>
 				<Route path="/admindetail" element={<AdminDetailVote />} />
 				<Route path="/topicmanager" element={<Topicmanager />} />

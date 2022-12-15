@@ -10,6 +10,8 @@ import {
 	updateTopic,
 	deleteTopic,
 	getMyTopics,
+	getAllTopicsAdmin,
+	deleteDesign,
 } from "../controllers/topicController.js";
 
 router
@@ -17,11 +19,14 @@ router
 	.get(getAllTopic)
 	.post(upload.single("image"), authenticateUser, createTopic);
 
+router.route("/all").get(getAllTopicsAdmin);
+
 router
 	.route("/:id")
 	.patch(upload.single("image"), authenticateUser, updateTopic)
-	.delete(authenticateUser, deleteTopic);
+	.delete(deleteTopic);
 
 router.route("/me").get(authenticateUser, getMyTopics);
+router.route("/design/:id/:designId").delete(deleteDesign);
 
 export default router;

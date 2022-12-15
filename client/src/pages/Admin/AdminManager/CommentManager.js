@@ -1,75 +1,93 @@
-import React, { useState } from "react";
-import Table from 'react-bootstrap/Table';
+import React, { useEffect, useState } from "react";
+import Table from "react-bootstrap/Table";
+import Loading from "../../../components/Loading";
+import Notification from "../../../components/Notification";
 import NotificationModal from "../../../components/NotificationModal";
+import { useAppContext } from "../../../context/appContext";
 import "./AdminManager.css";
 
-
 function AdminCommentManager() {
-  const [modalShown, toggleModal] = useState(false);
+	const [modalShown, toggleModal] = useState(false);
 
-  const commentItem = {
-    id: 1,
-    topic_name: 'Cafe',
-    design_img: 'https://images.adsttc.com/media/images/518d/5d69/b3fc/4be4/2e00/0019/large_jpg/DonCafe_8.jpg?1432542274',
-    comment_content: 'Oh! I like this!',
-    author: 'Phung Dinh Duong',
-  }
+	const { getAllComments, allComments, deleteComment, isLoading, showAlert } =
+		useAppContext();
 
-  const commentList = [
-    commentItem,
-    commentItem,
-    commentItem,
-    commentItem,
-    commentItem
-  ]
+	const [commentToDelete, setCommentToDelete] = useState("");
 
-  return (
-    <div className="admin-manager">
-      <h2 className="admin-title">Comment Manager</h2>
-      <Table striped bordered responsive className="admin-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Topic Name</th>
-            <th>Design</th>
-            <th>Author</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            commentList.map((comment, index) => (
-              <tr key={index}>
-                <td>{comment.id}</td>
-                <td>{comment.topic_name}</td>
-                <td><img src={comment.design_img} alt={comment.design_img} /></td>
-                <td>{comment.comment_content}</td>
-                <td>{comment.author}</td>
-                <td>
-                  <div className="cta">
-                    <button className="btn-edit">edit</button>
-                    <button className="btn-delete" onClick={() => {
-                      toggleModal(!modalShown);
-                    }}>
-                      delete
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </Table>
-      <NotificationModal
-        shown={modalShown}
-        close={() => {
-          toggleModal(false);
-        }}
-      >
-        Are you want to permanently delete this Comment?
-      </NotificationModal>
-    </div>
-  );
+	useEffect(() => {
+		getAllComments();
+	}, []);
+
+	const handleDelete = () => {
+		toggleModal(false);
+		deleteComment(commentToDelete);
+	};
+
+	if (isLoading) {
+		return <Loading center />;
+	}
+
+	return (
+		<div className="admin-manager">
+			{showAlert && <Notification />}
+			<h2 className="admin-title">Comment Manager</h2>
+			<Table striped bordered responsive className="admin-table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Topic Name</th>
+						<th>Design</th>
+						<th>Text</th>
+						<th>Author</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{allComments.map((comment, index) => (
+						<tr>
+							<td>{index + 1}</td>
+							<td>{comment.topic.topicName}</td>
+							<td>
+								<img
+									src={
+										comment.topic.list_img.filter(
+											(image) =>
+												image._id === comment.design
+										)[0].image
+									}
+									alt={comment.design_img}
+								/>
+							</td>
+							<td>{comment.text}</td>
+							<td>{comment.createdBy.username}</td>
+							<td>
+								<div className="cta">
+									<button
+										className="btn-delete"
+										onClick={() => {
+											toggleModal(!modalShown);
+											setCommentToDelete(comment._id);
+										}}
+									>
+										delete
+									</button>
+								</div>
+							</td>
+						</tr>
+					))}
+				</tbody>
+			</Table>
+			<NotificationModal
+				shown={modalShown}
+				close={() => {
+					toggleModal(false);
+				}}
+				handleConfirm={handleDelete}
+			>
+				Are you want to permanently delete this Comment?
+			</NotificationModal>
+		</div>
+	);
 }
 
 export default AdminCommentManager;

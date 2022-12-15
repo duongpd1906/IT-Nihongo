@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Button from "react-bootstrap/Button";
 import "./Design.css";
 import imgGirl from "../../assets/img/unnamed.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppContext } from "../../context/appContext";
 import { format } from "timeago.js";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 function DesignChosen() {
 	const navigate = useNavigate();
@@ -62,20 +63,28 @@ function DesignChosen() {
 
 	const { state } = useLocation();
 
-	const { handleChange, allComments, addComment, getAllComments } =
+	const { handleChange, allComments, addComment, getAllComments, isVoting } =
 		useAppContext();
 
+	const [show, setShow] = useState(false);
+
+	const handleClose = () => setShow(false);
+
 	const handleSubmit = () => {
-		handleChange({
-			name: "design",
-			value: item ? item._id : state.list_img[0]._id,
-		});
-		navigate("/detail", {
-			state: {
-				name: state.name,
-				design: item ? item.image : state.list_img[0].image,
-			},
-		});
+		if (isVoting) {
+			handleChange({
+				name: "design",
+				value: item ? item._id : state.list_img[0]._id,
+			});
+			navigate("/detail", {
+				state: {
+					name: state.name,
+					design: item ? item.image : state.list_img[0].image,
+				},
+			});
+		} else {
+			setShow(true);
+		}
 	};
 
 	useEffect(() => {
@@ -184,7 +193,7 @@ function DesignChosen() {
 										</div>
 									</div>
 									<div className="comment_body">
-										<div>This design so beautiful</div>
+										<div>{comment.text}</div>
 									</div>
 								</div>
 							</div>
@@ -192,6 +201,23 @@ function DesignChosen() {
 					})}
 				</div>
 			</div>
+			<Modal show={show} onHide={handleClose}>
+				<Modal.Header closeButton>
+					<Modal.Title>
+						You have to vote topic before choose design
+					</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<p>
+						Click <a href="/">here</a> to go back
+					</p>
+				</Modal.Body>
+				<Modal.Footer>
+					<Button variant="secondary" onClick={handleClose}>
+						Close
+					</Button>
+				</Modal.Footer>
+			</Modal>
 		</div>
 	);
 }
