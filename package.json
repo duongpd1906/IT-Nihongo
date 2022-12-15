@@ -10,7 +10,9 @@
     "client": "npm start --prefix client",
     "install-client": "cd client && npm install",
     "set-up": "npm run install-client && npm install",
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \" npm run client\""
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \" npm run client\"",
+    "build-client": "cd client && npm run build",
+    "setup-production": "npm run install-client && npm run build-client && npm install"
   },
   "repository": {
     "type": "git",
