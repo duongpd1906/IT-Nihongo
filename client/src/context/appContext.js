@@ -174,6 +174,7 @@ const AppProvider = ({ children }) => {
 	const logoutUser = () => {
 		dispatch({ type: LOGOUT_USER });
 		removeUserFromLocalStorage();
+		window.location.reload();
 	};
 
 	const addTopic = async (formData) => {
