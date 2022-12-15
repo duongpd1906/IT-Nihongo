@@ -1,18 +1,14 @@
-import { useState } from "react";
 import Slider from "react-slick";
-import NotificationModal from "./NotificationModal";
 import "./UserTopic.css";
 
 function UserTopic(props) {
 	const settings = {
 		dots: true,
-		infinite: true,
+		infinite: false,
 		speed: 500,
 		slidesToShow: 3,
-		slidesToScroll: 1,
+		slidesToScroll: 3,
 	};
-
-	const [modalShown, toggleModal] = useState(false);
 
 	const list_img = props.topic.list_img;
 
@@ -32,26 +28,7 @@ function UserTopic(props) {
 						</Slider>
 					</div>
 				</div>
-				<div className="cta">
-					<button className="btn-edit">edit</button>
-					<button
-						className="btn-delete"
-						onClick={() => {
-							toggleModal(!modalShown);
-						}}
-					>
-						delete
-					</button>
-				</div>
 			</div>
-			<NotificationModal
-				shown={modalShown}
-				close={() => {
-					toggleModal(false);
-				}}
-			>
-				Are you want to permanently delete this Topic?
-			</NotificationModal>
 		</div>
 	);
 }

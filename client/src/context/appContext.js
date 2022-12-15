@@ -23,8 +23,6 @@ import {
 	CREATE_OR_UPDATE_VOTE_ERROR,
 	CLEAR_VALUES,
 	CREATE_OR_UPDATE_VOTE_BEGIN,
-	GET_COMMENTS_BEGIN,
-	GET_COMMENTS_ERROR,
 	GET_MY_VOTES_BEGIN,
 	GET_MY_VOTES_ERROR,
 	GET_MY_VOTES_SUCCESS,
@@ -35,6 +33,34 @@ import {
 	GET_MY_COMMENTS_BEGIN,
 	GET_MY_COMMENTS_SUCCESS,
 	GET_MY_COMMENTS_ERROR,
+	GET_ALL_COMMENTS_BEGIN,
+	GET_ALL_COMMENTS_SUCCESS,
+	GET_ALL_COMMENTS_ERROR,
+	ADD_COMMENT_BEGIN,
+	ADD_COMMENT_SUCCESS,
+	ADD_COMMENT_ERROR,
+	UPDATE_COMMENT_BEGIN,
+	UPDATE_COMMENT_SUCCESS,
+	UPDATE_COMMENT_ERROR,
+	DELETE_COMMENT_BEGIN,
+	DELETE_COMMENT_SUCCESS,
+	DELETE_COMMENT_ERROR,
+	CHANGE_VOTING_STATUS,
+	GET_ALL_TOPICS_BEGIN,
+	GET_ALL_TOPICS_SUCCESS,
+	GET_ALL_TOPICS_ERROR,
+	GET_ALL_VOTES_BEGIN,
+	GET_ALL_VOTES_SUCCESS,
+	GET_ALL_VOTES_ERROR,
+	DELETE_VOTE_BEGIN,
+	DELETE_VOTE_SUCCESS,
+	DELETE_VOTE_ERROR,
+	DELETE_DESIGN_BEGIN,
+	DELETE_DESIGN_SUCCESS,
+	DELETE_DESIGN_ERROR,
+	DELETE_TOPIC_BEGIN,
+	DELETE_TOPIC_SUCCESS,
+	DELETE_TOPIC_ERROR,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -47,6 +73,7 @@ const initialState = {
 	user: user ? JSON.parse(user) : null,
 	token: token,
 	listTopics: [],
+	allComments: [],
 	totalTopics: 0,
 	numOfPages: 1,
 	page: 1,
@@ -59,6 +86,9 @@ const initialState = {
 	myComments: [],
 	myVotes: [],
 	myTopics: [],
+	isVoting: false,
+	allTopics: [],
+	allVotes: [],
 };
 
 const AppContext = React.createContext();
@@ -163,6 +193,7 @@ const AppProvider = ({ children }) => {
 	const logoutUser = () => {
 		dispatch({ type: LOGOUT_USER });
 		removeUserFromLocalStorage();
+		window.location.reload();
 	};
 
 	const addTopic = async (formData) => {
@@ -250,14 +281,19 @@ const AppProvider = ({ children }) => {
 		clearAlert();
 	};
 
-	const getComments = async () => {
-		dispatch({ type: GET_COMMENTS_BEGIN });
+	const getAllComments = async () => {
+		dispatch({ type: GET_ALL_COMMENTS_BEGIN });
 		try {
-			const { data } = await axios.get(`/api`);
+			const { data } = await axios.get(`/api/comment`);
+			const { allComments } = data;
+			dispatch({
+				type: GET_ALL_COMMENTS_SUCCESS,
+				payload: { allComments },
+			});
 		} catch (error) {
 			if (error.response.status === 401) return;
 			dispatch({
-				type: GET_COMMENTS_ERROR,
+				type: GET_ALL_COMMENTS_ERROR,
 				payload: { msg: error.response.data.msg },
 			});
 		}
@@ -284,6 +320,7 @@ const AppProvider = ({ children }) => {
 		dispatch({ type: GET_MY_COMMENTS_BEGIN });
 		try {
 			const { data } = await authFetch.get(`/comment/me`);
+			console.log(data);
 			const { myComments } = data;
 			dispatch({
 				type: GET_MY_COMMENTS_SUCCESS,
@@ -297,6 +334,145 @@ const AppProvider = ({ children }) => {
 			});
 		}
 		clearAlert();
+	};
+
+	const addComment = async (comment) => {
+		dispatch({ type: ADD_COMMENT_BEGIN });
+		try {
+			await authFetch.post(`/comment`, comment);
+			dispatch({ type: ADD_COMMENT_SUCCESS });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: ADD_COMMENT_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+	};
+
+	const updateComment = async ({ id, text }) => {
+		dispatch({ type: UPDATE_COMMENT_BEGIN });
+		try {
+			await authFetch.patch(`/comment/${id}`, { text: text });
+			dispatch({ type: UPDATE_COMMENT_SUCCESS });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: UPDATE_COMMENT_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+		getMyComments();
+	};
+
+	const deleteComment = async (id) => {
+		dispatch({ type: DELETE_COMMENT_BEGIN });
+		try {
+			await authFetch.delete(`/comment/${id}`);
+			dispatch({ type: DELETE_COMMENT_SUCCESS });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: DELETE_COMMENT_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+		getMyComments();
+		getAllComments();
+	};
+
+	const changeVotingStatus = () => {
+		dispatch({ type: CHANGE_VOTING_STATUS });
+	};
+
+	const getAllTopicsAdmin = async () => {
+		dispatch({ type: GET_ALL_TOPICS_BEGIN });
+		try {
+			const { data } = await axios.get(`/api/topic/all`);
+			const { allTopics } = data;
+			dispatch({
+				type: GET_ALL_TOPICS_SUCCESS,
+				payload: { allTopics },
+			});
+		} catch (error) {
+			console.log(error);
+			dispatch({
+				type: GET_ALL_TOPICS_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+	};
+
+	const getAllVotes = async () => {
+		dispatch({ type: GET_ALL_VOTES_BEGIN });
+		try {
+			const { data } = await axios.get(`/api/vote`);
+			const { allVotes } = data;
+			dispatch({
+				type: GET_ALL_VOTES_SUCCESS,
+				payload: { allVotes },
+			});
+		} catch (error) {
+			console.log(error);
+			dispatch({
+				type: GET_ALL_VOTES_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+	};
+
+	const deleteVote = async (id) => {
+		dispatch({ type: DELETE_VOTE_BEGIN });
+		try {
+			await authFetch.delete(`/vote/${id}`);
+			dispatch({ type: DELETE_VOTE_SUCCESS });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: DELETE_VOTE_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+		getMyVotes();
+		getAllVotes();
+	};
+
+	const deleteDesign = async (topicId, designId) => {
+		dispatch({ type: DELETE_DESIGN_BEGIN });
+		try {
+			await authFetch.delete(`/topic/design/${topicId}/${designId}`);
+			dispatch({ type: DELETE_DESIGN_SUCCESS });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: DELETE_DESIGN_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+		getAllTopicsAdmin();
+	};
+
+	const deleteTopic = async (topicId) => {
+		dispatch({ type: DELETE_TOPIC_BEGIN });
+		try {
+			await authFetch.delete(`/topic/${topicId}`);
+			dispatch({ type: DELETE_TOPIC_SUCCESS });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: DELETE_TOPIC_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+		getAllTopicsAdmin();
 	};
 
 	return (
@@ -315,6 +491,16 @@ const AppProvider = ({ children }) => {
 				handleTopicChange,
 				getMyTopics,
 				getMyComments,
+				getAllComments,
+				addComment,
+				updateComment,
+				deleteComment,
+				changeVotingStatus,
+				getAllTopicsAdmin,
+				getAllVotes,
+				deleteVote,
+				deleteDesign,
+				deleteTopic,
 			}}
 		>
 			{children}

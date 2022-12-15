@@ -1,5 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import Topic from "../models/Topic.js";
+import Comment from "../models/Comment.js";
+import Vote from "../models/Vote.js";
 import checkPermissions from "../utils/checkPermissions.js";
 
 const createTopic = async (req, res) => {
@@ -55,6 +57,16 @@ const getAllTopic = async (req, res) => {
 	}
 };
 
+const getAllTopicsAdmin = async (req, res) => {
+	try {
+		const allTopics = await Topic.find().populate("createdBy");
+		res.status(StatusCodes.OK).json({ allTopics });
+	} catch (error) {
+		console.error(error);
+		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
+	}
+};
+
 const updateTopic = async (req, res) => {
 	const { id: id } = req.params;
 
@@ -92,6 +104,24 @@ const getMyTopics = async (req, res) => {
 	res.status(StatusCodes.OK).json({ myTopics });
 };
 
+const deleteDesign = async (req, res) => {
+	const topicId = req.params.id;
+	const designId = req.params.designId;
+	const topic = await Topic.findById(topicId);
+
+	if (!topic) {
+		throw new NotFoundError(`No topic with id :${req.params.id}`);
+	}
+
+	topic.list_img = topic.list_img.filter(({ _id }) => _id != designId);
+
+	await topic.save();
+	await Comment.deleteMany({ design: designId });
+	await Vote.deleteMany({ design: designId });
+
+	res.status(StatusCodes.OK).json(topic);
+};
+
 const deleteTopic = async (req, res) => {
 	const { id: id } = req.params;
 
@@ -101,11 +131,20 @@ const deleteTopic = async (req, res) => {
 		throw new NotFoundError(`No topic with id :${id}`);
 	}
 
-	checkPermissions(req.user, topic.createdBy);
+	await Comment.deleteMany({ topic: id });
+	await Vote.deleteMany({ topic: id });
 
 	await topic.remove();
 
 	res.status(StatusCodes.OK).json({ msg: "Success! Topics removed" });
 };
 
-export { createTopic, updateTopic, getAllTopic, deleteTopic, getMyTopics };
+export {
+	createTopic,
+	updateTopic,
+	getAllTopic,
+	deleteTopic,
+	getMyTopics,
+	getAllTopicsAdmin,
+	deleteDesign,
+};

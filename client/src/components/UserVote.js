@@ -5,15 +5,13 @@ import "./UserVote.css";
 function UserVote(props) {
 	const [modalShown, toggleModal] = useState(false);
 
-	const detail = props.vote.detail;
+	const detail = props.vote.detail ? props.vote.detail : "";
 
 	const topic = props.vote.topic;
 
 	const design = topic.list_img.filter(
 		(img) => img._id === props.vote.design
 	)[0];
-
-	console.log(props.vote);
 
 	return (
 		<div className="vote__item">

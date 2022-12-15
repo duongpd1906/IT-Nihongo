@@ -1,5 +1,6 @@
 .notification-modal {
   display: block;
+  z-index: 9;
 }
 
 .notification-modal .modal__overlay {
@@ -14,16 +15,13 @@
 
 .notification-modal .modal__content {
   position: absolute;
-  padding: 25px;
+  padding: 30px 40px;
   top: 40%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(calc(-50% + 60px), -50%);
   background: #fdfdfd;
   border-radius: 5px;
   z-index: 1;
-}
-
-.notification-modal .modal__content {
   display: flex;
   flex-direction: column;
   justify-content: center;

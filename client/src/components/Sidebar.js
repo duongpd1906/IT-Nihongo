@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppContext } from "../context/appContext";
 import "./Sidebar.css";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 const Sidebar = (props) => {
 	const { user, logoutUser } = useAppContext();
@@ -13,6 +15,9 @@ const Sidebar = (props) => {
 
 	const navigate = useNavigate();
 
+	const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+
 	useEffect(() => {
 		if (user) {
 			setIsActivated(true);
@@ -22,51 +27,90 @@ const Sidebar = (props) => {
 	}, [user]);
 
 	return (
-		<div className="sidebar">
-			<div className="sidebar-logo">竜</div>
-			<div
-				className="sidebar-element sidebar-element--home"
-				onClick={() => navigate("/")}
-			>
-				Home
-			</div>
-			<div
-				className="sidebar-element sidebar-element--add"
-				onClick={() =>
-					navigate("/upload", {
-						state: { topic: "" },
-					})
-				}
-			>
-				Add new topic
-			</div>
-
-			{isActivated ? (
-				<div>
+		<>
+			<div className="sidebar">
+				<div className="sidebar-logo" onClick={() => navigate("/")}>
+					竜
+				</div>
+				<div
+					className="sidebar-element sidebar-element--home"
+					onClick={() => navigate("/")}
+				>
+					Home
+				</div>
+				{user && user.role === "Admin" && (
 					<div
-						className="sidebar-element"
-						onClick={() => navigate("/profile")}
+						className="sidebar-element sidebar-element--admin"
+						onClick={() => navigate("/admin")}
 					>
-						<div className="user_ava">
-							<img src={testUser.ava} alt="user-ava" />
+						Admin
+					</div>
+				)}
+
+				{isActivated ? (
+					<div
+						className="sidebar-element sidebar-element--add"
+						onClick={() =>
+							navigate("/upload", {
+								state: { topic: "" },
+							})
+						}
+					>
+						Add new topic
+					</div>
+				) : (
+					<div
+						className="sidebar-element sidebar-element--add"
+						onClick={() => setShow(true)}
+					>
+						Add new topic
+					</div>
+				)}
+
+				{isActivated ? (
+					<div>
+						<div
+							className="sidebar-element"
+							onClick={() => navigate("/profile")}
+						>
+							<div className="user_ava">
+								<img src={testUser.ava} alt="user-ava" />
+							</div>
+						</div>
+						<div
+							className="sidebar-element sidebar-element--logout"
+							onClick={logoutUser}
+						>
+							Logout
 						</div>
 					</div>
-					<div
-						className="sidebar-element sidebar-element--logout"
-						onClick={logoutUser}
+				) : (
+					<Link
+						to="/login"
+						className="sidebar-element sidebar-element--login"
 					>
-						Logout
-					</div>
-				</div>
-			) : (
-				<Link
-					to="/login"
-					className="sidebar-element sidebar-element--login"
-				>
-					ログイン
-				</Link>
-			)}
-		</div>
+						ログイン
+					</Link>
+				)}
+			</div>
+			<Modal show={show} onHide={handleClose}>
+				<Modal.Header closeButton>
+					<Modal.Title>
+						You have to login to create a topic
+					</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<p>
+						Click <a href="/login">here</a> to login
+					</p>
+				</Modal.Body>
+				<Modal.Footer>
+					<Button variant="secondary" onClick={handleClose}>
+						Close
+					</Button>
+				</Modal.Footer>
+			</Modal>
+		</>
 	);
 };
 

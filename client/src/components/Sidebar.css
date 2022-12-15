@@ -46,6 +46,11 @@
   cursor: pointer;
 }
 
+.sidebar-element--admin::before {
+  content: url('../assets/img/home-icon.svg');
+  cursor: pointer;
+}
+
 .sidebar-element--add::before {
   content: url('../assets/img/add-icon.svg');
   cursor: pointer;

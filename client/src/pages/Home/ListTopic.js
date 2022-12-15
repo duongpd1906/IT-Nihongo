@@ -9,15 +9,23 @@ import Topic from "./Topic.js";
 const ListTopic = (props) => {
 	const [index, setIndex] = useState(0);
 
-	const handleSelect = (selectedIndex, e) => {
+	const handleSelect = (selectedIndex) => {
 		setIndex(selectedIndex);
 	};
 
-	const { getAllTopics, listTopics, isLoading, getMyVotes, user, myVotes } =
-		useAppContext();
+	const {
+		getAllTopics,
+		getAllComments,
+		listTopics,
+		isLoading,
+		getMyVotes,
+		user,
+		myVotes,
+	} = useAppContext();
 
 	useEffect(() => {
 		getAllTopics();
+		getAllComments();
 		if (user) {
 			getMyVotes();
 		}

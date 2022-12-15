@@ -24,13 +24,13 @@ const createOrUpdateVote = async (req, res) => {
 				{
 					createdBy: req.user.userId,
 					topic: topicId,
-					design: design,
 				},
 				{
 					vote: false,
 					createdBy: req.user.userId,
 					topic: topicId,
 					detail: {},
+					design: "",
 				},
 				{ new: true, upsert: true, setDefaultsOnInsert: true }
 			);
@@ -40,7 +40,7 @@ const createOrUpdateVote = async (req, res) => {
 		const topic = await Topic.findById(topicId);
 		voteFields.topic = topic;
 		let vote = await Vote.findOneAndUpdate(
-			{ createdBy: req.user.userId, topic: topicId, design: design },
+			{ createdBy: req.user.userId, topic: topicId },
 			{ $set: voteFields },
 			{ new: true, upsert: true, setDefaultsOnInsert: true }
 		);
@@ -54,7 +54,7 @@ const createOrUpdateVote = async (req, res) => {
 };
 
 const getAllVotes = async (req, res) => {
-	const allVotes = await Vote.find();
+	const allVotes = await Vote.find().populate("createdBy").populate("topic");
 	res.status(StatusCodes.OK).json({ allVotes });
 };
 
