@@ -1,60 +1,73 @@
-import React from "react";
-import Table from 'react-bootstrap/Table';
+import React, { useEffect } from "react";
+import Table from "react-bootstrap/Table";
+import { useAppContext } from "../../context/appContext";
 import "./AdminDashboard.css";
 
-
 function AdminDashboard() {
-  const topic = {
-    id: 1,
-    name: 'Cafe',
-    vote_total: 418,
-    vote_no: 22,
-    vote_yes: 396,
-    most_voted_design: 'https://images.adsttc.com/media/images/518d/5d69/b3fc/4be4/2e00/0019/large_jpg/DonCafe_8.jpg?1432542274',
-  }
+	const { getAllTopicsAdmin, allTopics, getAllVotes, allVotes } =
+		useAppContext();
 
-  const topicSummary = [
-    topic,
-    topic,
-    topic,
-    topic,
-    topic
-  ]
+	const topicSummary = [];
 
-  return (
-    <div className="admin-dashboard">
-      <h2 className="admin-title">Topic Summary</h2>
-      <Table striped bordered responsive className="admin-table">
-        <thead>
-          <tr>
-            <th rowSpan={2}>#</th>
-            <th rowSpan={2}>Topic</th>
-            <th rowSpan={2}>Total Vote</th>
-            <th colSpan={2}>Vote</th>
-            <th rowSpan={2}>Most voted Design</th>
-          </tr>
-          <tr>
-            <th>No </th>
-            <th>Yes</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            topicSummary.map((topic, index) => (
-              <tr key={index}>
-                <td>{topic.id}</td>
-                <td>{topic.name}</td>
-                <td>{topic.vote_total}</td>
-                <td>{topic.vote_no}</td>
-                <td>{topic.vote_yes}</td>
-                <td><img src={topic.most_voted_design} alt={topic.most_voted_design} /></td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </Table>
-    </div>
-  );
+	useEffect(() => {
+		getAllTopicsAdmin();
+		getAllVotes();
+	}, []);
+
+	const getSummary = () => {
+		allTopics.forEach((topic) => {
+			const topicName = topic.topicName;
+			const vote_total = allVotes.filter(
+				(vote) => vote.topic._id === topic._id
+			).length;
+			const vote_yes = allVotes.filter(
+				(vote) => vote.topic._id === topic._id && vote.vote === true
+			).length;
+			const vote_no = allVotes.filter(
+				(vote) => vote.topic._id === topic._id && vote.vote === false
+			).length;
+			topicSummary.push({
+				topicName,
+				vote_total,
+				vote_yes,
+				vote_no,
+			});
+			console.log({ topicName, vote_total, vote_yes, vote_no });
+		});
+	};
+
+	getSummary();
+
+	return (
+		<div className="admin-dashboard">
+			<h2 className="admin-title">Topic Summary</h2>
+			<Table striped bordered responsive className="admin-table">
+				<thead>
+					<tr>
+						<th rowSpan={2}>#</th>
+						<th rowSpan={2}>Topic</th>
+						<th rowSpan={2}>Total Vote</th>
+						<th colSpan={2}>Vote</th>
+					</tr>
+					<tr>
+						<th>No </th>
+						<th>Yes</th>
+					</tr>
+				</thead>
+				<tbody>
+					{topicSummary.map((topic, index) => (
+						<tr key={index}>
+							<td>{index}</td>
+							<td>{topic.topicName}</td>
+							<td>{topic.vote_total}</td>
+							<td>{topic.vote_no}</td>
+							<td>{topic.vote_yes}</td>
+						</tr>
+					))}
+				</tbody>
+			</Table>
+		</div>
+	);
 }
 
 export default AdminDashboard;

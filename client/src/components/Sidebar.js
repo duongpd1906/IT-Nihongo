@@ -29,13 +29,24 @@ const Sidebar = (props) => {
 	return (
 		<>
 			<div className="sidebar">
-				<div className="sidebar-logo">竜</div>
+				<div className="sidebar-logo" onClick={() => navigate("/")}>
+					竜
+				</div>
 				<div
 					className="sidebar-element sidebar-element--home"
 					onClick={() => navigate("/")}
 				>
 					Home
 				</div>
+				{user && user.role === "Admin" && (
+					<div
+						className="sidebar-element sidebar-element--admin"
+						onClick={() => navigate("/admin")}
+					>
+						Admin
+					</div>
+				)}
+
 				{isActivated ? (
 					<div
 						className="sidebar-element sidebar-element--add"

@@ -51,6 +51,12 @@ import {
 	DELETE_VOTE_BEGIN,
 	DELETE_VOTE_SUCCESS,
 	DELETE_VOTE_ERROR,
+	DELETE_DESIGN_BEGIN,
+	DELETE_DESIGN_SUCCESS,
+	DELETE_DESIGN_ERROR,
+	DELETE_TOPIC_BEGIN,
+	DELETE_TOPIC_SUCCESS,
+	DELETE_TOPIC_ERROR,
 } from "./actions";
 import { initialState } from "./appContext";
 
@@ -505,6 +511,60 @@ const reducer = (state, action) => {
 	}
 
 	if (action.type === DELETE_VOTE_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "danger",
+			alertText: action.payload.msg,
+		};
+	}
+
+	if (action.type === DELETE_DESIGN_BEGIN) {
+		return {
+			...state,
+			isLoading: true,
+		};
+	}
+
+	if (action.type === DELETE_DESIGN_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "success",
+			alertText: "DELETE DESIGN SUCCESSFUL",
+		};
+	}
+
+	if (action.type === DELETE_DESIGN_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "danger",
+			alertText: action.payload.msg,
+		};
+	}
+
+	if (action.type === DELETE_TOPIC_BEGIN) {
+		return {
+			...state,
+			isLoading: true,
+		};
+	}
+
+	if (action.type === DELETE_TOPIC_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "success",
+			alertText: "DELETE TOPIC SUCCESSFUL",
+		};
+	}
+
+	if (action.type === DELETE_TOPIC_ERROR) {
 		return {
 			...state,
 			isLoading: false,

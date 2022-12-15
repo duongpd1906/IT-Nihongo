@@ -17,6 +17,7 @@ import Home from "./pages/Home";
 import Landing from "./pages/Landing";
 import Login from "./pages/login";
 import Profile from "./pages/Profile";
+import ProtectedAdminRoute from "./pages/ProtectedAdminRoute";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import Register from "./pages/register";
 import SharedLayout from "./pages/SharedLayout";
@@ -41,10 +42,25 @@ function App() {
 					<Route path="/detail" element={<Detail />} />
 					<Route path="/design" element={<DesignChosen />} />
 				</Route>
-				<Route path="/admin" element={<AdminSharedLayout />}>
+				<Route
+					path="/admin"
+					element={
+						<ProtectedAdminRoute>
+							<AdminSharedLayout />
+						</ProtectedAdminRoute>
+					}
+				>
+					<Route index element={<AdminDashboard />} />
+
 					<Route path="/admin" element={<AdminDashboard />} />
-					<Route path="/admin/topic" element={<AdminTopicManager />} />
-					<Route path="/admin/design" element={<AdminDesignManager />} />
+					<Route
+						path="/admin/topic"
+						element={<AdminTopicManager />}
+					/>
+					<Route
+						path="/admin/design"
+						element={<AdminDesignManager />}
+					/>
 					<Route path="/admin/vote" element={<AdminVoteManager />} />
 					<Route
 						path="/admin/comment"

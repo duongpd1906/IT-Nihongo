@@ -5,7 +5,7 @@ import { useAppContext } from "../../context/appContext";
 import "./profile.css";
 
 function Profile() {
-	const { showAlert } = useAppContext();
+	const { showAlert, user } = useAppContext();
 	return (
 		<div className="profile-page">
 			{showAlert && <Notification />}
@@ -17,7 +17,7 @@ function Profile() {
 						src="https://toppng.com/uploads/preview/anime-animegirl-animeboy-animeboi-cute-chibi-girl-boy-anime-cute-chibi-girl-11563035878bkeooj5e9u.png"
 						alt="user-ava"
 					/>
-					<span className="user-name">Phung Dinh Duong</span>
+					<span className="user-name">{user.username}</span>
 				</div>
 			</div>
 			<div className="main-content">
