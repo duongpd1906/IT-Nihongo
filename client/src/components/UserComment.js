@@ -1,55 +1,123 @@
 import { useState } from "react";
 import NotificationModal from "./NotificationModal";
 import "./UserComment.css";
+import { format } from "timeago.js";
+import { useAppContext } from "../context/appContext";
+import Notification from "./Notification";
 
-function UserComment() {
+function UserComment(props) {
+	const [modalShown, toggleModal] = useState(false);
+	const [editFormShown, toggleEditForm] = useState(false);
+	const [formData, setFormData] = useState({
+		comment: props.comment.text,
+	});
 
-  const [modalShown, toggleModal] = useState(false);
-  const [editFormShown, toggleEditForm] = useState(false);
-  const [formData, setFormData] = useState({ comment: 'This topic is very nice!!' });
+	const { updateComment, deleteComment } = useAppContext();
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setFormData(values => ({ ...values, [name]: value }))
-  }
+	const design = props.comment.topic.list_img.filter(
+		(image) => image._id === props.comment.design
+	)[0];
 
-  const handleSubmit = (event) => {
-    console.log('event', event);
-    event.preventDefault();
-    console.log('formData', formData);
-    toggleEditForm(false);
-  }
+	const handleChange = (event) => {
+		const name = event.target.name;
+		const value = event.target.value;
+		setFormData((values) => ({ ...values, [name]: value }));
+	};
 
-  return (
-    <div className="comment__item">
-      <div className="comment__header">
-        <div className="comment__title">
-          <span className="comment__topic-name">Topic 2</span>
-          <span className="comment__design-name">, Design 1</span>
-        </div>
-        <span className="comment__time">1 days ago</span>
-      </div>
-      <form className={"comment__main " + (editFormShown ? "comment__form" : "")} onSubmit={handleSubmit}>
-        <div className="comment__detail">
-          <div className="comment__design">
-            <span>Design </span>
-            <div className="comment__design-image">
-              <img src="https://images.adsttc.com/media/images/5de8/74f9/3312/fdbc/3500/005b/large_jpg/Culturist_5.jpg?1575515353" alt="design" />
-            </div>
-          </div>
-          <textarea type="text" className="comment__content" name="comment"
-            value={formData.comment || ""} onChange={handleChange} disabled={!editFormShown} />
-        </div>
-        <div className="cta">
-          <button className={"btn-edit " + (editFormShown ? "display-none" : "")} type="button" onClick={() => { toggleEditForm(true) }}>edit</button>
-          <button className={"btn-save " + (!editFormShown ? "display-none" : "")} type="submit">save</button>
-          <button className="btn-delete" type="button" onClick={() => { toggleModal(!modalShown) }}>delete</button>
-        </div>
-      </form>
-      <NotificationModal shown={modalShown} close={() => { toggleModal(false) }} >Are you want to permanently delete this Comment?</NotificationModal>
-    </div>
-  );
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		toggleEditForm(false);
+	};
+
+	const handleUpdate = () => {
+		const id = props.comment._id;
+		const text = formData.comment;
+		updateComment({ id, text });
+	};
+
+	const handleDelete = () => {
+		const id = props.comment._id;
+		toggleModal(false);
+		deleteComment(id);
+	};
+
+	return (
+		<div className="comment__item">
+			<div className="comment__header">
+				<div className="comment__title">
+					<span className="comment__topic-name">
+						{props.comment.topic.topicName}
+					</span>
+				</div>
+				<span className="comment__time">
+					{format(props.comment.createdAt)}
+				</span>
+			</div>
+			<form
+				className={
+					"comment__main " + (editFormShown ? "comment__form" : "")
+				}
+				onSubmit={handleSubmit}
+			>
+				<div className="comment__detail">
+					<div className="comment__design">
+						<span>Design </span>
+						<div className="comment__design-image">
+							<img src={design.image} alt="design" />
+						</div>
+					</div>
+					<textarea
+						type="text"
+						className="comment__content"
+						name="comment"
+						value={formData.comment || ""}
+						onChange={handleChange}
+						disabled={!editFormShown}
+					/>
+				</div>
+				<div className="cta">
+					<button
+						className={
+							"btn-edit " + (editFormShown ? "display-none" : "")
+						}
+						type="button"
+						onClick={() => {
+							toggleEditForm(true);
+						}}
+					>
+						edit
+					</button>
+					<button
+						className={
+							"btn-save " + (!editFormShown ? "display-none" : "")
+						}
+						type="submit"
+						onClick={handleUpdate}
+					>
+						save
+					</button>
+					<button
+						className="btn-delete"
+						type="button"
+						onClick={() => {
+							toggleModal(!modalShown);
+						}}
+					>
+						delete
+					</button>
+				</div>
+			</form>
+			<NotificationModal
+				shown={modalShown}
+				close={() => {
+					toggleModal(false);
+				}}
+				handleConfirm={handleDelete}
+			>
+				Are you want to permanently delete this Comment?
+			</NotificationModal>
+		</div>
+	);
 }
 
 export default UserComment;

@@ -7,13 +7,17 @@ import {
 	createNewComments,
 	deleteComment,
 	getAllComments,
-	getComments,
+	getCommentsByDesignId,
 	getCommentsOfMe,
+	updateComment,
 } from "../controllers/commentController.js";
 
 router.route("/").post(authenticateUser, createNewComments).get(getAllComments);
-router.route("/:designId", getComments);
-router.route("/:id").delete(deleteComment);
+router
+	.route("/:id")
+	.delete(deleteComment)
+	.patch(updateComment)
+	.get(getCommentsByDesignId);
 router.route("/me").get(authenticateUser, getCommentsOfMe);
 
 export default router;

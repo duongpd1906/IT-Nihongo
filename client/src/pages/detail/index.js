@@ -15,6 +15,7 @@ function Detail() {
 		position,
 		description,
 		showAlert,
+		getMyVotes,
 	} = useAppContext();
 
 	const handleDetailInput = (e) => {
@@ -27,7 +28,9 @@ function Detail() {
 		e.preventDefault();
 		createOrUpadateVote();
 		setTimeout(() => {
+			getMyVotes();
 			navigate("/");
+			window.location.reload(false);
 		}, 3000);
 	};
 
