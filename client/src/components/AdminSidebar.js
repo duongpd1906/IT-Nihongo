@@ -26,6 +26,12 @@ const AdminSidebar = () => {
       <div className="sidebar-logo">竜</div>
       <div
         className="sidebar-element"
+        onClick={() => navigate("/admin")}
+      >
+        Dashboard
+      </div>
+      <div
+        className="sidebar-element"
         onClick={() => navigate("/admin/topic")}
       >
         Topic
