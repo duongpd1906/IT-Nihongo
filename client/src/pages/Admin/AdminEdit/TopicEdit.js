@@ -1,89 +1,99 @@
-import React, { useState } from "react";
-import Table from 'react-bootstrap/Table';
+import React, { useEffect, useState } from "react";
+import Table from "react-bootstrap/Table";
+import { useLocation } from "react-router-dom";
+import Notification from "../../../components/Notification";
 import NotificationModal from "../../../components/NotificationModal";
+import { useAppContext } from "../../../context/appContext";
 import "./AdminEdit.css";
 
-
 function AdminTopicEdit() {
-  const [modalShown, toggleModal] = useState(false);
+	const { state } = useLocation();
 
-  const topic = {
-    id: 1,
-    topic_name: 'Cafe',
-    design_qty: 9,
-    author: 'Phung Dinh Duong',
-  }
+	const { getAllTopicsAdmin, allTopics, showAlert, deleteDesign } =
+		useAppContext();
 
-  const designItem = {
-    id: 1,
-    design_img: 'https://images.adsttc.com/media/images/518d/5d69/b3fc/4be4/2e00/0019/large_jpg/DonCafe_8.jpg?1432542274',
-    author: 'Phung Dinh Duong',
-  }
+	useEffect(() => {
+		getAllTopicsAdmin();
+	}, []);
 
-  const designList = [
-    designItem,
-    designItem,
-    designItem,
-    designItem,
-    designItem
-  ]
+	const topic = allTopics.filter((topic) => topic._id === state.topicId)[0];
 
-  return (
-    <div className="admin-edit">
-      <h2 className="admin-title">Edit Topic</h2>
-      <div>
-        <form className="admin-form" onSubmit={e => e.preventDefault()}>
-          <div className="admin-form-group">
-            <label htmlFor="topic-name">Topic Name</label>
-            <input type="text" value={topic.topic_name} />
-          </div>
-          <button className="admin-form-button">Save</button>
-        </form>
-      </div>
-      <div>
-        <h3 className="admin-sub-title">Design of Topic</h3>
-        <Table striped bordered responsive className="admin-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Design</th>
-              <th>Author</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              designList.map((design, index) => (
-                <tr key={index}>
-                  <td>{design.id}</td>
-                  <td><img src={design.design_img} alt={design.design_img} /></td>
-                  <td>{design.author}</td>
-                  <td>
-                    <div className="cta">
-                      <button className="btn-edit">edit</button>
-                      <button className="btn-delete" onClick={() => {
-                        toggleModal(!modalShown);
-                      }}>
-                        delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </Table>
-        <NotificationModal
-          shown={modalShown}
-          close={() => {
-            toggleModal(false);
-          }}
-        >
-          Are you want to permanently delete this Design?
-        </NotificationModal>
-      </div>
-    </div>
-  );
+	const [modalShown, toggleModal] = useState(false);
+
+	const [designToDelete, setDesignToDelete] = useState("");
+	const [topicOfDesign, setTopicOfDesign] = useState("");
+
+	const handleDelete = () => {
+		toggleModal(false);
+		deleteDesign(topicOfDesign, designToDelete);
+	};
+
+	return (
+		<div className="admin-edit">
+			{showAlert && <Notification />}
+			<h2 className="admin-title">Edit Topic</h2>
+			<div>
+				<form
+					className="admin-form"
+					onSubmit={(e) => e.preventDefault()}
+				>
+					<div className="admin-form-group">
+						<label htmlFor="topic-name">Topic Name</label>
+						<input type="text" value={topic.topicName} />
+					</div>
+					<button className="admin-form-button">Save</button>
+				</form>
+			</div>
+			<div>
+				<h3 className="admin-sub-title">Design of Topic</h3>
+				<Table striped bordered responsive className="admin-table">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Design</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{topic.list_img.map((design, index) => (
+							<tr key={index}>
+								<td>{index + 1}</td>
+								<td>
+									<img
+										src={design.image}
+										alt={design.design_img}
+									/>
+								</td>
+								<td>
+									<div className="cta">
+										<button
+											className="btn-delete"
+											onClick={() => {
+												toggleModal(!modalShown);
+												setDesignToDelete(design._id);
+												setTopicOfDesign(state.topicId);
+											}}
+										>
+											delete
+										</button>
+									</div>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</Table>
+				<NotificationModal
+					shown={modalShown}
+					close={() => {
+						toggleModal(false);
+					}}
+					handleConfirm={handleDelete}
+				>
+					Are you want to permanently delete this Design?
+				</NotificationModal>
+			</div>
+		</div>
+	);
 }
 
 export default AdminTopicEdit;

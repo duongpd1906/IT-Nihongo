@@ -52,7 +52,7 @@ function DesignChosen() {
 	};
 
 	const [item, setItem] = useState();
-	const [isHidden, setIsHidden] = useState(true);
+	const [isHidden, setIsHidden] = useState(false);
 
 	const handleErrorImage = (data) => {
 		setDefaultImage((prev) => ({
@@ -97,6 +97,7 @@ function DesignChosen() {
 	}, [item]);
 
 	useEffect(() => {
+		getAllComments();
 		const designId = item ? item._id : state.list_img[0]._id;
 		const comments = allComments.filter(
 			(comment) => comment.design === designId
@@ -159,7 +160,9 @@ function DesignChosen() {
 					確認
 				</div>
 				<div className="design-comment">
-					<div className="design-comment-title">このデザインをフィードバックする</div>
+					<div className="design-comment-title">
+						このデザインをフィードバックする
+					</div>
 					<div className="submit-button">
 						<input
 							type="text"
@@ -176,36 +179,56 @@ function DesignChosen() {
 					</div>
 				</div>
 				<div className="comment-list-container">
-					{listComments.map((comment) => {
-						return (
-							<div className="comment-container">
-								<div className="user_comment">
-									<img
-										src="https://i.pinimg.com/originals/a9/c8/a3/a9c8a371859b14e6505835d0d465f9d5.jpg"
-										alt=""
-									/>
-								</div>
-								<div className={"comment_main " + (isHidden ? "is-hidden" : "")}>
-									<div className="comment_header">
-										<div className="comment_information">
-											{comment.createdBy.username}{" "}
-											Commented{" "}
-											{format(comment.createdAt)}{" "}
+					{listComments.length !== 0 ? (
+						listComments.map((comment) => {
+							return (
+								<div className="comment-container">
+									<div className="user_comment">
+										<img
+											src="https://i.pinimg.com/originals/a9/c8/a3/a9c8a371859b14e6505835d0d465f9d5.jpg"
+											alt=""
+										/>
+									</div>
+									<div
+										className={
+											"comment_main " +
+											(isHidden ? "is-hidden" : "")
+										}
+									>
+										<div className="comment_header">
+											<div className="comment_information">
+												{comment.createdBy.username}{" "}
+												Commented{" "}
+												{format(comment.createdAt)}{" "}
+											</div>
+										</div>
+										<div className="comment_body">
+											<div className="comment_content">
+												{comment.text}
+											</div>
+											<div className="hidden-comment">
+												<div>
+													This comment is hidden!
+												</div>
+												<div>
+													<span
+														onClick={() => {
+															setIsHidden(false);
+														}}
+													>
+														Click here
+													</span>{" "}
+													if you're sure to view it.
+												</div>
+											</div>
 										</div>
 									</div>
-									<div className="comment_body">
-										<div className="comment_content">This design so beautiful</div>
-										<div className="hidden-comment">
-											<div>This comment is hidden!</div>
-											<div><span onClick={() => {
-												setIsHidden(false);
-											}}>Click here</span> if you're sure to view it.</div>
-										</div>
-									</div>
 								</div>
-							</div>
-						);
-					})}
+							);
+						})
+					) : (
+						<div>NO COMMENT DISPLAY</div>
+					)}
 				</div>
 			</div>
 			<Modal show={show} onHide={handleClose}>

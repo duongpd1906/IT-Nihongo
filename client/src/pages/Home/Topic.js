@@ -32,7 +32,7 @@ const Topic = (props) => {
 				setCheckedO(true);
 			}
 		}
-	}, []);
+	}, [vote]);
 
 	const handleVoteYes = () => {
 		setModalTitle("ban co muon chon yes cho muc nay");

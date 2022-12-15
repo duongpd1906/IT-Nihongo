@@ -55,6 +55,12 @@ import {
 	DELETE_VOTE_BEGIN,
 	DELETE_VOTE_SUCCESS,
 	DELETE_VOTE_ERROR,
+	DELETE_DESIGN_BEGIN,
+	DELETE_DESIGN_SUCCESS,
+	DELETE_DESIGN_ERROR,
+	DELETE_TOPIC_BEGIN,
+	DELETE_TOPIC_SUCCESS,
+	DELETE_TOPIC_ERROR,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -437,6 +443,38 @@ const AppProvider = ({ children }) => {
 		getAllVotes();
 	};
 
+	const deleteDesign = async (topicId, designId) => {
+		dispatch({ type: DELETE_DESIGN_BEGIN });
+		try {
+			await authFetch.delete(`/topic/design/${topicId}/${designId}`);
+			dispatch({ type: DELETE_DESIGN_SUCCESS });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: DELETE_DESIGN_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+		getAllTopicsAdmin();
+	};
+
+	const deleteTopic = async (topicId) => {
+		dispatch({ type: DELETE_TOPIC_BEGIN });
+		try {
+			await authFetch.delete(`/topic/${topicId}`);
+			dispatch({ type: DELETE_TOPIC_SUCCESS });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: DELETE_TOPIC_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+		getAllTopicsAdmin();
+	};
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -461,6 +499,8 @@ const AppProvider = ({ children }) => {
 				getAllTopicsAdmin,
 				getAllVotes,
 				deleteVote,
+				deleteDesign,
+				deleteTopic,
 			}}
 		>
 			{children}

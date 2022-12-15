@@ -8,27 +8,29 @@ import "./AdminManager.css";
 function AdminDesignManager() {
 	const [modalShown, toggleModal] = useState(false);
 
-	const designItem = {
-		id: 1,
-		topic_name: "Cafe",
-		design_img:
-			"https://images.adsttc.com/media/images/518d/5d69/b3fc/4be4/2e00/0019/large_jpg/DonCafe_8.jpg?1432542274",
-		author: "Phung Dinh Duong",
-	};
-
 	const designList = [];
 
-	const { getAllTopicsAdmin, allTopics, showAlert } = useAppContext();
+	const { getAllTopicsAdmin, allTopics, showAlert, deleteDesign } =
+		useAppContext();
+
+	const [designToDelete, setDesignToDelete] = useState("");
+	const [topicOfDesign, setTopicOfDesign] = useState("");
 
 	useEffect(() => {
 		getAllTopicsAdmin();
 	}, []);
 
+	const handleDelete = () => {
+		toggleModal(false);
+		deleteDesign(topicOfDesign, designToDelete);
+	};
+
 	const getDesign = () => {
 		allTopics.forEach((topic) => {
 			const topicName = topic.topicName;
+			const topicId = topic._id;
 			topic.list_img.forEach((image) => {
-				designList.push({ topicName, image });
+				designList.push({ topicId, topicName, image });
 			});
 		});
 	};
@@ -65,6 +67,8 @@ function AdminDesignManager() {
 										className="btn-delete"
 										onClick={() => {
 											toggleModal(!modalShown);
+											setDesignToDelete(design.image._id);
+											setTopicOfDesign(design.topicId);
 										}}
 									>
 										delete
@@ -80,6 +84,7 @@ function AdminDesignManager() {
 				close={() => {
 					toggleModal(false);
 				}}
+				handleConfirm={handleDelete}
 			>
 				Are you want to permanently delete this Design?
 			</NotificationModal>
