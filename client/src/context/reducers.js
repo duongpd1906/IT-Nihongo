@@ -41,6 +41,16 @@ import {
 	DELETE_COMMENT_BEGIN,
 	DELETE_COMMENT_SUCCESS,
 	DELETE_COMMENT_ERROR,
+	CHANGE_VOTING_STATUS,
+	GET_ALL_TOPICS_BEGIN,
+	GET_ALL_TOPICS_SUCCESS,
+	GET_ALL_TOPICS_ERROR,
+	GET_ALL_VOTES_BEGIN,
+	GET_ALL_VOTES_ERROR,
+	GET_ALL_VOTES_SUCCESS,
+	DELETE_VOTE_BEGIN,
+	DELETE_VOTE_SUCCESS,
+	DELETE_VOTE_ERROR,
 } from "./actions";
 import { initialState } from "./appContext";
 
@@ -204,6 +214,7 @@ const reducer = (state, action) => {
 			...state,
 			isLoading: false,
 			showAlert: true,
+			isVoting: false,
 			alertType: "success",
 			alertText: "SUCCESS",
 		};
@@ -411,6 +422,89 @@ const reducer = (state, action) => {
 	}
 
 	if (action.type === DELETE_COMMENT_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "danger",
+			alertText: action.payload.msg,
+		};
+	}
+
+	if (action.type === CHANGE_VOTING_STATUS) {
+		return {
+			...state,
+		};
+	}
+
+	if (action.type === GET_ALL_TOPICS_BEGIN) {
+		return {
+			...state,
+			isLoading: true,
+		};
+	}
+
+	if (action.type === GET_ALL_TOPICS_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			allTopics: action.payload.allTopics,
+		};
+	}
+
+	if (action.type === GET_ALL_TOPICS_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "danger",
+			alertText: action.payload.msg,
+		};
+	}
+
+	if (action.type === GET_ALL_VOTES_BEGIN) {
+		return {
+			...state,
+			isLoading: true,
+		};
+	}
+
+	if (action.type === GET_ALL_VOTES_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			allVotes: action.payload.allVotes,
+		};
+	}
+
+	if (action.type === GET_ALL_VOTES_ERROR) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "danger",
+			alertText: action.payload.msg,
+		};
+	}
+
+	if (action.type === DELETE_VOTE_BEGIN) {
+		return {
+			...state,
+			isLoading: true,
+		};
+	}
+
+	if (action.type === DELETE_VOTE_SUCCESS) {
+		return {
+			...state,
+			isLoading: false,
+			showAlert: true,
+			alertType: "success",
+			alertText: "DELETE VOTE SUCCESSFUL",
+		};
+	}
+
+	if (action.type === DELETE_VOTE_ERROR) {
 		return {
 			...state,
 			isLoading: false,

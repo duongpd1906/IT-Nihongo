@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick.css";
 import { format } from "timeago.js";
 import imgGirl from "../../assets/img/unnamed.png";
 import { useAppContext } from "../../context/appContext";
+import Modal from "react-bootstrap/Modal";
 import "./Design.css";
 
 function DesignChosen() {
@@ -63,20 +64,28 @@ function DesignChosen() {
 
 	const { state } = useLocation();
 
-	const { handleChange, allComments, addComment, getAllComments } =
+	const { handleChange, allComments, addComment, getAllComments, isVoting } =
 		useAppContext();
 
+	const [show, setShow] = useState(false);
+
+	const handleClose = () => setShow(false);
+
 	const handleSubmit = () => {
-		handleChange({
-			name: "design",
-			value: item ? item._id : state.list_img[0]._id,
-		});
-		navigate("/detail", {
-			state: {
-				name: state.name,
-				design: item ? item.image : state.list_img[0].image,
-			},
-		});
+		if (isVoting) {
+			handleChange({
+				name: "design",
+				value: item ? item._id : state.list_img[0]._id,
+			});
+			navigate("/detail", {
+				state: {
+					name: state.name,
+					design: item ? item.image : state.list_img[0].image,
+				},
+			});
+		} else {
+			setShow(true);
+		}
 	};
 
 	useEffect(() => {
@@ -199,6 +208,23 @@ function DesignChosen() {
 					})}
 				</div>
 			</div>
+			<Modal show={show} onHide={handleClose}>
+				<Modal.Header closeButton>
+					<Modal.Title>
+						You have to vote topic before choose design
+					</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<p>
+						Click <a href="/">here</a> to go back
+					</p>
+				</Modal.Body>
+				<Modal.Footer>
+					<Button variant="secondary" onClick={handleClose}>
+						Close
+					</Button>
+				</Modal.Footer>
+			</Modal>
 		</div>
 	);
 }

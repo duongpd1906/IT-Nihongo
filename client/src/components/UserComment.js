@@ -3,7 +3,6 @@ import NotificationModal from "./NotificationModal";
 import "./UserComment.css";
 import { format } from "timeago.js";
 import { useAppContext } from "../context/appContext";
-import Notification from "./Notification";
 
 function UserComment(props) {
 	const [modalShown, toggleModal] = useState(false);

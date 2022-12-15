@@ -54,7 +54,7 @@ const createOrUpdateVote = async (req, res) => {
 };
 
 const getAllVotes = async (req, res) => {
-	const allVotes = await Vote.find();
+	const allVotes = await Vote.find().populate("createdBy").populate("topic");
 	res.status(StatusCodes.OK).json({ allVotes });
 };
 

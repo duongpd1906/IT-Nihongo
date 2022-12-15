@@ -45,6 +45,16 @@ import {
 	DELETE_COMMENT_BEGIN,
 	DELETE_COMMENT_SUCCESS,
 	DELETE_COMMENT_ERROR,
+	CHANGE_VOTING_STATUS,
+	GET_ALL_TOPICS_BEGIN,
+	GET_ALL_TOPICS_SUCCESS,
+	GET_ALL_TOPICS_ERROR,
+	GET_ALL_VOTES_BEGIN,
+	GET_ALL_VOTES_SUCCESS,
+	GET_ALL_VOTES_ERROR,
+	DELETE_VOTE_BEGIN,
+	DELETE_VOTE_SUCCESS,
+	DELETE_VOTE_ERROR,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -70,6 +80,9 @@ const initialState = {
 	myComments: [],
 	myVotes: [],
 	myTopics: [],
+	isVoting: false,
+	allTopics: [],
+	allVotes: [],
 };
 
 const AppContext = React.createContext();
@@ -362,6 +375,66 @@ const AppProvider = ({ children }) => {
 		}
 		clearAlert();
 		getMyComments();
+		getAllComments();
+	};
+
+	const changeVotingStatus = () => {
+		dispatch({ type: CHANGE_VOTING_STATUS });
+	};
+
+	const getAllTopicsAdmin = async () => {
+		dispatch({ type: GET_ALL_TOPICS_BEGIN });
+		try {
+			const { data } = await axios.get(`/api/topic/all`);
+			const { allTopics } = data;
+			dispatch({
+				type: GET_ALL_TOPICS_SUCCESS,
+				payload: { allTopics },
+			});
+		} catch (error) {
+			console.log(error);
+			dispatch({
+				type: GET_ALL_TOPICS_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+	};
+
+	const getAllVotes = async () => {
+		dispatch({ type: GET_ALL_VOTES_BEGIN });
+		try {
+			const { data } = await axios.get(`/api/vote`);
+			const { allVotes } = data;
+			dispatch({
+				type: GET_ALL_VOTES_SUCCESS,
+				payload: { allVotes },
+			});
+		} catch (error) {
+			console.log(error);
+			dispatch({
+				type: GET_ALL_VOTES_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+	};
+
+	const deleteVote = async (id) => {
+		dispatch({ type: DELETE_VOTE_BEGIN });
+		try {
+			await authFetch.delete(`/vote/${id}`);
+			dispatch({ type: DELETE_VOTE_SUCCESS });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: DELETE_VOTE_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+		getMyVotes();
+		getAllVotes();
 	};
 
 	return (
@@ -384,6 +457,10 @@ const AppProvider = ({ children }) => {
 				addComment,
 				updateComment,
 				deleteComment,
+				changeVotingStatus,
+				getAllTopicsAdmin,
+				getAllVotes,
+				deleteVote,
 			}}
 		>
 			{children}
