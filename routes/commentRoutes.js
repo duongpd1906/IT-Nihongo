@@ -13,11 +13,8 @@ import {
 } from "../controllers/commentController.js";
 
 router.route("/").post(authenticateUser, createNewComments).get(getAllComments);
-router
-	.route("/:id")
-	.delete(deleteComment)
-	.patch(updateComment)
-	.get(getCommentsByDesignId);
+router.route("/:id").delete(deleteComment).patch(updateComment);
+router.route("/ByDesignId/:id").get(getCommentsByDesignId);
 router.route("/me").get(authenticateUser, getCommentsOfMe);
 
 export default router;

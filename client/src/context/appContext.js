@@ -300,6 +300,7 @@ const AppProvider = ({ children }) => {
 		dispatch({ type: GET_MY_COMMENTS_BEGIN });
 		try {
 			const { data } = await authFetch.get(`/comment/me`);
+			console.log(data);
 			const { myComments } = data;
 			dispatch({
 				type: GET_MY_COMMENTS_SUCCESS,

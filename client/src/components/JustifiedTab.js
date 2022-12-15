@@ -17,7 +17,6 @@ function JustifiedTab() {
 		getMyComments,
 		myComments,
 		isLoading,
-		showAlert,
 	} = useAppContext();
 
 	useEffect(() => {
