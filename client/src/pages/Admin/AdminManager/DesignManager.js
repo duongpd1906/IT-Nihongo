@@ -29,7 +29,7 @@ function AdminDesignManager() {
         <thead>
           <tr>
             <th>#</th>
-            <th>Topic Name</th>
+            <th>Topic</th>
             <th>Design</th>
             <th>Author</th>
             <th>Action</th>

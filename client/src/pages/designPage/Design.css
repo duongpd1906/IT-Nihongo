@@ -1,231 +1,298 @@
-body {
-    background: #ccc;
-  }
-  .Design {
-    width: 70%;
-    margin: 0 auto;
-    margin-top: 5px;
-  }
+.design-form {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 30px;
+  position: relative;
+}
 
-  .design-form{
-    width: 100%;
-    margin: 0 auto;
-    background-image: url("https://statics.vinpearl.com/dinh-ban-co-2_1629274421.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center center;
-  }
+.design-form:before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  background-image: url('https://statics.vinpearl.com/dinh-ban-co-2_1629274421.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center center;
+}
 
-  .design-title{
-    width: 12%;
-    margin-left: auto;
-    margin-right: auto;
-    font-weight: 1000;
-    padding-top: 10px;
-    font-size: 20px;
+.design {
+  width: 70%;
+  margin: 0 auto;
+  position: relative;
+}
 
-  }
+.design-title {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  font-weight: 900;
+  padding-top: 10px;
+  font-size: 20px;
+}
 
-  .design-label {
-    margin-top: 10px;
-    font-weight: 1000;
-    font-size: 20px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 30%;
-    background-color: #fff;
-    border-radius: 10px;
-    text-align: center;
-    border: 1px solid black;
-  }
+.design-label {
+  margin-top: 10px;
+  font-weight: 1000;
+  font-size: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  background-color: #fff;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid black;
+}
 
-  .design-label2 {
-    margin-top: 5px;
-    font-weight: 1000;
-    font-size: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 10%;
-    background-color: #fff;
-    border-radius: 10px;
-    text-align: center;
-    border: 1px solid black;
-    cursor: pointera;
-  }
+.design-label2 {
+  margin-top: 5px;
+  font-weight: 1000;
+  font-size: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 10%;
+  background-color: #fff;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid black;
+  cursor: pointer;
+}
 
-  .design-comment{
-    margin-left: auto;
-    margin-right: auto;
-    width: 40%;
+.design-comment {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
 
-  }
+.design-comment-title {
+  width: max-content;
+  border-radius: 3px;
+  padding: 10px 10px 0;
+  margin: 10px auto;
+  font-size: 16px;
+  font-weight: 600;
+}
 
-  .design-comment .submit-button{
-    
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
+.design-comment .submit-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
 
-  .design-comment input {
-    height: 40px;
-    margin-right: 20px;
-  }
+.design-comment input {
+  min-width: 300px;
+  padding: 5px 10px;
+  margin-right: 20px;
+  font-size: 13px;
+  line-height: 30px;
+}
 
-  .design-comment button {
-    
-    height: 40px;
-    margin: 0px;
-  }
-  .slick-slide > div {
-    margin: 0 10px;
-  }
-  .slick-list {
-    margin: 0 -10px;
-  }
-  
-  .card {
-    border: 1px solid #fff;
-    background: black;
-    border-radius: 15px;
-    overflow: hidden;
-  
-    height: 160px;
-    color: #fff;
-    cursor: pointer;
-  }
+.design-comment button {
+  padding: 10px 15px;
+  background: #000000;
+  color: #ffffff;
+  outline: none;
+  border: 1px solid #000000;
+  font-size: 13px;
+  line-height: 20px;
+}
 
-  .design-display{
-    margin-top: 5px;
-    border: 1px solid #fff;
-    border-radius: 15px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 40%;
-    overflow: hidden;
-    width: 350px;
-    height: 350px;
-    color: #fff;
-    object-fit: cover;
-    cursor: pointer;
-  }
+.design-comment button:hover {
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+}
 
-  .design-display img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 350px;
-    height: 350px;
-  }
+.design-comment button:focus-visible {
+  outline: none;
+  border: 1px solid #000000;
+}
 
+.slick-slide > div {
+  margin: 0 10px;
+}
+.slick-list {
+  margin: 0 -10px;
+}
 
-  
-  .card-top h1 {
-    font-size: 0.9rem;
-    margin: 20px;
-  }
-  
-  .card-top > img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    background: black;
-  }
-  
-  
-  
-  .category {
-    position: relative;
-  }
-  .category::before {
-    content: '';
-    background: rgb(255, 61, 61);
-    position: absolute;
-    top: calc(100% + 10px);
-    left: 0;
-    right: 0;
-    height: 2px;
-  }
+.card {
+  border: 1px solid #fff;
+  background: black;
+  border-radius: 15px;
+  overflow: hidden;
 
-  .design-form .demo-bg {
-    opacity: 0.3;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow-x: scroll;
-  }
+  height: 160px;
+  color: #fff;
+  cursor: pointer;
+}
 
-  .comment-list-container {
-    background: white;
-    width: 100%;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    border-radius: 5px;
-  }
-  
-  .comment-container {
-    height: 100%;
-    height: 100%;
-    width: 100%;
-    background-color: #ffffff;
-    border-radius: 5px;
-    word-break: break-all;
-    display: flex;
-    gap: 15px;
-    align-items: flex-start;
-    padding: 10px;
-    border: 1px solid #d0d7de;
-  }
+.design-display {
+  margin-top: 5px;
+  border: 1px solid #fff;
+  border-radius: 15px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  overflow: hidden;
+  width: 400px;
+  height: 250px;
+  color: #fff;
+  object-fit: cover;
+  cursor: pointer;
+}
 
-  .user_comment {
-    display: inline-block;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-  }
-  .user_comment img {
-    vertical-align: middle;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .comment_main {
-    display: block;
-    border-color: yellow;
-    box-sizing: border-box;
-    flex: 1;
-    background: white;
-    border-radius: 5px;
-    border: 1px solid #d0d7de;
-    color: #24292f;
-  }
+.design-display img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+  height: 250px;
+}
 
+.card-top h1 {
+  font-size: 0.9rem;
+  margin: 20px;
+}
 
-  .comment_header {
-    width: 100%;
-    border-radius: 5px 5px 0 0;
-    border-bottom: 1px solid #d0d7de;
-    padding: 5px 15px;
-    background: #d0d7de;
-  }
+.card-top > img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: black;
+}
 
-  .comment_information {
-    color: #57606a;
-  }
+.category {
+  position: relative;
+}
+.category::before {
+  content: '';
+  background: rgb(255, 61, 61);
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  right: 0;
+  height: 2px;
+}
 
-  .comment_body {
-    padding: 10px 15px;
-  }
-  
-  
+.design-form .demo-bg {
+  opacity: 0.3;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow-x: scroll;
+}
+
+.comment-list-container {
+  background: white;
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  border-radius: 5px;
+}
+
+.comment-container {
+  position: relative;
+  height: 100%;
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 5px;
+  word-break: break-all;
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  padding: 10px;
+  border: 1px solid #d0d7de;
+}
+
+.user_comment {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+.user_comment img {
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.comment_main {
+  position: relative;
+  display: block;
+  border-color: yellow;
+  box-sizing: border-box;
+  flex: 1;
+  background: white;
+  border-radius: 5px;
+  border: 1px solid #d0d7de;
+  color: #24292f;
+}
+
+.comment_header {
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 1px solid #d0d7de;
+  padding: 5px 15px;
+  background: #d0d7de;
+}
+
+.comment_information {
+  color: #57606a;
+}
+
+.comment_main .comment_body {
+  padding: 15px;
+  position: relative;
+}
+
+.comment_main .comment_content {
+  visibility: visible;
+}
+
+.comment_main.is-hidden .comment_content {
+  visibility: hidden;
+}
+
+.comment_main .hidden-comment {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(26, 25, 25, 0.4);
+  color: #ffffff;
+  font-size: 13px;
+  font-style: italic;
+  text-align: center;
+}
+
+.comment_main .hidden-comment span {
+  display: inline-block;
+  cursor: pointer;
+  padding-bottom: 0.25px;
+  border-bottom: 1px solid #ffffff;
+}
+
+.comment_main.is-hidden .hidden-comment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

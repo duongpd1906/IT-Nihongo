@@ -1,0 +1,23 @@
+.admin-dashboard {
+  padding: 25px;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.admin-title {
+  font-size: 30px;
+  line-height: 36px;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.admin-table {
+  text-align: center;
+}
+
+.admin-table td img {
+  width: 100px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+}

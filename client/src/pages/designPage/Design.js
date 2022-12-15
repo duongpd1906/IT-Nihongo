@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import Button from "react-bootstrap/Button";
-import "./Design.css";
-import imgGirl from "../../assets/img/unnamed.png";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAppContext } from "../../context/appContext";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 import { format } from "timeago.js";
+import imgGirl from "../../assets/img/unnamed.png";
+import { useAppContext } from "../../context/appContext";
+import "./Design.css";
 
 function DesignChosen() {
 	const navigate = useNavigate();
@@ -51,6 +51,7 @@ function DesignChosen() {
 	};
 
 	const [item, setItem] = useState();
+	const [isHidden, setIsHidden] = useState(true);
 
 	const handleErrorImage = (data) => {
 		setDefaultImage((prev) => ({
@@ -113,7 +114,7 @@ function DesignChosen() {
 				<div>Topic: {state.name}</div>
 				<p>デザインを選ぶ</p>
 			</div>
-			<div className="Design">
+			<div className="design">
 				<Slider {...settings}>
 					{state.list_img.map((item) => (
 						<div
@@ -149,7 +150,7 @@ function DesignChosen() {
 					確認
 				</div>
 				<div className="design-comment">
-					<div>このデザインをフィードバックする</div>
+					<div className="design-comment-title">このデザインをフィードバックする</div>
 					<div className="submit-button">
 						<input
 							type="text"
@@ -175,7 +176,7 @@ function DesignChosen() {
 										alt=""
 									/>
 								</div>
-								<div className="comment_main">
+								<div className={"comment_main " + (isHidden ? "is-hidden" : "")}>
 									<div className="comment_header">
 										<div className="comment_information">
 											{comment.createdBy.username}{" "}
@@ -184,7 +185,13 @@ function DesignChosen() {
 										</div>
 									</div>
 									<div className="comment_body">
-										<div>This design so beautiful</div>
+										<div className="comment_content">This design so beautiful</div>
+										<div className="hidden-comment">
+											<div>This comment is hidden!</div>
+											<div><span onClick={() => {
+												setIsHidden(false);
+											}}>Click here</span> if you're sure to view it.</div>
+										</div>
 									</div>
 								</div>
 							</div>
