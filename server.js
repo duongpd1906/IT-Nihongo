@@ -8,6 +8,12 @@ import { fileURLToPath } from "url";
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+app.use(express.static(path.resolve(__dirname, "./client/build")));
+app.use(express.json());
+
 app.use(express.static("public"));
 
 import dotenv from "dotenv";
@@ -26,8 +32,8 @@ app.use("/api/topic", topicRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/vote", voteRoutes);
 
-app.get("/", (req, res) => {
-	res.send("hello world");
+app.get("*", (req, res) => {
+	res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
 });
 
 // middleware
@@ -38,14 +44,6 @@ app.use(notFoundMiddleware);
 app.use(errorHandleMiddleware);
 
 const port = process.env.PORT || 5000;
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use(express.static(path.resolve(__dirname, "./client/build")));
-app.use(express.json());
-
-app.get("*", (req, res) => {
-	res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
-});
 
 const start = async () => {
 	try {
