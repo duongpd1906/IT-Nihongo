@@ -86,7 +86,7 @@ function AdminDesignManager() {
 				}}
 				handleConfirm={handleDelete}
 			>
-				Are you want to permanently delete this Design?
+				このデザインを完全に削除しますか?
 			</NotificationModal>
 		</div>
 	);

@@ -25,14 +25,14 @@ function NotificationModal({ children, shown, close, handleConfirm }) {
 							close();
 						}}
 					>
-						Cancel
+						いいえ
 					</button>
 					<button
 						type="button"
 						className="modal__button modal__button--yes"
 						onClick={() => handleConfirm()}
 					>
-						Yes, Delete!
+						はい、削除します！
 					</button>
 				</div>
 			</div>

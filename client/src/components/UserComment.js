@@ -113,7 +113,7 @@ function UserComment(props) {
 				}}
 				handleConfirm={handleDelete}
 			>
-				Are you want to permanently delete this Comment?
+				このコメントを完全に削除しますか?
 			</NotificationModal>
 		</div>
 	);

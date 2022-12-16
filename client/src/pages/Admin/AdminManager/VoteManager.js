@@ -112,7 +112,7 @@ function AdminVoteManager() {
 				}}
 				handleConfirm={handleDelete}
 			>
-				Are you want to permanently delete this Vote?
+				この投票を完全に削除しますか?
 			</NotificationModal>
 		</div>
 	);

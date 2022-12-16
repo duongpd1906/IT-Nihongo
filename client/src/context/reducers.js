@@ -155,7 +155,7 @@ const reducer = (state, action) => {
 			isLoading: false,
 			showAlert: true,
 			alertType: "success",
-			alertText: "Create Topic Successful!",
+			alertText: "トピックの作成成功!",
 		};
 	}
 
@@ -222,7 +222,7 @@ const reducer = (state, action) => {
 			showAlert: true,
 			isVoting: false,
 			alertType: "success",
-			alertText: "SUCCESS",
+			alertText: "投票の成功",
 		};
 	}
 
@@ -263,8 +263,6 @@ const reducer = (state, action) => {
 			...state,
 			isLoading: false,
 			myVotes: action.payload.myVotes,
-			alertType: "success",
-			alertText: "SUCCESS",
 		};
 	}
 
@@ -290,8 +288,6 @@ const reducer = (state, action) => {
 			...state,
 			isLoading: false,
 			myTopics: action.payload.myTopics,
-			alertType: "success",
-			alertText: "SUCCESS",
 		};
 	}
 
@@ -317,8 +313,6 @@ const reducer = (state, action) => {
 			...state,
 			isLoading: false,
 			myComments: action.payload.myComments,
-			alertType: "success",
-			alertText: "SUCCESS",
 		};
 	}
 
@@ -369,7 +363,7 @@ const reducer = (state, action) => {
 			...state,
 			isLoading: false,
 			alertType: "success",
-			alertText: "ADD COMMENT SUCCESSFUL",
+			alertText: "コメントを追加しました",
 		};
 	}
 
@@ -396,7 +390,7 @@ const reducer = (state, action) => {
 			isLoading: false,
 			showAlert: true,
 			alertType: "success",
-			alertText: "UPDATE COMMENT SUCCESSFUL",
+			alertText: "コメントの更新に成功しました",
 		};
 	}
 
@@ -423,7 +417,7 @@ const reducer = (state, action) => {
 			isLoading: false,
 			showAlert: true,
 			alertType: "success",
-			alertText: "DELETE COMMENT SUCCESSFUL",
+			alertText: "コメントを削除に成功しました",
 		};
 	}
 
@@ -506,7 +500,7 @@ const reducer = (state, action) => {
 			isLoading: false,
 			showAlert: true,
 			alertType: "success",
-			alertText: "DELETE VOTE SUCCESSFUL",
+			alertText: "投票を削除に成功しました",
 		};
 	}
 
@@ -533,7 +527,7 @@ const reducer = (state, action) => {
 			isLoading: false,
 			showAlert: true,
 			alertType: "success",
-			alertText: "DELETE DESIGN SUCCESSFUL",
+			alertText: "デザインを削除に成功しました",
 		};
 	}
 
@@ -560,7 +554,7 @@ const reducer = (state, action) => {
 			isLoading: false,
 			showAlert: true,
 			alertType: "success",
-			alertText: "DELETE TOPIC SUCCESSFUL",
+			alertText: "トピックを削除しました",
 		};
 	}
 

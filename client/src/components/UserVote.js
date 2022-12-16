@@ -65,7 +65,7 @@ function UserVote(props) {
 					toggleModal(false);
 				}}
 			>
-				Are you want to permanently delete this Vote?
+				この投票を完全に削除しますか? to permanently delete this Vote?
 			</NotificationModal>
 		</div>
 	);

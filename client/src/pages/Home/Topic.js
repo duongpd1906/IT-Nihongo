@@ -35,7 +35,7 @@ const Topic = (props) => {
 	}, [vote]);
 
 	const handleVoteYes = () => {
-		setModalTitle("ban co muon chon yes cho muc nay");
+		setModalTitle("この機能は必要だと思いますか？");
 		setShow(true);
 		const name = "vote";
 		const value = true;
@@ -44,7 +44,7 @@ const Topic = (props) => {
 	};
 
 	const handleVoteNo = () => {
-		setModalTitle("ban co muon chon no cho muc nay");
+		setModalTitle("この機能は必要ないと思いますか？");
 		setShow(true);
 		setVoteYes(false);
 		const name = "vote";
@@ -126,10 +126,10 @@ const Topic = (props) => {
 				</Modal.Header>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleClose}>
-						Close
+						いいえ
 					</Button>
 					<Button variant="primary" onClick={handleOK}>
-						Save Changes
+						同意
 					</Button>
 				</Modal.Footer>
 			</Modal>

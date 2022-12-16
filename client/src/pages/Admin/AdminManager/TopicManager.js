@@ -80,7 +80,7 @@ function AdminTopicManager() {
 				}}
 				handleConfirm={handleDelete}
 			>
-				Are you want to permanently delete this Topic?
+				このトピックを完全に削除しますか?
 			</NotificationModal>
 		</div>
 	);
